@@ -101,8 +101,3 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
-
-source ~/bin/dotfiles/bash/aliases
-source ~/bin/dotfiles/bash/functions
-
-ps1

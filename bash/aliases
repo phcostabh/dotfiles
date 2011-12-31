@@ -1,0 +1,22 @@
+# Custom aliases
+
+# Updating packages of the system.
+alias update="sudo apt-fast update && sudo apt-fast -y upgrade"
+alias clean="sudo apt-fast clean && sudo apt-fast autoclean && sudo apt-fast autoremove"
+
+
+# One vim, just one
+alias gvim="gvim --remote-silent"
+
+# Shortcut to .bashrc edition
+alias eb="gvim ~/.bashrc"
+
+# Git
+alias ungit="rm -rf .git"
+
+# Ruby
+alias uninstallgems='gem list | cut -d" " -f1 | xargs gem uninstall -aIx'
+
+# Ubuntu packages
+alias unlockdpkg="sudo fuser -vki /var/lib/dpkg/lock; sudo dpkg --configure -a"
+alias cleanpackages="sudo dpkg --get-selections | grep deinstall | sed 's/\t\+.*//g' | xargs sudo dpkg --purge"
