@@ -1,0 +1,2 @@
+export EDITOR="gvim"
+export PATH=~/bin:$PATH
