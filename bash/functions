@@ -1,3 +1,5 @@
+#!/bin/bash
+
 function untar () {
   7z e $1
 }
@@ -19,5 +21,31 @@ function install-vim () {
   sudo apt-fast install exuberant-ctags ncurses-term vim-gtk ack --yes
 	git clone git://github.com/akitaonrails/vimfiles.git ~/.vim
 	cd ~/.vim ; git submodule update --init
-	echo “source ~/.vim/vimrc” > ~/.vimrc
+	if [ ! -e ~/.vimrc ]; then
+    echo “source ~/.vim/vimrc” > ~/.vimrc
+	fi
 }
+
+function backup-packages () {
+  if [ ! -d ~/Dropbox/ubuntu-backup ]; then
+    mkdir -p ~/Dropbox/ubuntu-backup/
+    echo 'Directory to back up was created...'
+  fi
+
+  if [ ! -d ~/Dropbox/ubuntu-backup/sources.list.d ]; then
+    mkdir -p ~/Dropbox/ubuntu-backup/sources.list.d/
+    echo 'Directory to back up third part sources list was created...'
+  fi
+
+  dpkg --get-selections > ~/Dropbox/ubuntu-backup/backup_packages.txt
+  echo 'All the packages installed were backed up...'
+
+  cp /etc/apt/sources.list ~/Dropbox/ubuntu-backup/
+  echo 'Sources list also backed up...'
+
+  cp /etc/apt/sources.list.d/* ~/Dropbox/ubuntu-backup/sources.list.d/
+  echo 'Third part sources list backed up...'
+
+  echo 'Done!'
+}
+
