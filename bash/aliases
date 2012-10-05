@@ -4,41 +4,33 @@
 alias update="sudo apt-fast update && sudo apt-fast -y upgrade"
 alias clean="sudo apt-fast clean && sudo apt-fast autoclean && sudo apt-fast autoremove"
 
-
 # One vim, just one
 alias gvim="gvim --remote-silent"
 
 # Shortcut to .bashrc edition
-alias eb="gvim ~/.bashrc"
+alias eb="subl ~/.bashrc"
 
-# Git
-alias ungit="rm -rf .git"
-alias gcl='git clone'
-alias gl='git log'
-alias glp='git log --pretty=oneline'
-alias gb='git branch'
-alias gba='git branch -a'
-alias gc='git commit -v'
-alias gca='git commit -v -a'
-alias gco='git checkout'
-alias ga='git add .'
-alias gd='git diff'
-alias gdm='git diff master'
-alias gnp="git-notpushed"
-alias gpl='git pull'
-alias gps='git push'
-alias gph='git push heroku master'
-alias gs='git status'
-alias gru='git reset --hard HEAD'
-alias eg='subl .git/config'
+# ----------------------- Git
+function add() {
+  git add $*
+}
 
-# Ruby
-alias uninstallgems='gem list | cut -d" " -f1 | xargs gem uninstall -aIx'
+function commit() {
+	git commit -m "$*"
+}
+
+alias st='git status'
 
 # Commit pending changes and quote all args as message
 function gg() {
   git commit -v -a -m "$*"
 }
+# ----------------------- End Git
+
+alias eg='subl .git/config'
+
+# Ruby
+alias uninstallgems='gem list | cut -d" " -f1 | xargs gem uninstall -aIx'
 
 # Generate a file with all the routes of an application
 function rr() {
