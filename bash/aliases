@@ -1,4 +1,4 @@
-# Custom aliases
+#!/bin/bash
 
 # Updating packages of the system.
 alias update="sudo apt-fast update && sudo apt-fast -y upgrade"
@@ -8,7 +8,7 @@ alias clean="sudo apt-fast clean && sudo apt-fast autoclean && sudo apt-fast aut
 alias gvim="gvim --remote-silent"
 
 # Shortcut to .bashrc edition
-alias eb="subl ~/.bashrc"
+alias eb="gvim ~/.bashrc"
 
 # ----------------------- Git
 function add() {
@@ -16,7 +16,7 @@ function add() {
 }
 
 function commit() {
-	git commit -m "$*"
+  git commit -m "$*"
 }
 
 alias st='git status'
@@ -34,7 +34,7 @@ alias uninstallgems='gem list | cut -d" " -f1 | xargs gem uninstall -aIx'
 
 # Generate a file with all the routes of an application
 function rr() {
-  rake routes $1 > tmp/routes.rb && subl tmp/routes.rb
+  rake routes $1 > tmp/routes.rb && gvim tmp/routes.rb
 }
 
 # Ubuntu packages
