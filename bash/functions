@@ -66,3 +66,9 @@ function install-lamp {
   sudo apt-fast install mysql-server mysql-client apache2 php5 php5-cli php5-curl php5-gd php5-imap php5-mcrypt php5-mhash php5-mysql libmysqlclient-dev phpmyadmin libapache2-mod-auth-mysql --yes
 }
 
+function install-macfonts {
+  wget https://dl.dropbox.com/s/k5n96eelnt9z83u/macfonts.tar.gz
+  tar zxvf macfonts.tar.gz && sudo cp -r macfonts/ /usr/share/fonts/
+  rm -fr macfonts*
+}
+
