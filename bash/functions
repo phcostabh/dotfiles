@@ -22,7 +22,7 @@ function install-vim () {
 	git clone git://github.com/akitaonrails/vimfiles.git ~/.vim
 	cd ~/.vim ; git submodule update --init
 	if [ ! -e ~/.vimrc ]; then
-    echo “source ~/.vim/vimrc” > ~/.vimrc
+      echo “source ~/.vim/vimrc” > ~/.vimrc
 	fi
 }
 
@@ -57,6 +57,12 @@ function install-rvm {
 }
 
 function install-essential-packages {
+  sudo apt-fast update
   sudo apt-fast install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion --yes
+}
+
+function install-lamp {
+  sudo apt-fast update
+  sudo apt-fast install mysql-server mysql-client apache2 php5 php5-cli php5-curl php5-gd php5-imap php5-mcrypt php5-mhash php5-mysql libmysqlclient-dev phpmyadmin libapache2-mod-auth-mysql --yes
 }
 
