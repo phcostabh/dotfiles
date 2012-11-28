@@ -50,10 +50,10 @@ function backup-packages () {
 }
 
 function install-rvm {
-  sudo apt-fast update && sudo apt-fast install build-essential git-core curl --yes
-  bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
-  echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"' >> ~/.bashrc
-  source ~/.bashrc
+  sudo apt-fast -y install build-essential openssl libreadline6 libreadline6-dev curl git-core \
+zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf \
+libc6-dev ncurses-dev automake libtool bison subversion nodejs
+  curl -L https://get.rvm.io | bash -s stable --ruby
 }
 
 function install-essential-packages {
