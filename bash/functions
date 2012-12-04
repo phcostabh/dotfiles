@@ -72,3 +72,8 @@ function install-macfonts {
   rm -fr macfonts*
 }
 
+function get-laravel {
+	wget http://laravel.com/download -O laravel-latest.zip
+	unzip laravel-latest.zip
+	rm -fr laravel-latest.zip
+}
