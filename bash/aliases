@@ -40,3 +40,77 @@ function rr() {
 # Ubuntu packages
 alias unlockdpkg="sudo fuser -vki /var/lib/dpkg/lock; sudo dpkg --configure -a"
 alias cleanpackages="sudo dpkg --get-selections | grep deinstall | sed 's/\t\+.*//g' | xargs sudo dpkg --purge"
+
+function untar () {
+  7z e $1
+}
+
+function authme {
+  ssh $1 'cat >>.ssh/authorized_keys' < ~/.ssh/id_rsa.pub
+}
+
+function take () {
+  mkdir $1
+  cd $1
+}
+
+function install-vim () {
+  sudo apt-fast install exuberant-ctags ncurses-term vim-gtk ack --yes
+  git clone git://github.com/akitaonrails/vimfiles.git ~/.vim
+  cd ~/.vim ; git submodule update --init
+  if [ ! -e ~/.vimrc ]; then
+    echo “source ~/.vim/vimrc” > ~/.vimrc
+  fi
+}
+
+function backup-packages () {
+  if [ ! -d ~/Dropbox/ubuntu-backup ]; then
+    mkdir -p ~/Dropbox/ubuntu-backup/
+    echo 'Directory to back up was created...'
+  fi
+
+  if [ ! -d ~/Dropbox/ubuntu-backup/sources.list.d ]; then
+    mkdir -p ~/Dropbox/ubuntu-backup/sources.list.d/
+    echo 'Directory to back up third part sources list was created...'
+  fi
+
+  dpkg --get-selections > ~/Dropbox/ubuntu-backup/backup_packages.txt
+  echo 'All the packages installed were backed up...'
+
+  cp /etc/apt/sources.list ~/Dropbox/ubuntu-backup/
+  echo 'Sources list also backed up...'
+
+  cp /etc/apt/sources.list.d/* ~/Dropbox/ubuntu-backup/sources.list.d/
+  echo 'Third part sources list backed up...'
+
+  echo 'Done!'
+}
+
+function install-rvm {
+  sudo apt-fast -y install build-essential openssl libreadline6 libreadline6-dev curl git-core \
+zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf \
+libc6-dev ncurses-dev automake libtool bison subversion nodejs
+  curl -L https://get.rvm.io | bash -s stable --ruby
+}
+
+function install-essential-packages {
+  sudo apt-fast update
+  sudo apt-fast install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion --yes
+}
+
+function install-lamp {
+  sudo apt-fast update
+  sudo apt-fast install mysql-server mysql-client apache2 php5 php5-cli php5-curl php5-gd php5-imap php5-mcrypt php5-mhash php5-mysql libmysqlclient-dev phpmyadmin libapache2-mod-auth-mysql --yes
+}
+
+function install-macfonts {
+  wget https://www.dropbox.com/s/k5n96eelnt9z83u/macfonts.tar.gz
+  tar zxvf macfonts.tar.gz && sudo cp -r macfonts/ /usr/share/fonts/
+  rm -fr macfonts*
+}
+
+function get-laravel {
+	wget http://laravel.com/download -O laravel-latest.zip
+	unzip laravel-latest.zip
+	rm -fr laravel-latest.zip
+}
