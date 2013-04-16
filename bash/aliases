@@ -1,8 +1,13 @@
 #!/bin/bash
 
 # Updating packages of the system.
-alias update="sudo apt-fast update && sudo apt-fast -y upgrade"
-alias clean="sudo apt-fast clean && sudo apt-fast autoclean && sudo apt-fast autoremove"
+function update() {
+    sudo apt-fast update --quiet && sudo apt-fast upgrade --yes
+}
+
+function clean() {
+    sudo apt-fast autoremove && sudo apt-fast autoclean && sudo apt-fast purge && sudo apt-fast clean
+}
 
 # One vim, just one
 alias gvim="gvim --remote-silent"
