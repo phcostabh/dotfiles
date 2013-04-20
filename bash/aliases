@@ -17,76 +17,73 @@ alias eb="gvim ~/.bashrc"
 
 # ----------------------- Git
 function add() {
-   git add $*
+    git add $*
 }
 
 function commit() {
-  git commit -m "$*"
+    git commit -m "$*"
 }
-
-alias st='git status'
 
 # Commit pending changes and quote all args as message
 function gg() {
-  git commit -v -a -m "$*"
+    git commit -v -a -m "$*"
 }
 
 function gm() {
-  git status | grep deleted | cut -d' ' -f5 | xargs git rm
+    git status | grep deleted | cut -d' ' -f5 | xargs git rm
 }
 # ----------------------- End Git
 
-alias eg='gvim .git/config'
+function eg() {
+    gvim .git/config
+}
 
 # Ruby
-alias uninstallgems='gem list | cut -d" " -f1 | xargs gem uninstall -aIx'
+function uninstallgems(){
+   gem list | cut -d' ' -f1 | xargs gem unistall -aIx
+}
 
 # Generate a file with all the routes of an application
 function rr() {
-  rake routes $1 > tmp/routes.rb && gvim tmp/routes.rb
+    rake routes $1 > tmp/routes.rb && gvim tmp/routes.rb
 }
 
 # Ubuntu packages
-alias unlockdpkg="sudo fuser -vki /var/lib/dpkg/lock; sudo dpkg --configure -a"
-alias cleanpackages="sudo dpkg --get-selections | grep deinstall | sed 's/\t\+.*//g' | xargs sudo dpkg --purge"
+function unlockdpkg() {
+    sudo fuser -vik /var/lib/dpkg/lock; sudo dpkg --configure -a
+}
+
+function cleanpackages(){
+    sudo dpkg --get-selections | grep deinstall | sed 's/\t\+.*//g' | xargs sudo dpkg --purge
+}
 
 function untar () {
-  7z e $1
+    7z e $1
 }
 
 function authme {
-  ssh $1 '[ ! -e ~/.ssh/authorized_keys ] && mkdir ~/.ssh && cat >>.ssh/authorized_keys' < ~/.ssh/id_rsa.pub
+    ssh $1 '[ ! -e ~/.ssh/authorized_keys ] && mkdir ~/.ssh && cat >>.ssh/authorized_keys' < ~/.ssh/id_rsa.pub
 }
 
 function take () {
-  mkdir $1
-  cd $1
+    mkdir $1
+    cd $1
 }
 
 function install-vim () {
-  sudo apt-fast install exuberant-ctags ncurses-term vim-gtk ack --yes
-  git clone git://github.com/akitaonrails/vimfiles.git ~/.vim
-  cd ~/.vim ; git submodule update --init
-  [ ! -e ~/.vimrc ] && echo “source ~/.vim/vimrc” > ~/.vimrc
-}
-
-function install-rvm {
-    sudo apt-fast update
-    sudo apt-fast install -y build-essential bison openssl libreadline5 libreadline5-dev curl \
-                            git-core zlib1g zlib1g-dev libopenssl-ruby libcurl4-openssl-dev libssl-dev \
-                            libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libmysqlclient-dev \
-                            mysql-client mysql-server
-
-  curl -L https://get.rvm.io | bash -s stable --ruby
+    sudo apt-fast install exuberant-ctags ncurses-term vim-gtk ack --yes
+    git clone git@bitbucket.org:phcosta/vimfiles.git ~/.vim
+    cd ~/.vim ; git submodule update --init && git submodule foreach pull origin master
+    [ ! -e ~/.vimrc ] && echo “source ~/.vim/vimrc” > ~/.vimrc
 }
 
 function install-essential-packages {
-  sudo apt-fast update
-  sudo apt-fast install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion --yes
+    sudo apt-fast update
+    sudo apt-fast install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion --yes
 }
 
 function install-macfonts {
-  wget https://www.dropbox.com/s/k5n96eelnt9z83u/macfonts.tar.gz
-  tar zxvf macfonts.tar.gz && sudo cp -r macfonts/ /usr/share/fonts/
-  rm -fr macfonts*
+    wget https://www.dropbox.com/s/k5n96eelnt9z83u/macfonts.tar.gz
+    tar zxvf macfonts.tar.gz && sudo cp -r macfonts/ /usr/share/fonts/
+    rm -fr macfonts*
 }
