@@ -40,7 +40,7 @@ function eg() {
 
 # Ruby
 function uninstallgems(){
-   gem list | cut -d' ' -f1 | xargs gem unistall -aIx
+   gem list | cut -d' ' -f1 | xargs gem uninstall -aIx
 }
 
 # Generate a file with all the routes of an application
