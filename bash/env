@@ -9,5 +9,10 @@ export PATH=$PATH:~/bin
 
 # NVM
 export NVM_HOME="$HOME/.nvm"
+
+# Install NVM if it is not installed.
+[[ ! -d "$NVM_HOME" ]] && curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+
+# Source NVM files.
 [[ -f "$NVM_HOME/nvm.sh" ]] && source "$NVM_HOME/nvm.sh"
 [[ -f "$NVM_HOME/bash_completion" ]] && source "$NVM_HOME/bash_completion" # NVM bash completion
