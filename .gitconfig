@@ -1,28 +1,28 @@
 [color]
-	ui = true
+    ui = true
 [user]
-	name = Philippe
-	email = philippescosta@gmail.com
+    name = Philippe
+    email = philippescosta@gmail.com
 [giggle]
-	main-window-maximized = true
-	main-window-geometry = 471x190+0+54
-	main-window-view = FileView
-	file-view-vpane-position = 406
-	history-view-vpane-position = 485
-	file-view-hpane-position = 294
+    main-window-maximized = true
+    main-window-geometry = 471x190+0+54
+    main-window-view = FileView
+    file-view-vpane-position = 406
+    history-view-vpane-position = 485
+    file-view-hpane-position = 294
 [core]
-	editor = vim
+    editor = vim
 [alias]
-	graph = log --all --graph --decorate --oneline -n30
-	ls = log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate
-	ll = log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate --numstat
-	lds = log --pretty=format:\"%C(yellow)%h\\\\ %ad%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate --date=short
-	ld = log --pretty=format:\"%C(yellow)%h\\\\ %ad%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate --date=relative
-	le = log --oneline --decorate
-	dl = !git ll -1
-	f = "!git ls-files | grep -i"
-	gr = grep -Ii
-	gra = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --color --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
+    graph = log --all --graph --decorate --oneline -n30
+    ls = log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate
+    ll = log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate --numstat
+    lds = log --pretty=format:\"%C(yellow)%h\\\\ %ad%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate --date=short
+    ld = log --pretty=format:\"%C(yellow)%h\\\\ %ad%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate --date=relative
+    le = log --oneline --decorate
+    dl = !git ll -1
+    f = "!git ls-files | grep -i"
+    gr = grep -Ii
+    gra = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --color --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
     assume = update-index --assume-unchanged
     unassume = update-index --no-assume-unchanged
     assumed = "!git ls-files -v | grep ^h | cut -c 3-"
