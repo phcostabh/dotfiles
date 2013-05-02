@@ -16,3 +16,5 @@ export NVM_HOME="$HOME/.nvm"
 # Source NVM files.
 [[ -f "$NVM_HOME/nvm.sh" ]] && source "$NVM_HOME/nvm.sh"
 [[ -f "$NVM_HOME/bash_completion" ]] && source "$NVM_HOME/bash_completion" # NVM bash completion
+
+###############################
