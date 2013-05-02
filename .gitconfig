@@ -5,10 +5,11 @@
 	email = philippescosta@gmail.com
 [giggle]
 	main-window-maximized = true
-	main-window-geometry = 471x168+893+572
+	main-window-geometry = 471x190+0+54
 	main-window-view = FileView
 	file-view-vpane-position = 406
-	history-view-vpane-position = 613
+	history-view-vpane-position = 485
+	file-view-hpane-position = 294
 [core]
 	editor = vim
 [alias]

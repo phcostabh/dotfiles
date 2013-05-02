@@ -1,4 +1,4 @@
-Host seda04
-User support
-HostName 192.168.0.110
-Port 22
+Host prime
+    User philippe.costa
+    HostName 192.168.0.174
+    Port 22
