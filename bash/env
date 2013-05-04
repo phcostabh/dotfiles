@@ -18,3 +18,19 @@ export NVM_HOME="$HOME/.nvm"
 [[ -f "$NVM_HOME/bash_completion" ]] && source "$NVM_HOME/bash_completion" # NVM bash completion
 
 ###############################
+
+###############################
+# Ruby Version Manager - RVM
+###############################
+
+# RVM
+export RVM_HOME="$HOME/.rvm"
+
+# Install RVM if it is not installed.
+[[ ! -s "$RVM_HOME/scripts/rvm" ]] && curl -L https://get.rvm.io | bash -s stable --autolibs=enabled
+
+# Source RVM files.
+[[ -s "$RVM_HOME/scripts/rvm" ]] && source "$RVM_HOME/scripts/rvm"
+
+###############################
+
