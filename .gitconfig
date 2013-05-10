@@ -5,11 +5,10 @@
     email = philippescosta@gmail.com
 [giggle]
     main-window-maximized = true
-    main-window-geometry = 471x190+0+54
+    main-window-geometry = 471x168+893+572
     main-window-view = FileView
     file-view-vpane-position = 406
-    history-view-vpane-position = 485
-    file-view-hpane-position = 294
+    history-view-vpane-position = 613
 [core]
     editor = vim
 [alias]
@@ -48,5 +47,5 @@
     up = !git fetch origin && git rebase origin/master
     a = !git add -u && git add . && git status
     rmb = !sh -c 'git branch -D $1 && git push origin :$1' -
-    cleanup = !git remote prune origin && git gc && git clean -dfx && git stash clear
+    cleanup = !git remote prune origin && git gc --agressive && git clean -dfx && git stash clear
     deleted = log --diff-filter=D --summary
