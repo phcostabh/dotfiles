@@ -47,7 +47,7 @@
     up = !git fetch origin && git rebase origin/master
     a = !git add -u && git add . && git status
     rmb = !sh -c 'git branch -D $1 && git push origin :$1' -
-    cleanup = !git remote prune origin && git gc --agressive && git clean -dfx && git stash clear
+    cleanup = !git remote prune origin && git gc --aggressive && git clean -dfx && git stash clear
     deleted = log --diff-filter=D --summary
     amend = commit --amend -C HEAD
 [core]
