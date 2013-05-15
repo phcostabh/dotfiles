@@ -50,3 +50,4 @@
     rmb = !sh -c 'git branch -D $1 && git push origin :$1' -
     cleanup = !git remote prune origin && git gc && git clean -dfx && git stash clear
     deleted = log --diff-filter=D --summary
+    amend = commit --amend -C HEAD
