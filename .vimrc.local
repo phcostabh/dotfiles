@@ -7,26 +7,19 @@ set tabstop=4 softtabstop=4 shiftwidth=4
 set nospell
 set t_Co=256
 
-
-" If php-cs-fixer is in $PATH, you don't need to define line below
-let g:php_cs_fixer_level = "all"                  " which level ?
-let g:php_cs_fixer_config = "default"             " configuration
-let g:php_cs_fixer_php_path = "php"               " Path to PHP
-let g:php_cs_fixer_fixers_list = ""               " List of fixers
-let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by default (<leader>pcd)
-let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
-let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
-
+" vim-php-cs-fixer configuration"
 nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
 nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
 autocmd FileType php noremap <buffer>  <c-f> :call PhpCsFixerFixFile()<cr>
-
+"autocmd FileType php autocmd BufWritePre <buffer> call PhpCsFixerFixFile()
 
 " vim-jsbeautify configuration
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
-
+autocmd FileType javascript autocmd BufWritePre <buffer> call JsBeautify()
+autocmd FileType html autocmd BufWritePre <buffer> call HtmlBeautify()
+autocmd FileType css autocmd BufWritePre <buffer> call CSSBeautify()
 
 " Remove bundles
 UnBundle 'mattn/webapi-vim'
@@ -36,3 +29,4 @@ UnBundle 'jnwhiteh/vim-golang'
 UnBundle 'spf13/vim-gocode'
 UnBundle 'tpope/vim-haml'
 UnBundle 'tpope/vim-cucumber'
+
