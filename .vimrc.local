@@ -1,23 +1,21 @@
 " UI Configuration
 colorscheme darkspectrum
 set guifont=Liberation\ Mono\ 09
-set linespace=3
+set linespace=6
 set nospell
 set t_Co=256
+set bg=dark
 nnoremap ; :
 
 " vim-php-cs-fixer configuration"
 nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
 nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
-" autocmd FileType php noremap <buffer>  <c-f> :call PhpCsFixerFixFile()<cr>
+autocmd FileType php noremap <buffer>  <c-f> :call PhpCsFixerFixFile()<cr>
 
 " vim-jsbeautify configuration
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
-autocmd BufWritePre *.js :call JsBeautify()
-autocmd BufWritePre *.html :call HtmlBeautify()
-autocmd BufWritePre *.css :call CSSBeautify()
 
 " Customisations based on house-style (arbitrary)
 autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
