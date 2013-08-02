@@ -1,5 +1,5 @@
 " UI Configuration
-colorscheme darkspectrum
+colorscheme jellybeans
 set guifont=Liberation\ Mono\ 09
 set linespace=6
 set nospell
@@ -13,8 +13,14 @@ nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
 autocmd FileType php noremap <buffer>  <c-f> :call PhpCsFixerFixFile()<cr>
 
 " vim-jsbeautify configuration
+".vimrc
+map <c-f> :call JsBeautify()<cr>
+" or
+" autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+" for html
 autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+" for css or scss
 autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 
 " Customisations based on house-style (arbitrary)
@@ -24,6 +30,14 @@ autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
 " Ruby configuration"
 autocmd FileType ruby compiler ruby
 
+" Key mappings
+map <Leader>r :!js-beautify -r %<CR>
+nmap <F8> :TagbarToggle<CR>
+
+" Avoid backup
+set nobackup
+set noswapfile
+
 " Remove bundles
 UnBundle 'mattn/webapi-vim'
 UnBundle 'derekwyatt/vim-scala'
@@ -32,4 +46,11 @@ UnBundle 'jnwhiteh/vim-golang'
 UnBundle 'spf13/vim-gocode'
 UnBundle 'tpope/vim-haml'
 UnBundle 'tpope/vim-cucumber'
+UnBundle 'altercation/vim-colors-solarized'
+UnBundle 'nathanaelkane/vim-indent-guides'
+UnBundle 'mattn/gist-vim'
+UnBundle 'klen/python-mode'
+UnBundle 'python.vim'
+UnBundle 'python_match.vim'
+UnBundle 'pythoncomplete'
 
