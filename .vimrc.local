@@ -1,4 +1,6 @@
+" ---------------------------------------------------------------------------------------------------"
 " UI Configuration
+" ---------------------------------------------------------------------------------------------------"
 colorscheme jellybeans
 set guifont=Liberation\ Mono\ 09
 set linespace=6
@@ -7,38 +9,40 @@ set t_Co=256
 set bg=dark
 nnoremap ; :
 
-" vim-php-cs-fixer configuration"
-nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
-nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
+" ---------------------------------------------------------------------------------------------------"
+" vim-php-cs-fixer configuration
+" ---------------------------------------------------------------------------------------------------"
 autocmd FileType php noremap <buffer>  <c-f> :call PhpCsFixerFixFile()<cr>
 
-" vim-jsbeautify configuration
-".vimrc
-map <c-f> :call JsBeautify()<cr>
-" or
-" autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+" ---------------------------------------------------------------------------------------------------"
+" vim-jsbeautify
+" ---------------------------------------------------------------------------------------------------"
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-" for html
+autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-" for css or scss
 autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 
+" ---------------------------------------------------------------------------------------------------"
 " Customisations based on house-style (arbitrary)
+" ---------------------------------------------------------------------------------------------------"
 autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
 
-" Ruby configuration"
-autocmd FileType ruby compiler ruby
-
+" ---------------------------------------------------------------------------------------------------"
 " Key mappings
+" ---------------------------------------------------------------------------------------------------"
 map <Leader>r :!js-beautify -r %<CR>
 nmap <F8> :TagbarToggle<CR>
 
+" ---------------------------------------------------------------------------------------------------"
 " Avoid backup
+" ---------------------------------------------------------------------------------------------------"
 set nobackup
 set noswapfile
 
+" ---------------------------------------------------------------------------------------------------"
 " Remove bundles
+" ---------------------------------------------------------------------------------------------------"
 UnBundle 'mattn/webapi-vim'
 UnBundle 'derekwyatt/vim-scala'
 UnBundle 'derekwyatt/vim-sbt'
@@ -48,9 +52,7 @@ UnBundle 'tpope/vim-haml'
 UnBundle 'tpope/vim-cucumber'
 UnBundle 'altercation/vim-colors-solarized'
 UnBundle 'nathanaelkane/vim-indent-guides'
-UnBundle 'mattn/gist-vim'
 UnBundle 'klen/python-mode'
 UnBundle 'python.vim'
 UnBundle 'python_match.vim'
 UnBundle 'pythoncomplete'
-
