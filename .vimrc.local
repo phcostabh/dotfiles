@@ -23,6 +23,11 @@ autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 
 " ---------------------------------------------------------------------------------------------------"
+" Gist vim configurations
+" ---------------------------------------------------------------------------------------------------"
+let g:gist_clip_command = 'xclip -selection clipboard'
+
+" ---------------------------------------------------------------------------------------------------"
 " Customisations based on house-style (arbitrary)
 " ---------------------------------------------------------------------------------------------------"
 autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
