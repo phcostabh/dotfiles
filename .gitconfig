@@ -1,7 +1,7 @@
 [color]
     ui = true
 [user]
-    name = Philippe
+    name = Philippe Santana Costa
     email = philippescosta@gmail.com
 [core]
     editor = vim
@@ -31,6 +31,7 @@
     br = branch
     diff = diff --word-diff
     dc = diff --cached
+    df = diff
     r = reset
     r1 = reset HEAD^
     r2 = reset HEAD^^
@@ -44,3 +45,5 @@
     cleanup = !git remote prune origin && git gc --aggressive && git clean -dfx && git stash clear
     deleted = log --diff-filter=D --summary
     amend = commit --amend -C HEAD
+[github]
+    user = phcostabh
