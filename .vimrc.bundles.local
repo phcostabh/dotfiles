@@ -1,4 +1,4 @@
-Bundle 'mattn/zencoding-vim'
 Bundle 'benmills/vimux'
 Bundle 'maksimr/vim-jsbeautify'
 Bundle 'stephpy/vim-php-cs-fixer'
+Bundle 'mattn/emmet-vim'
