@@ -48,7 +48,6 @@ set noswapfile
 " ---------------------------------------------------------------------------------------------------"
 " Remove bundles
 " ---------------------------------------------------------------------------------------------------"
-UnBundle 'mattn/webapi-vim'
 UnBundle 'derekwyatt/vim-scala'
 UnBundle 'derekwyatt/vim-sbt'
 UnBundle 'jnwhiteh/vim-golang'
