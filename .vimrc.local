@@ -1,7 +1,7 @@
 " ---------------------------------------------------------------------------------------------------"
 " UI Configuration
 " ---------------------------------------------------------------------------------------------------"
-colorscheme zenburn 
+colorscheme darkburn
 set guifont=Liberation\ Mono\ 09
 set linespace=6
 set nospell
@@ -87,17 +87,36 @@ endfunction
 autocmd BufWritePre *.* :call <SID>StripTrailingWhitespaces()
 
 " ---------------------------------------------------------------------------------------------------"
+" Remapping tab navigation
+" ---------------------------------------------------------------------------------------------------"
+nmap <S-h> :tabprevious <CR>
+nmap <S-l> :tabnext <CR>
+
+" ---------------------------------------------------------------------------------------------------"
+" Unset hidden
+" ---------------------------------------------------------------------------------------------------"
+set nohidden
+
+" ---------------------------------------------------------------------------------------------------"
+" Surrounding mappings.
+" ---------------------------------------------------------------------------------------------------"
+:nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+:nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+
+" ---------------------------------------------------------------------------------------------------"
 " Remove bundles
 " ---------------------------------------------------------------------------------------------------"
-UnBundle 'derekwyatt/vim-scala'
-UnBundle 'derekwyatt/vim-sbt'
-UnBundle 'jnwhiteh/vim-golang'
-UnBundle 'spf13/vim-gocode'
-UnBundle 'tpope/vim-haml'
-UnBundle 'tpope/vim-cucumber'
-UnBundle 'altercation/vim-colors-solarized'
-UnBundle 'nathanaelkane/vim-indent-guides'
-UnBundle 'klen/python-mode'
-UnBundle 'python.vim'
-UnBundle 'python_match.vim'
-UnBundle 'pythoncomplete'
+if exists('*UnBundle')
+    UnBundle 'derekwyatt/vim-scala'
+    UnBundle 'derekwyatt/vim-sbt'
+    UnBundle 'jnwhiteh/vim-golang'
+    UnBundle 'spf13/vim-gocode'
+    UnBundle 'tpope/vim-haml'
+    UnBundle 'tpope/vim-cucumber'
+    UnBundle 'altercation/vim-colors-solarized'
+    UnBundle 'nathanaelkane/vim-indent-guides'
+    UnBundle 'klen/python-mode'
+    UnBundle 'python.vim'
+    UnBundle 'python_match.vim'
+    UnBundle 'pythoncomplete'
+endif
