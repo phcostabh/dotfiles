@@ -62,7 +62,7 @@ function untar () {
 }
 
 function authme {
-    ssh $1 '[ ! -e ~/.ssh/authorized_keys ] && mkdir ~/.ssh && cat >>.ssh/authorized_keys' < ~/.ssh/id_rsa.pub
+    ssh $1 '[ ! -e ~/.ssh/ ] && mkdir ~/.ssh; cat >>.ssh/authorized_keys' < ~/.ssh/id_rsa.pub
 }
 
 function take () {
