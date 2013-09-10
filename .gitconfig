@@ -38,11 +38,14 @@
     rh1 = reset HEAD^ --hard
     rh2 = reset HEAD^^ --hard
     done = !git fetch && git rebase origin/master && git checkout master && git merge @{-1} && git push -u
-    up = !git fetch origin && git rebase origin/master
+    up = !git fetch origin && git rebase origin/master && git push --force origin $(git rev-parse --abbrev-ref HEAD)
     a = !git add -u && git add . && git status
     rmb = !sh -c 'git branch -D $1 && git push origin :$1' -
     cleanup = !git remote prune origin && git gc --aggressive && git clean -dfx && git stash clear
     deleted = log --diff-filter=D --summary
     amend = commit --amend -C HEAD
+    rb = "!f(){ git rebase -i $(git rev-parse $(git rev-parse --abbrev-ref --symbolic-full-name @{u};)); };f"
 [github]
     user = phcostabh
+[push]
+    default = matching
