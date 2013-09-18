@@ -1,62 +1,19 @@
 #!/bin/bash
 
-# Updating packages of the system.
-function update() {
-    sudo apt-fast update --quiet && sudo apt-fast upgrade --yes
-}
+# Packages management
+alias clean="sudo apt-fast autoremove; sudo apt-fast autoclean; sudo apt-fast purge; sudo apt-fast clean"
+alias update="sudo apt-fast update --quiet; sudo apt-fast upgrade --yes"
+alias unlockdpkg="sudo fuser -vik /var/lib/dpkg/lock; sudo dpkg --configure -a"
+alias cleanpackages="sudo dpkg --get-selections | grep deinstall | sed 's/\t\+.*//g' | xargs sudo dpkg --purge"
 
-function clean() {
-    sudo apt-fast autoremove && sudo apt-fast autoclean && sudo apt-fast purge && sudo apt-fast clean
-}
-
-# One vim, just one
+# Vim (Gvim)
 alias gvim="gvim --remote-silent"
-
-# Shortcut to .bashrc edition
-alias eb="gvim ~/.bashrc"
-
-# ----------------------- Git
-function add() {
-    git add $*
-}
-
-function commit() {
-    git commit -m "$*"
-}
-
-# Commit pending changes and quote all args as message
-function gg() {
-    git commit -v -a -m "$*"
-}
-
-function gm() {
-    git status | grep deleted | cut -d' ' -f5 | xargs git rm
-}
-# ----------------------- End Git
-
-function eg() {
-    gvim .git/config
-}
+alias eg="gvim .git/config"
 
 # Ruby
-function uninstallgems(){
-   gem list | cut -d' ' -f1 | xargs gem uninstall -aIx
-}
+alias uninstallgems="gem list | cut -d' ' -f1 | xargs gem uninstall -aIx"
 
-# Generate a file with all the routes of an application
-function rr() {
-    rake routes $1 > tmp/routes.rb && gvim tmp/routes.rb
-}
-
-# Ubuntu packages
-function unlockdpkg() {
-    sudo fuser -vik /var/lib/dpkg/lock; sudo dpkg --configure -a
-}
-
-function cleanpackages(){
-    sudo dpkg --get-selections | grep deinstall | sed 's/\t\+.*//g' | xargs sudo dpkg --purge
-}
-
+# Helper Functions
 function untar () {
     7z e $1
 }
@@ -68,18 +25,6 @@ function authme {
 function take () {
     mkdir $1
     cd $1
-}
-
-function install-vim () {
-    sudo apt-fast install exuberant-ctags ncurses-term vim-gtk ack --yes
-    git clone git@bitbucket.org:phcosta/vimfiles.git ~/.vim
-    cd ~/.vim ; git submodule update --init && git submodule foreach pull origin master
-    [ ! -e ~/.vimrc ] && echo “source ~/.vim/vimrc” > ~/.vimrc
-}
-
-function install-essential-packages {
-    sudo apt-fast update
-    sudo apt-fast install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion --yes
 }
 
 function install-macfonts {

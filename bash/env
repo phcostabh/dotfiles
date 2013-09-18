@@ -1,36 +1,35 @@
 #!/bin/bash
 
+# ---------------------------------------------------------------------------------------------------"
+# Defining current dir path
+# ---------------------------------------------------------------------------------------------------"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 export EDITOR="gvim"
 export PATH=$PATH:~/bin
 
-###############################
-# NodeJs
-###############################
-
-# NVM
+# ---------------------------------------------------------------------------------------------------"
+# NodeJS
+# ---------------------------------------------------------------------------------------------------"
 export NVM_HOME="$HOME/.nvm"
 
-# Install NVM if it is not installed.
-[[ ! -d "$NVM_HOME" ]] && curl https://raw.github.com/creationix/nvm/master/install.sh | sh
-
-# Source NVM files.
-[[ -f "$NVM_HOME/nvm.sh" ]] && source "$NVM_HOME/nvm.sh"
-[[ -f "$NVM_HOME/bash_completion" ]] && source "$NVM_HOME/bash_completion" # NVM bash completion
-
-###############################
-
-###############################
+# ---------------------------------------------------------------------------------------------------"
 # Ruby Version Manager - RVM
-###############################
-
-# RVM
+# ---------------------------------------------------------------------------------------------------"
 export RVM_HOME="$HOME/.rvm"
+export PATH=$PATH:$HOME/.rvm/bin
 
-# Install RVM if it is not installed.
-[[ ! -s "$RVM_HOME/scripts/rvm" ]] && curl -L https://get.rvm.io | bash -s stable --autolibs=enabled
+# ---------------------------------------------------------------------------------------------------"
+# Git completion and prompt
+# ---------------------------------------------------------------------------------------------------"
+source $DIR/git-completion.sh
+source $DIR/git-prompt.sh
+export GIT_PS1_SHOWDIRTYSTATE=true
 
-# Source RVM files.
-[[ -s "$RVM_HOME/scripts/rvm" ]] && source "$RVM_HOME/scripts/rvm"
-
-###############################
-
+# ---------------------------------------------------------------------------------------------------"
+# PHPBrew
+# ---------------------------------------------------------------------------------------------------"
+if [[ -e "$HOME/.phpbrew/bashrc" ]]; then
+    export PHPBREW_SET_PROMPT=1
+    source "$HOME/.phpbrew/bashrc"
+fi

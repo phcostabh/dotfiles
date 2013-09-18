@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Colors from http://wiki.archlinux.org/index.php/Color_Bash_Prompt
 # misc
 NO_COLOR='\e[0m' #disable any colors
@@ -39,7 +40,8 @@ BMAGENTA='\e[45m'
 BCYAN='\e[46m'
 BWHITE='\e[47m'
 
+
 # Update the command prompt to be <user>:<current_directory>(git_branch) >
 # Note that the git branch is given a special color
-PS1="\n\[$NO_COLOR\]\u\[$GREEN\]:\w \[$EBLUE\]\$(vcprompt)\[$NO_COLOR\] \n→ "
-
+gitprompt='$(__git_ps1 "[%s]")'
+PS1="\n\[$NO_COLOR\]\u\[$GREEN\]:\w \[$EBLUE\]$gitprompt\[$NO_COLOR\] \n→ "
