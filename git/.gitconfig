@@ -5,6 +5,7 @@
     email = philippescosta@gmail.com
 [core]
     editor = vim
+	excludesfile = /home/phcosta/.gitignore
 [alias]
     graph = log --all --graph --decorate --oneline -n30
     ls = log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate
@@ -49,3 +50,7 @@
     user = phcostabh
 [push]
     default = upstream
+[apply]
+	whitespace = nowarn
+[help]
+	autocorrect = 1
