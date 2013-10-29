@@ -48,4 +48,4 @@
 [github]
     user = phcostabh
 [push]
-    default = matching
+	default = upstream
