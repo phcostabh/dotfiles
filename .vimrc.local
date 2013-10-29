@@ -100,8 +100,21 @@ set nohidden
 " ---------------------------------------------------------------------------------------------------"
 " Surrounding mappings.
 " ---------------------------------------------------------------------------------------------------"
-:nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
-:nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+:nnoremap <leader>" ciw""<esc>hp<esc>el
+:nnoremap <leader>' ciw''<esc>hp<esc>el
+:nnoremap <leader>( ciw()<esc>hp<esc>el
+:nnoremap <leader>[ ciw[]<esc>hp<esc>el
+:nnoremap <leader>{ ciw{}<esc>hp<esc>el
+
+vmap <silent> <Leader>' :call Quote("'")<CR>
+vmap <silent> <Leader>" :call Quote('"')<CR>
+function! Quote(quote)
+    let save = @"
+    silent normal gvy
+    let @" = a:quote . @" . a:quote
+    silent normal gvp
+    let @" = save
+endfunction
 
 " ---------------------------------------------------------------------------------------------------"
 " Remove bundles
