@@ -1,7 +1,7 @@
 " ---------------------------------------------------------------------------------------------------"
 " UI Configuration
 " ---------------------------------------------------------------------------------------------------"
-colorscheme darkburn
+colorscheme darkspectrum
 set guifont=Liberation\ Mono\ 09
 set linespace=6
 set nospell
