@@ -1,7 +1,8 @@
 # Load all dotfiles
-source ~/bin/dotfiles/bash/env
-source ~/bin/dotfiles/bash/config
-source ~/bin/dotfiles/bash/aliases
+DOTFILES_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $DOTFILES_ROOT/bash/env
+source $DOTFILES_ROOT/bash/config
+source $DOTFILES_ROOT/bash/aliases
 
 # ---------------------------------------------------------------------------------------------------"
 # Install NVM if it is not installed.
