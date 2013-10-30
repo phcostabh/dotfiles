@@ -1,3 +1,8 @@
+# Now when you ssh into a host, subsequent connections to that host use the same TCP socket, and don’t require authentication.
+Host *
+    ControlMaster auto
+    ControlPath ~/.ssh/master-%r@%h:%p
+
 Host prime
     User philippe.costa
     HostName 192.168.0.174
