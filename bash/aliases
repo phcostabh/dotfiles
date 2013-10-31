@@ -32,3 +32,7 @@ function install-macfonts {
     tar zxvf macfonts.tar.gz && sudo cp -r macfonts/ /usr/share/fonts/
     rm -fr macfonts*
 }
+
+alias ports='netstat -tulanp'
+alias mount='mount |column -t'
+alias path='echo -e ${PATH//:/\\n}'
