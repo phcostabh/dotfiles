@@ -9,6 +9,9 @@ if test ! $(which ruby); then
 
     echo "   Installing rbenv."
     git clone https://github.com/sstephenson/rbenv.git ~/.rbenv >> $logfile 2>&1
-    echo $SUDO_USER
+
+    echo "   Installing ruby-build."
+    git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build >> $logfile 2>&1
+
     chown -R $SUDO_USER ~/.rbenv/
 fi
