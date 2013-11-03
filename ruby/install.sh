@@ -13,5 +13,8 @@ if test ! $(which ruby); then
     echo "   Installing ruby-build."
     git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build >> $logfile 2>&1
 
+    echo "   Installing rbevn-gem-rehash."
+    git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash >> $logfile 2>&1
+
     chown -R $SUDO_USER ~/.rbenv/
 fi
