@@ -1,138 +1,83 @@
-" ---------------------------------------------------------------------------------------------------"
-" UI Configuration
-" ---------------------------------------------------------------------------------------------------"
-colorscheme darkspectrum
-set guifont=Liberation\ Mono\ 09
-set linespace=6
-set nospell
-set t_Co=256
-set bg=dark
-nnoremap ; :
-set nofoldenable
+" UI Configuration {
+    colorscheme molokai
+    set guifont=Liberation\ Mono\ 09
+    set linespace=3
+    set nospell
+    set t_Co=256
+    set bg=dark
+    nnoremap ; :
+    set nofoldenable
+    set showmatch
+    set nohidden
+    " set nobackup
+    " set noswapfile
+" }
 
-" ---------------------------------------------------------------------------------------------------"
-" vim-php-cs-fixer configuration
-" ---------------------------------------------------------------------------------------------------"
-autocmd FileType php noremap <buffer>  <c-f> :call PhpCsFixerFixFile()<cr>
+" vim-php-cs-fixer configuration {
+    autocmd FileType php noremap <buffer>  <c-f> :call PhpCsFixerFixFile()<cr>
+" }
 
-" ---------------------------------------------------------------------------------------------------"
-" vim-jsbeautify
-" ---------------------------------------------------------------------------------------------------"
-autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+" Gist vim configurations {
+    let g:gist_clip_command = 'xclip -selection clipboard'
+" }
 
-" ---------------------------------------------------------------------------------------------------"
-" Gist vim configurations
-" ---------------------------------------------------------------------------------------------------"
-let g:gist_clip_command = 'xclip -selection clipboard'
 
-" ---------------------------------------------------------------------------------------------------"
-" Customisations based on house-style (arbitrary)
-" ---------------------------------------------------------------------------------------------------"
-autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
+" js-beautify {
+    map <Leader>r :!js-beautify -r "%"<CR>:update<CR>
+" }
 
-" ---------------------------------------------------------------------------------------------------"
-" Key mappings
-" ---------------------------------------------------------------------------------------------------"
-map <Leader>r :!js-beautify -r "%"<CR>
-nmap <F8> :TagbarToggle<CR>
+" Integrating with powerline fonts {
+    let g:airline_powerline_fonts = 1
+" }
 
-" ---------------------------------------------------------------------------------------------------"
-" Avoid backup
-" ---------------------------------------------------------------------------------------------------"
-set nobackup
-set noswapfile
+" Disable auto PHPFolding {
+    let g:DisableAutoPHPFolding=1
+" }
 
-" ---------------------------------------------------------------------------------------------------"
-" Integrating with powerline fonts
-" ---------------------------------------------------------------------------------------------------"
-let g:airline_powerline_fonts = 1
+" Custom syntaxe highlighting. {
+    au BufRead,BufNewFile *.volt setfiletype htmljinja
+" }
 
-" ---------------------------------------------------------------------------------------------------"
-" Disable auto PHPFolding
-" ---------------------------------------------------------------------------------------------------"
-let g:DisableAutoPHPFolding=1
+" Striping whitespaces {
 
-" ---------------------------------------------------------------------------------------------------"
-" Custom syntaxe highlighting.
-" ---------------------------------------------------------------------------------------------------"
-au BufRead,BufNewFile *.volt setfiletype htmljinja
+    function! <SID>StripTrailingWhitespaces()
+        " Preparation: save last search, and cursor position.
+        let _s=@/
+        let l = line(".")
+        let c = col(".")
+        " Do the business:
+        %s/\s\+$//e
+        " Clean up: restore previous search history, and cursor position
+        let @/=_s
+        call cursor(l, c)
+    endfunction
 
-" ---------------------------------------------------------------------------------------------------"
-" Custom syntaxe highlighting.
-" ---------------------------------------------------------------------------------------------------"
-nnoremap <C-k> :CtrlPBufTag<CR>
-"let g:ctrlp_buftag_types = {
-"\ 'php': '--PHP-kinds=+f-vc --regex-PHP="/(public\s+|static\s+|abstract\s+|protected\s+|private\s+)function\s+\&?\s*([^ (]+)/\2/f/"'
-"\}
+    autocmd BufWritePre *.* :call <SID>StripTrailingWhitespaces()
 
-" ---------------------------------------------------------------------------------------------------"
-" Striping whitespaces
-" ---------------------------------------------------------------------------------------------------"
-function! <SID>StripTrailingWhitespaces()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
-endfunction
+" }
 
-autocmd BufWritePre *.* :call <SID>StripTrailingWhitespaces()
+" Remapping tab navigation {
+    nmap <S-h> :tabprevious <CR>
+    nmap <S-l> :tabnext <CR>
+" }
 
-" ---------------------------------------------------------------------------------------------------"
-" Remapping tab navigation
-" ---------------------------------------------------------------------------------------------------"
-nmap <S-h> :tabprevious <CR>
-nmap <S-l> :tabnext <CR>
+" Surrounding mappings. {
+    :nnoremap <leader>" ciw""<esc>hp<esc>el
+    :nnoremap <leader>' ciw''<esc>hp<esc>el
+    :nnoremap <leader>( ciw()<esc>hp<esc>el
+    :nnoremap <leader>[ ciw[]<esc>hp<esc>el
+    :nnoremap <leader>{ ciw{}<esc>hp<esc>el
 
-" ---------------------------------------------------------------------------------------------------"
-" Unset hidden
-" ---------------------------------------------------------------------------------------------------"
-set nohidden
-
-" ---------------------------------------------------------------------------------------------------"
-" Surrounding mappings.
-" ---------------------------------------------------------------------------------------------------"
-:nnoremap <leader>" ciw""<esc>hp<esc>el
-:nnoremap <leader>' ciw''<esc>hp<esc>el
-:nnoremap <leader>( ciw()<esc>hp<esc>el
-:nnoremap <leader>[ ciw[]<esc>hp<esc>el
-:nnoremap <leader>{ ciw{}<esc>hp<esc>el
-
-vmap <silent> <Leader>' :call Quote("'")<CR>
-vmap <silent> <Leader>" :call Quote('"')<CR>
-function! Quote(quote)
-    let save = @"
-    silent normal gvy
-    let @" = a:quote . @" . a:quote
-    silent normal gvp
-    let @" = save
-endfunction
-
-" ---------------------------------------------------------------------------------------------------"
-" Remove bundles
-" ---------------------------------------------------------------------------------------------------"
-if exists('*UnBundle')
-    UnBundle 'derekwyatt/vim-scala'
-    UnBundle 'derekwyatt/vim-sbt'
-    UnBundle 'jnwhiteh/vim-golang'
-    UnBundle 'spf13/vim-gocode'
-    UnBundle 'tpope/vim-haml'
-    UnBundle 'tpope/vim-cucumber'
-    UnBundle 'altercation/vim-colors-solarized'
-    UnBundle 'nathanaelkane/vim-indent-guides'
-    UnBundle 'klen/python-mode'
-    UnBundle 'python.vim'
-    UnBundle 'python_match.vim'
-    UnBundle 'pythoncomplete'
-endif
+    vmap <silent> <Leader>' :call Quote("'")<CR>
+    vmap <silent> <Leader>" :call Quote('"')<CR>
+    function! Quote(quote)
+        let save = @"
+        silent normal gvy
+        let @" = a:quote . @" . a:quote
+        silent normal gvp
+        let @" = save
+    endfunction
+" }
 
 " Tabularize {
     nmap <Leader>a& :Tabularize /&<CR>
@@ -155,9 +100,54 @@ endif
     let g:ctrlp_custom_ignore = {
                 \ 'dir':  '\.git$\|vendor\|static',
                 \ }
+
+    nnoremap <C-k> :CtrlPBufTag<CR>
+    "let g:ctrlp_buftag_types = {
+    "\ 'php': '--PHP-kinds=+f-vc --regex-PHP="/(public\s+|static\s+|abstract\s+|protected\s+|private\s+)function\s+\&?\s*([^ (]+)/\2/f/"'
+    "\}
 " }
 
 " Testing some config {
     set showcmd
     set whichwrap+=<,>,h,l,[,]
+" }
+
+" Find merge conflict markers {
+    map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
+" }
+
+" Fugitive {
+    nnoremap <silent> <leader>gs :Gstatus<CR>
+    nnoremap <silent> <leader>gd :Gdiff<CR>
+    nnoremap <silent> <leader>gc :Gcommit<CR>
+    nnoremap <silent> <leader>gb :Gblame<CR>
+    nnoremap <silent> <leader>gl :Glog<CR>
+    nnoremap <silent> <leader>gp :Git push<CR>
+    nnoremap <silent> <leader>gr :Gread<CR>
+    nnoremap <silent> <leader>gw :Gwrite<CR>
+    nnoremap <silent> <leader>ge :Gedit<CR>
+"}
+
+" ToggleNumbering {
+    function! ToggleNumbering()
+      if &relativenumber
+        set number
+        set norelativenumber
+      else
+        set relativenumber
+        set nonumber
+      endif
+    endfunc
+
+    noremap <leader>n :call ToggleNumbering()<cr>
+" }
+
+" UnBundle {
+    function! UnBundle(arg, ...)
+      let bundle = vundle#config#init_bundle(a:arg, a:000)
+      call filter(g:bundles, 'v:val["name_spec"] != "' . a:arg . '"')
+    endfunction
+
+    com! -nargs=+         UnBundle
+    \ call UnBundle(<args>)
 " }
