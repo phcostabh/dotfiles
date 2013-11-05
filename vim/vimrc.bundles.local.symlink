@@ -1,4 +1,3 @@
-Bundle 'maksimr/vim-jsbeautify'
 Bundle 'stephpy/vim-php-cs-fixer'
 Bundle 'mhinz/vim-signify'
 Bundle 'spf13/PIV'
