@@ -151,3 +151,7 @@
     com! -nargs=+         UnBundle
     \ call UnBundle(<args>)
 " }
+
+" Remove Bundles {
+    UnBundle 'daylerees/colour-schemes'
+" }

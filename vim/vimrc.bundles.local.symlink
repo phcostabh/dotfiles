@@ -6,7 +6,3 @@
     Bundle 'plasticboy/vim-markdown'
     Bundle 'spf13/vim-colors'
 " }
-
-" Remove Bundles {
-    UnBundle 'daylerees/colour-schemes'
-" }
