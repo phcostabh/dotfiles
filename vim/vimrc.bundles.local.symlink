@@ -1,5 +1,12 @@
-Bundle 'stephpy/vim-php-cs-fixer'
-Bundle 'mhinz/vim-signify'
-Bundle 'spf13/PIV'
-Bundle 'godlygeek/tabular'
-Bundle 'plasticboy/vim-markdown'
+" Bundles {
+    Bundle 'stephpy/vim-php-cs-fixer'
+    Bundle 'mhinz/vim-signify'
+    Bundle 'spf13/PIV'
+    Bundle 'godlygeek/tabular'
+    Bundle 'plasticboy/vim-markdown'
+    Bundle 'spf13/vim-colors'
+" }
+
+" Remove Bundles {
+    UnBundle 'daylerees/colour-schemes'
+" }
