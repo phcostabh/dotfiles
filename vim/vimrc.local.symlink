@@ -1,7 +1,7 @@
 " UI Configuration {
     colorscheme darkspectrum
     set guifont=Liberation\ Mono\ 09
-    set linespace=3
+    set linespace=1
     set nospell
     set t_Co=256
     set bg=dark
@@ -11,9 +11,32 @@
     set nohidden
     highlight clear SignColumn      " SignColumn should match background
     highlight clear LineNr          " Current line number row will have same background color in relative mode
-    highlight clear CursorLineNr    " Remove highlight color from current line number
-    " set nobackup
-    " set noswapfile
+    " highlight clear CursorLineNr    " Remove highlight color from current line number
+    set number
+    set backup
+    set swapfile
+
+    function! EnsureDirExists(dir)
+      if !isdirectory(a:dir)
+        if exists("*mkdir")
+          call mkdir(a:dir,'p')
+          echo "Created directory: " . a:dir
+        else
+          echo "Please create directory: " . a:dir
+        endif
+      endif
+    endfunction
+
+    call EnsureDirExists($HOME . '/.vim_backup')
+
+    set backupdir=~/.vim_backup
+    set directory=~/.vim_backup
+    set undodir=~/.vim_backup
+    if has('persistent_undo')
+       set undofile
+       set undolevels=1000
+       set undoreload=10000
+    endif
 " }
 
 " vim-php-cs-fixer configuration {
@@ -34,7 +57,7 @@
 " }
 
 " Disable auto PHPFolding {
-    let g:DisableAutoPHPFolding=1
+    let g:DisableAutoPHPFolding = 1
 " }
 
 " Custom syntaxe highlighting. {
