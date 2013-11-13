@@ -5,4 +5,6 @@
     Bundle 'godlygeek/tabular'
     Bundle 'plasticboy/vim-markdown'
     Bundle 'spf13/vim-colors'
+    Bundle 'vim-scripts/IndexedSearch'
+    Bundle 'tpope/vim-sleuth'
 " }
