@@ -30,7 +30,7 @@
     ci = commit
     co = checkout
     br = branch
-    df = diff
+    df = diff --ignore-all-space --word-diff
     dc = diff --cached
     r = reset
     r1 = reset HEAD^
@@ -46,6 +46,7 @@
     deleted = log --diff-filter=D --summary
     amend = commit --amend -C HEAD
     rb = "!f(){ git rebase -i $(git rev-parse $(git rev-parse --abbrev-ref --symbolic-full-name @{u};)); };f"
+    p = !git push --force origin $(git rev-parse --abbrev-ref HEAD)
 [github]
     user = phcostabh
 [push]
