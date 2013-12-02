@@ -12,7 +12,6 @@
     highlight clear SignColumn      " SignColumn should match background
     highlight clear LineNr          " Current line number row will have same background color in relative mode
     " highlight clear CursorLineNr    " Remove highlight color from current line number
-    set number
     set backup
     set swapfile
 
@@ -181,4 +180,13 @@
 
 " Remove Bundles {
     UnBundle 'daylerees/colour-schemes'
+" }
+
+" Twig {
+    autocmd BufNewFile,BufRead *.html set filetype=html.twig
+" }
+
+
+" fullscreen mode for GVIM and Terminal, need 'wmctrl' in you PATH {
+    map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscreen")<CR>
 " }
