@@ -7,4 +7,5 @@
     Bundle 'spf13/vim-colors'
     Bundle 'vim-scripts/IndexedSearch'
     Bundle 'tpope/vim-sleuth'
+    Bundle 'evidens/vim-twig'
 " }
