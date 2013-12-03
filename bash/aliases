@@ -33,6 +33,14 @@ function install-macfonts {
     rm -fr macfonts*
 }
 
+function generate-hash () {
+    if [[ -z $1 ]]; then
+        echo -n "$1$(date +%d%m%Y%H%M%S%N)" | openssl sha1
+    else
+        echo -n "$(date +%d%m%Y%H%M%S%N)" | openssl sha1
+    fi
+}
+
 alias ports='netstat -tulanp'
 alias mount='mount |column -t'
 alias path='echo -e ${PATH//:/\\n}'
