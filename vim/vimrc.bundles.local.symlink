@@ -8,4 +8,5 @@
     Bundle 'vim-scripts/IndexedSearch'
     Bundle 'tpope/vim-sleuth'
     Bundle 'evidens/vim-twig'
+    Bundle 'kchmck/vim-coffee-script'
 " }
