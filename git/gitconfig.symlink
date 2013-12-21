@@ -7,53 +7,62 @@
     editor = vim
 	excludesfile = /home/phcosta/.gitignore
 [alias]
-    graph = log --all --graph --decorate --oneline -n30
-    ls = log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate
-    ll = log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate --numstat
-    lds = log --pretty=format:\"%C(yellow)%h\\\\ %ad%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate --date=short
-    ld = log --pretty=format:\"%C(yellow)%h\\\\ %ad%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate --date=relative
-    le = log --oneline --decorate
-    dl = !git ll -1
-    f = "!git ls-files | grep -i"
-    gr = grep -Ii
-    gra = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --color --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
-    cp = cherry-pick
-    st = status -s
-    cl = clone
-    ci = commit
-    co = checkout
-    br = branch
-    df = diff --ignore-all-space --word-diff
-    dc = diff --cached
-    r = reset
-    r1 = reset HEAD^
-    r2 = reset HEAD^^
-    rh = reset --hard
-    rh1 = reset HEAD^ --hard
-    rh2 = reset HEAD^^ --hard
-    done = !git fetch && git rebase origin/master && git checkout master && git merge @{-1} && git push -u
-    up = !git fetch origin && git rebase origin/master && git push --force origin $(git rev-parse --abbrev-ref HEAD)
-    a = !git add -u && git add . && git status
-    rmb = !sh -c 'git branch -D $1 && git push origin :$1' -
-    cleanup = !git remote prune origin && git gc --aggressive && git clean -dfx && git stash clear
-    deleted = log --diff-filter=D --summary
-    amend = commit --amend -C HEAD
-    rb = "!f(){ git rebase -i $(git rev-parse $(git rev-parse --abbrev-ref --symbolic-full-name @{u};)); };f"
-    p = !git push --force origin $(git rev-parse --abbrev-ref HEAD)
+    # basic aliases
+    cp   = cherry-pick
+    st   = status -s
+    cl   = clone
+    ci   = commit
+    co   = checkout
+    br   = branch
+    df   = diff --ignore-all-space
+    dfw  = diff --ignore-all-space --word-diff
+    dc   = diff --cached
+    r    = remote -v
+    rh   = reset --hard
+    b    = branch -v
+    ps   = push
+    pl   = pull
+    rb   = rebase
+    rc   = rebase --continue
+    rs   = rebase --skip
+
+    # log
+    l = log --graph --date=short
+    changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
+    short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
+    changelog = log --pretty=format:\" * %s\"
+    shortnocolor = log --pretty=format:\"%h %cr %cn %s\"
+
+    # reset
+    unstage = reset HEAD
+    uncommit = reset --soft HEAD^
+    filelog = log -u
+
+    # finding files and in files
+    f    = "!git ls-files | grep -i"
+    gra  = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --color --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
+
+    # workflow helpers
+    done     = !git fetch && git rebase origin/master && git checkout master && git merge @{-1} && git push -u
+    up       = !git fetch origin && git rebase origin/master && git push --force origin $(git rev-parse --abbrev-ref HEAD)
+    a        = !git add -u && git add . && git status
+    rmb      = !sh -c 'git branch -D $1 && git push origin :$1' -
+    cleanup  = !git remote prune origin && git gc --aggressive && git clean -dfx && git stash clear
+    deleted  = log --diff-filter=D --summary
+    amend    = commit --amend -C HEAD
+    # rb       = "!f(){ git rebase -i $(git rev-parse $(git rev-parse --abbrev-ref --symbolic-full-name @{u};)); };f"
+    p        = !git push --force origin $(git rev-parse --abbrev-ref HEAD)
 
     # via http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
-    assume = update-index --assume-unchanged
-    unassume = update-index --no-assume-unchanged
-    assumed = "!git ls-files -v | grep ^h | cut -c 3-"
-    unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
-    assumeall = "!git st -s | awk {'print $2'} | xargs git assume"
-    ours = "!f() { git co --ours $@ && git add $@; }; f"
-    theirs = "!f() { git co --theirs $@ && git add $@; }; f"
-    snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
-    snapshots = !git stash list --grep snapshot
-
-[github]
-    user = phcostabh
+    assume       = update-index --assume-unchanged
+    unassume     = update-index --no-assume-unchanged
+    assumed      = "!git ls-files -v | grep ^h | cut -c 3-"
+    unassumeall  = "!git assumed | xargs git update-index --no-assume-unchanged"
+    assumeall    = "!git st -s | awk {'print $2'} | xargs git assume"
+    ours         = "!f() { git co --ours $@ && git add $@; }; f"
+    theirs       = "!f() { git co --theirs $@ && git add $@; }; f"
+    snapshot     = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+    snapshots    = !git stash list --grep snapshot
 [push]
     default = upstream
 [apply]
