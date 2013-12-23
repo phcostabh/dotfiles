@@ -5,7 +5,7 @@ let mapleader=","
 
 " Init Vundle
 if filereadable(expand("~/.vim/bundles.vim"))
-    source ~/.vim/vundles.vim
+    source ~/.vim/bundles.vim
 endif
 
 if filereadable(expand("~/.vimrc.bundles.local"))
