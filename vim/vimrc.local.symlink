@@ -1,10 +1,9 @@
 " UI Configuration {
-    colorscheme darkspectrum
+    colorscheme jellybeans
     set guifont=Liberation\ Mono\ 09
     set linespace=1
     set nospell
     set t_Co=256
-    set bg=dark
     nnoremap ; :
     set nofoldenable
     set showmatch
@@ -14,6 +13,8 @@
     " highlight clear CursorLineNr    " Remove highlight color from current line number
     set backup
     set swapfile
+    highlight normal ctermbg=none
+    highlight nontext ctermbg=none
 
     function! EnsureDirExists(dir)
       if !isdirectory(a:dir)
