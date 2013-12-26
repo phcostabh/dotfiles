@@ -27,7 +27,7 @@ fail () {
 }
 
 link_files () {
-    ln -s $1 $2
+    ln -sf $1 $2
     success "linked $1 to $2"
 }
 
@@ -99,7 +99,23 @@ install_dotfiles () {
     done
 }
 
+clone_vundle () {
+    if [ ! -e "$HOME/.vim/bundle/vundle" ]; then
+        git clone https://github.com/gmarik/vundle.git "$HOME/.vim/bundle/vundle"
+    fi
+}
+
+setup_vundle () {
+    system_shell="$SHELL"
+    export SHELL='/bin/sh'
+    vim --noplugin -u "$HOME/.vim/bundles.vim" -N "+set hidden" "+syntax on" +BundleClean! +BundleInstall +qall
+    export SHELL="$system_shell"
+}
+
 install_dotfiles
+clone_vundle
+setup_vundle
 
 echo ''
 echo '  All installed!'
+
