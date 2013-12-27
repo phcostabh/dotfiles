@@ -1,6 +1,6 @@
 " UI Configuration {
     colorscheme jellybeans
-    set guifont=Liberation\ Mono\ 09
+    set guifont=Droid\ Sans\ Mono\ 09
     set linespace=1
     set nospell
     set t_Co=256
