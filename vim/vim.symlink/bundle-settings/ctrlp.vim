@@ -14,7 +14,7 @@ let g:ctrlp_buftag_types={
 " Ignore files under .git directory and compiled files.
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\.git$',
-    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$'
+    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$\|\.zip$'
 \ }
 
 " Just files tracked by git.
