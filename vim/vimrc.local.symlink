@@ -113,17 +113,6 @@
     nmap <Leader>a,, :Tabularize /,\zs<CR>
 " }
 
-" CtrlP {
-    let g:ctrlp_custom_ignore = {
-                \ 'dir':  '\.git$\|vendor\|static',
-                \ }
-
-    nnoremap <C-k> :CtrlPBufTag<CR>
-    "let g:ctrlp_buftag_types = {
-    "\ 'php': '--PHP-kinds=+f-vc --regex-PHP="/(public\s+|static\s+|abstract\s+|protected\s+|private\s+)function\s+\&?\s*([^ (]+)/\2/f/"'
-    "\}
-" }
-
 " Testing some config {
     set showcmd
     set whichwrap+=<,>,h,l,[,]
