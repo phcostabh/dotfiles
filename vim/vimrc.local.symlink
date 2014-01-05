@@ -43,12 +43,6 @@
     autocmd FileType php noremap <buffer>  <c-f> :call PhpCsFixerFixFile()<cr>
 " }
 
-" Gist vim configurations {
-    let g:gist_clip_command = 'xclip -selection clipboard'
-    let g:gist_detect_filetype = 1
-" }
-
-
 " js-beautify {
     map <Leader>r :!js-beautify -r "%"<CR>:update<CR>
 " }
