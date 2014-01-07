@@ -9,5 +9,5 @@
     Bundle 'tpope/vim-sleuth'
     Bundle 'evidens/vim-twig'
     Bundle 'kchmck/vim-coffee-script'
-    Bundle 'thiderman/nginx-vim-syntax'
+    Bundle 'nginx.vim'
 " }
