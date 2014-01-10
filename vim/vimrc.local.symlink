@@ -55,10 +55,6 @@
     let g:DisableAutoPHPFolding = 1
 " }
 
-" Custom syntaxe highlighting. {
-    au BufRead,BufNewFile *.volt setfiletype htmljinja
-" }
-
 " Striping whitespaces {
 
     function! <SID>StripTrailingWhitespaces()
@@ -156,11 +152,6 @@
 " Remove Bundles {
     UnBundle 'daylerees/colour-schemes'
 " }
-
-" Twig {
-    autocmd BufNewFile,BufRead *.html set filetype=html.twig
-" }
-
 
 " fullscreen mode for GVIM and Terminal, need 'wmctrl' in you PATH {
     map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscreen")<CR>
