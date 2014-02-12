@@ -19,7 +19,8 @@ function untar () {
 }
 
 function authme {
-    ssh $1 '[ ! -e ~/.ssh/ ] && mkdir ~/.ssh 2>/dev/null; cat >>.ssh/authorized_keys' < ~/.ssh/id_rsa.pub
+    # ssh $1 '[ ! -e ~/.ssh/ ] && mkdir ~/.ssh 2>/dev/null; cat >>.ssh/authorized_keys' < ~/.ssh/id_rsa.pub
+    [[ -z "$1" ]] && ssh-copy-id -i ~/.ssh/id_rsa.pub "$1"
 }
 
 function take () {
@@ -33,7 +34,7 @@ function install-macfonts {
     rm -fr macfonts*
 }
 
-function generate-hash () {
+function generate-hash {
     if [[ -z $1 ]]; then
         echo -n "$1$(date +%d%m%Y%H%M%S%N)" | openssl sha1
     else
