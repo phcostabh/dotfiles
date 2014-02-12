@@ -2,7 +2,7 @@ nnoremap <Leader>j :CtrlPBufTag<CR>
 
 let g:ctrlp_by_filename = 1              " Default to filename searches
 let g:ctrlp_clear_cache_on_exit = 0      " Force Ctrl P plugin to not clear the cache
-let g:ctrlp_cmd = 'CtrlPMixed'           " Starts with mixed mode(files + MRU + buffer)
+let g:ctrlp_cmd = 'CtrlP'                " Starts with mixed mode(files + MRU + buffer)
 let g:ctrlp_working_path_mode = 'ra'     " Search for the nearst .git directory
 let s:ctrlp_fallback = 'find %s -type f' " Search for all files in the directoy
 
