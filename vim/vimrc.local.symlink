@@ -97,10 +97,10 @@
 " }
 
 " Tabularize {
-    nmap <Leader>a= :Tabularize /^[^=]*\zs<CR>
-    nmap <Leader>a> :Tabularize /=><CR>
-    nmap <Leader>a: :Tabularize /:<CR>
-    nmap <Leader>a,, :Tabularize /,\zs<CR>
+    vmap <Leader>a= :Tabularize /^[^=]*\zs<CR>
+    vmap <Leader>a> :Tabularize /=><CR>
+    vmap <Leader>a: :Tabularize /:<CR>
+    vmap <Leader>a,, :Tabularize /,\zs<CR>
 " }
 
 " Testing some config {
@@ -155,4 +155,8 @@
 
 " fullscreen mode for GVIM and Terminal, need 'wmctrl' in you PATH {
     map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscreen")<CR>
+" }
+
+" Commit messages {
+    autocmd Filetype gitcommit setlocal spell textwidth=72
 " }
