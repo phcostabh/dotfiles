@@ -16,5 +16,17 @@ if test ! $(which ruby); then
     echo "   Installing rbevn-gem-rehash."
     git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash >> $logfile 2>&1
 
+    echo "   Copy this content below to your ~/.bashrc"
+    echo <<EOF
+        # ---------------------------------------------------------------------------------------------------"
+        # Ruby Version Manager - rbenv
+        # ---------------------------------------------------------------------------------------------------"
+        export PATH="\$HOME/.rbenv/bin:\$PATH"
+        if [[ -e "\$HOME/.rbenv" ]]; then
+            eval "\$(rbenv init -)"
+        fi
+EOF
+
+
     chown -R $SUDO_USER ~/.rbenv/
 fi
