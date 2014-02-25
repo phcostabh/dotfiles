@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# apt-fast
+alias apt-get="apt-fast"
+
 # Packages management
 alias clean="sudo apt-fast autoremove; sudo apt-fast autoclean; sudo apt-fast purge; sudo apt-fast clean"
 alias update="sudo apt-fast update --quiet; sudo apt-fast upgrade --yes"
