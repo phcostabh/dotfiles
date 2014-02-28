@@ -13,6 +13,9 @@ alias cleanpackages="sudo dpkg --get-selections | grep deinstall | sed 's/\t\+.*
 alias gvim="gvim --remote-silent"
 alias eg="gvim .git/config"
 
+# Tmux
+alias tmux="TERM=screen-256color-bce tmux"
+
 # Ruby
 alias uninstallgems="gem list | cut -d' ' -f1 | xargs gem uninstall -aIx"
 
