@@ -38,10 +38,6 @@ set incsearch
 set ignorecase
 set smartcase
 set wrapscan
-" No backup files
-set noswapfile
-set nobackup
-set nowb
 " Indentation
 set autoindent
 set smartindent
@@ -59,22 +55,11 @@ set nofoldenable
 set scrolloff=8
 set sidescrolloff=15
 set sidescroll=1
-" Completion
-set completeopt-=preview " No preview
-autocmd FileType css            setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown  setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript     setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python         setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml            setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType ruby           setlocal omnifunc=rubycomplete#Complete
-autocmd FileType haskell        setlocal omnifunc=necoghc#omnifunc
 
-" Select all
-nnoremap <C-a> ggvG$
-" Full copy/cut/past simple
-inoremap <C-v> <ESC>"+gpa
-vnoremap <C-c> "+y
-vnoremap <C-x> "+x
+nnoremap <C-a> ggvG$              " Select all
+inoremap <C-v> <ESC> " +gpa<CR>   " Ctrl + v compatilibility
+vnoremap <C-c> " +y<CR>           " Ctrl + c compatilibility
+vnoremap <C-x> " +x<CR>           " Ctrl + x compatilibility
 " Quick save
 inoremap <Leader>s <ESC>:update<CR>
 nnoremap <Leader>s <ESC>:update<CR>

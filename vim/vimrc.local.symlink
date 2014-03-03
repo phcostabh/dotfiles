@@ -1,42 +1,140 @@
+" Base configuration {
+    set timeoutlen=300                              " mapping timeout
+    set ttimeoutlen=50                              " keycode timeout
+    set mouse=a                                     " enable mouse
+    set mousehide                                   " hide when characters are typed
+    set history=1000                                " number of command lines to remember
+    set ttyfast                                     " assume fast terminal connection
+    set viewoptions=folds,options,cursor,unix,slash " unix/windows compatibility
+    set encoding=utf-8                              " set encoding for text
+    if exists('$TMUX')
+        set clipboard=
+    else
+        set clipboard=unnamed                       " sync with OS clipboard
+    endif
+    set hidden                                      " allow buffer switching without saving
+    set autoread                                    " auto reload if file saved externally
+    set nrformats-=octal                            " always assume decimal numbers
+    set showcmd
+    set whichwrap+=<,>,h,l,[,]
+    set tags=tags;/
+    set showfulltag
+    set modeline
+    set modelines=5
+" }
+
+" Basic mappings {
+    let mapleader=","
+    let g:mapleader=","
+    nnoremap ; :
+" }
+
+" Functions {
+    " Strip trailing whitepaces
+    function! <SID>StripTrailingWhitespaces()
+        " Preparation: save last search, and cursor position.
+        let _s=@/
+        let l = line(".")
+        let c = col(".")
+        " Do the business:
+        %s/\s\+$//e
+        " Clean up: restore previous search history, and cursor position
+        let @/=_s
+        call cursor(l, c)
+    endfunction
+
+    " Surround visual selections with quotes
+    function! Quote(quote)
+        let save = @"
+        silent normal gvy
+        let @" = a:quote . @" . a:quote
+        silent normal gvp
+        let @" = save
+    endfunction
+
+    " Ensure a dir exists
+    function! EnsureDirExists(dir)
+        if !isdirectory(a:dir)
+            if exists("*mkdir")
+                call mkdir(a:dir,'p')
+                echo "Created directory: " . a:dir
+            else
+                echo "Please create directory: " . a:dir
+            endif
+        endif
+    endfunction
+
+    " Toggle relativenumber and number
+    function! ToggleNumbering()
+        if &relativenumber
+            set number
+            set norelativenumber
+        else
+            set relativenumber
+            set nonumber
+        endif
+    endfunc
+
+    " Remove Bundles
+    function! UnBundle(arg, ...)
+      let bundle = vundle#config#init_bundle(a:arg, a:000)
+      call filter(g:bundles, 'v:val["name_spec"] != "' . a:arg . '"')
+    endfunction
+
+    com! -nargs=+         UnBundle
+    \ call UnBundle(<args>)
+" }
+
+" Vim Backup {
+    set backupdir=~/.vim/.cache/backup
+    set directory=~/.vim/.cache/swap
+    set undodir=~/.vim/.cache/undo
+
+    set backup
+    set swapfile
+
+    call EnsureDirExists(&backupdir)
+    call EnsureDirExists(&directory)
+    call EnsureDirExists(&undodir)
+
+    if has('persistent_undo')
+        set undofile
+        set undolevels=1000
+        set undoreload=10000
+    endif
+" }
+
+" Basic Mappings {
+    nnoremap <C-a> ggvG$            " Select all
+    inoremap <C-v> <ESC> " +gpa<CR> " Ctrl + v compatilibility
+    vnoremap <C-c> " +y<CR>         " Ctrl + c compatilibility
+    vnoremap <C-x> " +x<CR>         " Ctrl + x compatilibility
+    " Sorrounding mappings
+    nnoremap <leader>" ciw""<esc>hp<esc>el
+    nnoremap <leader>' ciw''<esc>hp<esc>el
+    nnoremap <leader>( ciw()<esc>hp<esc>el
+    nnoremap <leader>[ ciw[]<esc>hp<esc>el
+    nnoremap <leader>{ ciw{}<esc>hp<esc>el
+    vmap <silent> <Leader>' :call Quote("'")<CR>
+    vmap <silent> <Leader>" :call Quote('"')<CR>
+    nmap <S-h> :tabprevious <CR>              " Move to the tab at the right
+    nmap <S-l> :tabnext <CR>                  " Move to the tab at the left
+    map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR> " Find merge conflict markers
+    noremap <leader>n :call ToggleNumbering()<cr>
+" }
+
 " UI Configuration {
     colorscheme jellybeans
     set guifont=Droid\ Sans\ Mono\ 09
-    set linespace=1
     set nospell
     set t_Co=256
-    nnoremap ; :
     set nofoldenable
     set showmatch
     set nohidden
-    highlight clear SignColumn      " SignColumn should match background
-    highlight clear LineNr          " Current line number row will have same background color in relative mode
-    " highlight clear CursorLineNr    " Remove highlight color from current line number
-    set backup
-    set swapfile
+    highlight clear SignColumn   " SignColumn should match background
+    highlight clear LineNr       " Current line number row will have same background color in relative mode
     highlight normal ctermbg=none
     highlight nontext ctermbg=none
-
-    function! EnsureDirExists(dir)
-      if !isdirectory(a:dir)
-        if exists("*mkdir")
-          call mkdir(a:dir,'p')
-          echo "Created directory: " . a:dir
-        else
-          echo "Please create directory: " . a:dir
-        endif
-      endif
-    endfunction
-
-    call EnsureDirExists($HOME . '/.vim_backup')
-
-    set backupdir=~/.vim_backup
-    set directory=~/.vim_backup
-    set undodir=~/.vim_backup
-    if has('persistent_undo')
-       set undofile
-       set undolevels=1000
-       set undoreload=10000
-    endif
 " }
 
 " vim-php-cs-fixer configuration {
@@ -56,97 +154,7 @@
 " }
 
 " Striping whitespaces {
-
-    function! <SID>StripTrailingWhitespaces()
-        " Preparation: save last search, and cursor position.
-        let _s=@/
-        let l = line(".")
-        let c = col(".")
-        " Do the business:
-        %s/\s\+$//e
-        " Clean up: restore previous search history, and cursor position
-        let @/=_s
-        call cursor(l, c)
-    endfunction
-
     autocmd BufWritePre *.* :call <SID>StripTrailingWhitespaces()
-
-" }
-
-" Remapping tab navigation {
-    nmap <S-h> :tabprevious <CR>
-    nmap <S-l> :tabnext <CR>
-" }
-
-" Surrounding mappings. {
-    :nnoremap <leader>" ciw""<esc>hp<esc>el
-    :nnoremap <leader>' ciw''<esc>hp<esc>el
-    :nnoremap <leader>( ciw()<esc>hp<esc>el
-    :nnoremap <leader>[ ciw[]<esc>hp<esc>el
-    :nnoremap <leader>{ ciw{}<esc>hp<esc>el
-
-    vmap <silent> <Leader>' :call Quote("'")<CR>
-    vmap <silent> <Leader>" :call Quote('"')<CR>
-    function! Quote(quote)
-        let save = @"
-        silent normal gvy
-        let @" = a:quote . @" . a:quote
-        silent normal gvp
-        let @" = save
-    endfunction
-" }
-
-" Tabularize {
-    vmap <Leader>a= :Tabularize /^[^=]*\zs<CR>
-    vmap <Leader>a> :Tabularize /=><CR>
-    vmap <Leader>a: :Tabularize /:<CR>
-    vmap <Leader>a,, :Tabularize /,\zs<CR>
-" }
-
-" Testing some config {
-    set showcmd
-    set whichwrap+=<,>,h,l,[,]
-" }
-
-" Find merge conflict markers {
-    map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
-" }
-
-" Fugitive {
-    nnoremap <silent> <leader>gs :Gstatus<CR>
-    nnoremap <silent> <leader>gd :Gdiff<CR>
-    nnoremap <silent> <leader>gc :Gcommit<CR>
-    nnoremap <silent> <leader>gb :Gblame<CR>
-    nnoremap <silent> <leader>gl :Glog<CR>
-    nnoremap <silent> <leader>gp :Git push<CR>
-    nnoremap <silent> <leader>gr :Gread<CR>
-    nnoremap <silent> <leader>gw :Gwrite<CR>
-    nnoremap <silent> <leader>ge :Gedit<CR>
-    nnoremap <silent> <leader>gg :SignifyToggle<CR>
-"}
-
-" ToggleNumbering {
-    function! ToggleNumbering()
-      if &relativenumber
-        set number
-        set norelativenumber
-      else
-        set relativenumber
-        set nonumber
-      endif
-    endfunc
-
-    noremap <leader>n :call ToggleNumbering()<cr>
-" }
-
-" UnBundle {
-    function! UnBundle(arg, ...)
-      let bundle = vundle#config#init_bundle(a:arg, a:000)
-      call filter(g:bundles, 'v:val["name_spec"] != "' . a:arg . '"')
-    endfunction
-
-    com! -nargs=+         UnBundle
-    \ call UnBundle(<args>)
 " }
 
 " Remove Bundles {
@@ -158,5 +166,5 @@
 " }
 
 " Commit messages {
-    autocmd Filetype gitcommit setlocal spell textwidth=72
+    autocmd Filetype gitcommit setlocal spell textwidth=80
 " }
