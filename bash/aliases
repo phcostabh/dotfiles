@@ -26,7 +26,7 @@ function untar () {
 
 function authme {
     # ssh $1 '[ ! -e ~/.ssh/ ] && mkdir ~/.ssh 2>/dev/null; cat >>.ssh/authorized_keys' < ~/.ssh/id_rsa.pub
-    [[ -z "$1" ]] && ssh-copy-id -i ~/.ssh/id_rsa.pub "$1"
+    [[ ! -z "$1" ]] && /usr/bin/ssh-copy-id -i ~/.ssh/id_rsa.pub "$1"
 }
 
 function take () {
