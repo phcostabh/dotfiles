@@ -34,18 +34,8 @@ function take () {
     cd $1
 }
 
-function install-macfonts {
-    wget https://www.dropbox.com/s/k5n96eelnt9z83u/macfonts.tar.gz
-    tar zxvf macfonts.tar.gz && sudo cp -r macfonts/ /usr/share/fonts/
-    rm -fr macfonts*
-}
-
 function generate-hash {
-    if [[ -z $1 ]]; then
-        echo -n "$1$(date +%d%m%Y%H%M%S%N)" | openssl sha1
-    else
-        echo -n "$(date +%d%m%Y%H%M%S%N)" | openssl sha1
-    fi
+    echo -n "$1$(date +%d%m%Y%H%M%S%N)" | openssl sha1 | awk '{ print $2 }'
 }
 
 function list-ppa {
