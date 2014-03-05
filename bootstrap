@@ -99,22 +99,14 @@ install_dotfiles () {
     done
 }
 
-clone_vundle () {
-    if [ ! -e "$HOME/.vim/bundle/vundle" ]; then
-        git clone https://github.com/gmarik/vundle.git "$HOME/.vim/bundle/vundle"
+clone_neobundle () {
+    if [ ! -e "$HOME/.vim/bundle/neobundle.vim" ]; then
+	git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
     fi
 }
 
-setup_vundle () {
-    system_shell="$SHELL"
-    export SHELL='/bin/sh'
-    vim --noplugin -u "$HOME/.vim/bundles.vim" -N "+set hidden" "+syntax on" +BundleClean! +BundleInstall +qall
-    export SHELL="$system_shell"
-}
-
 install_dotfiles
-clone_vundle
-setup_vundle
+clone_neobundle
 
 echo ''
 echo '  All installed!'

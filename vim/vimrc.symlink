@@ -1,177 +1,269 @@
-" Vim rather than Vi
-set nocompatible
-syntax on
-let mapleader=","
-
-" Init Vundle
-if filereadable(expand("~/.vim/bundles.vim"))
-    source ~/.vim/bundles.vim
-endif
-
-if filereadable(expand("~/.vimrc.bundles.local"))
-    source ~/.vimrc.bundles.local
-endif
-
-filetype plugin indent on
-
-" General config
-set relativenumber
-set backspace=indent,eol,start
-set history=1000
-set showcmd
-set noshowmode " Use airline
-set visualbell t_vb= " Disable visualbell
-set hidden
-set title
-set fileformats=unix,mac,dos
-set ruler
-set cursorline
-set showmatch
-set t_Co=256
-set mouse=a
-set mousehide
-set pastetoggle=<F2>
-set laststatus=2
-" Searching
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
-set wrapscan
-" Indentation
-set autoindent
-set smartindent
-set smarttab
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
-set expandtab
-" No wrap
-set nowrap
-set linebreak " This is for 'set wrap'
-" No folds
-set nofoldenable
-" Scrolling
-set scrolloff=8
-set sidescrolloff=15
-set sidescroll=1
-
-nnoremap <C-a> ggvG$              " Select all
-inoremap <C-v> <ESC> " +gpa<CR>   " Ctrl + v compatilibility
-vnoremap <C-c> " +y<CR>           " Ctrl + c compatilibility
-vnoremap <C-x> " +x<CR>           " Ctrl + x compatilibility
-" Quick save
-inoremap <Leader>s <ESC>:update<CR>
-nnoremap <Leader>s <ESC>:update<CR>
-" Smart enter and indentation after enter
-inoremap {<cr> {<cr>}<Esc><S-o>
-inoremap [<cr> [<cr>]<Esc><S-o>
-inoremap (<cr> (<cr>)<Esc><S-o>
-" Full file indent
-noremap <Leader>ff <ESC>:normal mzgg=G`zzz<CR>
-" Clear the highlight
-nnoremap <silent> <Leader>h :nohls<CR>
-imap <silent> <Leader>h <ESC><Leader>h
-" Home key goes to first non blank character
-noremap <Home>  ^
-inoremap <Home> <ESC>^<Insert>
-imap <C-a> <Home>
-imap <C-e> <End>
-" Tab navigation
-nnoremap <S-h> :tabprevious<CR>
-nnoremap <S-l> :tabnext<CR>
-nnoremap <silent> <S-PageUp> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
-nnoremap <silent> <S-PageDown> :execute 'silent! tabmove ' . tabpagenr()<CR>
-imap <S-PageUp> <ESC><S-PageUp>a
-imap <S-PageDown> <ESC><S-PageDown>a
-
-" Open new tab
-nnoremap <silent> <Leader>t :tabnew<CR>
-imap <silent> <Leader>t <ESC><Leader>t<Insert>
-" Goes to normal mode
-imap <Leader>n <ESC>
-" Better splitted window navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
-
-" Abbreviations for exit
-cab qw wq
-cab Qw wq
-cab qW wq
-cab QW wq
-cab W  w
-cab Wq wq
-cab wQ wq
-cab WQ wq
-cab Q  q
-cab Wall wall
-cab WAll wall
-cab Qall qall
-cab QAll qall
-
-" ---------------------------------------------------------------------------------------------------"
-" Tell vim to remember certain things when we exit
-"
-"  '10  :  marks will be remembered for up to 10 previously edited files
-"  "100 :  will save up to 100 lines for each register
-"  :20  :  up to 20 lines of command-line history will be remembered
-"  %    :  saves and restores the buffer list
-"  n... :  where to save the viminfo files
-" ---------------------------------------------------------------------------------------------------"
-set viminfo='10,\"100,:20,%,n~/.viminfo
-
-function! ResCur()
-    if line("'\"") <= line("$")
-        normal! g`"
-        return 1
+" Base configuration {
+    set timeoutlen=300                              " mapping timeout
+    set ttimeoutlen=50                              " keycode timeout
+    set mouse=a                                     " enable mouse
+    set mousehide                                   " hide when characters are typed
+    set history=1000                                " number of command lines to remember
+    set ttyfast                                     " assume fast terminal connection
+    set viewoptions=folds,options,cursor,unix,slash " unix/windows compatibility
+    set encoding=utf-8                              " set encoding for text
+    if exists('$TMUX')
+        set clipboard=
+    else
+        set clipboard=unnamed                       " sync with OS clipboard
     endif
-endfunction
+    set hidden                                      " allow buffer switching without saving
+    set autoread                                    " auto reload if file saved externally
+    set nrformats-=octal                            " always assume decimal numbers
+    set showcmd
+    set whichwrap+=<,>,h,l,[,]
+    set tags=tags;/
+    set showfulltag
+    set modeline
+    set modelines=5
 
-" Striping whitespaces
-function! <SID>StripTrailingWhitespaces()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
-endfunction
-autocmd BufWritePre * call <SID>StripTrailingWhitespaces()
+    " whitespace
+    set backspace=indent,eol,start                      "allow backspacing everything in insert mode
+    set autoindent                                      "automatically indent to match adjacent lines
+    set expandtab                                       "spaces instead of tabs
+    set smarttab                                        "use shiftwidth to enter tabs
+    let &tabstop=4                                      "number of spaces per tab for display
+    let &softtabstop=0                                  "number of spaces per tab in insert mode
+    let &shiftwidth=4                                   "number of spaces when indenting
+    set listchars=tab:│\ ,trail:•,extends:❯,precedes:❮
+    set shiftround
+    set linebreak
+    let &showbreak='↪ '
 
-augroup resCur
-    autocmd!
-    autocmd BufWinEnter * call ResCur()
-augroup END
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store
 
-" Set the fileformat
-" don't continue comments when pushing o/O and return carriage
-autocmd FileType * set formatoptions-=o formatoptions-=r
+    " disable sounds
+    set noerrorbells
+    set novisualbell
+    set t_vb=
 
-" Function: Open tag under cursor in new tab
-" Source:   http://stackoverflow.com/questions/563616/vimctags-tips-and-tricks
-map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+    " Searching
+    set hlsearch
+    set incsearch
+    set ignorecase
+    set smartcase
+    set wrapscan
+" }
 
-" Init Bundle Settings
-if filereadable(expand("~/.vim/bundle-settings.vim"))
-    source ~/.vim/bundle-settings.vim
-endif
+" Basic mappings {
+    let mapleader=","
+    let g:mapleader=","
+    nnoremap ; :
+" }
 
-" Setup extra filetypes
-if filereadable(expand("~/.vim/extra-filetypes.vim"))
-    source ~/.vim/extra-filetypes.vim
-endif
+" Custom Functions {
+    " Strip trailing whitepaces
+    function! <SID>StripTrailingWhitespaces()
+        " Preparation: save last search, and cursor position.
+        let _s=@/
+        let l = line(".")
+        let c = col(".")
+        " Do the business:
+        %s/\s\+$//e
+        " Clean up: restore previous search history, and cursor position
+        let @/=_s
+        call cursor(l, c)
+    endfunction
+    autocmd BufWritePre *.* :call <SID>StripTrailingWhitespaces()
 
-if (!has("gui_running"))
-    " Colorscheme
-    colorscheme kellys
-    " Local conf
-    if filereadable(expand("~/.vimrc.local"))
-        source ~/.vimrc.local
+    " Surround visual selections with quotes
+    function! Quote(quote)
+        let save = @"
+        silent normal gvy
+        let @" = a:quote . @" . a:quote
+        silent normal gvp
+        let @" = save
+    endfunction
+
+    " Ensure a dir exists
+    function! EnsureDirExists(dir)
+        let l:dir_path = expand(a:dir)
+        if !isdirectory(l:dir_path)
+            if exists("*mkdir")
+                call mkdir(expand(l:dir_path),'p')
+                echo "Created directory: " . l:dir_path
+            else
+                echo "Please create directory: " . l:dir_path
+            endif
+        endif
+    endfunction
+
+    " Toggle relativenumber and number
+    function! ToggleNumbering()
+        if &relativenumber
+            set number
+            set norelativenumber
+        else
+            set relativenumber
+            set nonumber
+        endif
+    endfunc
+
+    " Remove Bundles
+    function! UnBundle(arg, ...)
+      let bundle = vundle#config#init_bundle(a:arg, a:000)
+      call filter(g:bundles, 'v:val["name_spec"] != "' . a:arg . '"')
+    endfunction
+
+    com! -nargs=+         UnBundle
+    \ call UnBundle(<args>)
+" }
+
+" Vim Backup {
+    set backupdir=~/.cache/vim/backup
+    set directory=~/.cache/vim/swap
+    set undodir=~/.cache/vim/undo
+
+    set backup
+    set swapfile
+
+    call EnsureDirExists(&backupdir)
+    call EnsureDirExists(&directory)
+    call EnsureDirExists(&undodir)
+
+    if has('persistent_undo')
+        set undofile
+        set undolevels=1000
+        set undoreload=10000
     endif
-endif
+" }
 
+" Basic Mappings {
+    nnoremap <C-a> ggvG$            " Select all
+    inoremap <C-v> <ESC> " +gpa<CR> " Ctrl + v compatilibility
+    vnoremap <C-c> " +y<CR>         " Ctrl + c compatilibility
+    vnoremap <C-x> " +x<CR>         " Ctrl + x compatilibility
+
+    " Sorrounding mappings
+    nnoremap <leader>" ciw""<esc>hp<esc>el
+    nnoremap <leader>' ciw''<esc>hp<esc>el
+    nnoremap <leader>( ciw()<esc>hp<esc>el
+    nnoremap <leader>[ ciw[]<esc>hp<esc>el
+    nnoremap <leader>{ ciw{}<esc>hp<esc>el
+    vmap <silent> <Leader>' :call Quote("'")<CR>
+    vmap <silent> <Leader>" :call Quote('"')<CR>
+
+    nmap <S-h> :tabprevious <CR>              " Move to the tab at the right
+    nmap <S-l> :tabnext <CR>                  " Move to the tab at the left
+
+    map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR> " Find merge conflict markers
+
+    noremap <leader>n :call ToggleNumbering()<cr>
+
+    " Sane regex
+    nnoremap / /\v
+    vnoremap / /\v
+    nnoremap ? ?\v
+    vnoremap ? ?\v
+    nnoremap :s/ :s/\v
+
+    " Auto center everything
+    nnoremap <silent> n nzz
+    nnoremap <silent> N Nzz
+    nnoremap <silent> * *zz
+    nnoremap <silent> # #zz
+    nnoremap <silent> g* g*zz
+    nnoremap <silent> g# g#zz
+    nnoremap <silent> <C-o> <C-o>zz
+    nnoremap <silent> <C-i> <C-i>zz
+
+    " reselect visual block after indent
+    vnoremap < <gv
+    vnoremap > >gv
+" }
+
+" UI Configuration {
+    colorscheme jellybeans
+    set guifont=Droid\ Sans\ Mono\ 09
+    set nospell
+    set t_Co=256
+    set nofoldenable
+    set showmatch
+    set nohidden
+    highlight clear SignColumn     " SignColumn should match background
+    highlight clear LineNr         " Current line number row will have same background color in relative mode
+    highlight normal ctermbg=none
+    highlight nontext ctermbg=none
+    set showmatch                  " automatically highlight matching braces/brackets/etc.
+    set matchtime=2                " tens of a second to show matching parentheses
+    set relativenumber
+    set lazyredraw
+    set laststatus=2
+    set noshowmode
+" }
+
+" Setup Vundle {
+    set nocompatible
+    set all& "reset everything to their defaults
+    set rtp+=~/.vim/bundle/neobundle.vim
+    call neobundle#rc(expand('~/.vim/bundle/'))
+    NeoBundleFetch 'Shougo/neobundle.vim'
+
+    " Core {
+        NeoBundle 'bling/vim-airline'
+        NeoBundle 'Shougo/vimproc.vim', {
+            \ 'build': {
+                \ 'unix': 'make -f make_unix.mak',
+            \ },
+        \ }
+    " }
+
+    " Web {
+        NeoBundleLazy 'othree/html5.vim', {'autoload':{'filetypes':['html']}}
+        NeoBundleLazy 'gregsexton/MatchTag', {'autoload':{'filetypes':['html','xml']}}
+        NeoBundleLazy 'mattn/emmet-vim', {'autoload':{'filetypes':['html','css','sass','scss','less']}}
+    " }
+
+    " Javascript {
+        NeoBundleLazy 'marijnh/tern_for_vim', {
+          \ 'autoload': { 'filetypes': ['javascript'] },
+          \ 'build': {
+            \ 'unix': 'npm install',
+          \ },
+        \ }
+        NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
+        NeoBundleLazy 'maksimr/vim-jsbeautify', {'autoload':{'filetypes':['javascript']}}
+        NeoBundleLazy 'leshill/vim-json', {'autoload':{'filetypes':['javascript','json']}}
+        NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}}
+    " }
+
+    " SCM {
+        NeoBundle 'mhinz/vim-signify'
+    " }
+
+    " Autocomplete {
+        NeoBundle 'honza/vim-snippets'
+        NeoBundleLazy 'Shougo/neocomplete.vim', {'autoload':{'insert':1}, 'vim_version':'7.3.885'}
+    " }
+
+    " Editing {
+        NeoBundleLazy 'editorconfig/editorconfig-vim', {'autoload':{'insert':1}}
+        NeoBundle 'tpope/vim-endwise'
+        NeoBundle 'tomtom/tcomment_vim'
+        NeoBundleLazy 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
+        NeoBundle 'jiangmiao/auto-pairs'
+    " }
+
+    " Navigation {
+        NeoBundle 'kien/ctrlp.vim', { 'depends': 'tacahiroy/ctrlp-funky' }
+        NeoBundleLazy 'scrooloose/nerdtree', {'autoload':{'commands':['NERDTreeToggle','NERDTreeFind']}}
+    " }
+
+    " Misc {
+        NeoBundle 'scrooloose/syntastic'
+        NeoBundleLazy 'mattn/gist-vim', { 'depends': 'mattn/webapi-vim', 'autoload': { 'commands': 'Gist' } }
+        NeoBundle 'nanotech/jellybeans.vim'
+    " }
+
+    " Custom vundle configuration
+    for fpath in split(globpath('~/.vim/bundle-settings', '*.vim'), '\n')
+        exec 'source' fpath
+    endfor
+
+    NeoBundleCheck
+" }
