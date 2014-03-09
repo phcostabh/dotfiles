@@ -226,6 +226,7 @@
    " Navigation {
       NeoBundle 'kien/ctrlp.vim', { 'depends': 'tacahiroy/ctrlp-funky' }
       NeoBundleLazy 'scrooloose/nerdtree', {'autoload':{'commands':['NERDTreeToggle','NERDTreeFind']}}
+      NeoBundle 'Shougo/unite.vim'
    " }
 
    " Misc {
