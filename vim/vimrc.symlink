@@ -206,6 +206,17 @@
       NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}}
    " }
 
+   " PHP {
+     NeoBundleLazy 'spf13/PIV', {'autoload':{'filetypes':['php']}}
+     NeoBundleLazy 'stephpy/vim-php-cs-fixer', {'autoload':{'filetypes':['php']}}
+     NeoBundleLazy 'shawncplus/phpcomplete.vim', {'autoload':{'filetypes':['php']}}
+   " }
+
+   " Golang {
+     NeoBundleLazy 'jnwhiteh/vim-golang', {'autoload':{'filetypes':['go']}}
+     NeoBundleLazy 'nsf/gocode', {'autoload': {'filetypes':['go']}, 'rtp': 'vim'}
+   " }
+
    " SCM {
       NeoBundle 'mhinz/vim-signify'
    " }
