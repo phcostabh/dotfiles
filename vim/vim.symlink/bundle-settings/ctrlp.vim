@@ -24,22 +24,3 @@ nnoremap [ctrlp]T :CtrlPTag<cr>
 nnoremap [ctrlp]l :CtrlPLine<cr>
 nnoremap [ctrlp]o :CtrlPFunky<cr>
 nnoremap [ctrlp]b :CtrlPBuffer<cr>
-
-" Search for PHP functions.
-let g:ctrlp_buftag_types={
-    \ 'php': '--PHP-kinds=+f-vc'
-\ }
-
-" Ignore files under .git directory and compiled files.
-let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\.git$',
-    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$\|\.zip$'
-\ }
-
-" Just files tracked by git.
-let g:ctrlp_user_command = {
-    \ 'types':  {
-        \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others']
-    \ },
-    \ 'fallback': s:ctrlp_fallback
-\ }
