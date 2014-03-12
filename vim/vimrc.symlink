@@ -273,6 +273,8 @@
    " }
 
    " Autocomplete {
+      NeoBundle 'Shougo/neosnippet-snippets'
+      NeoBundle 'Shougo/neosnippet.vim'
       NeoBundle 'honza/vim-snippets'
       NeoBundleLazy 'Shougo/neocomplete.vim', {'autoload':{'insert':1}, 'vim_version':'7.3.885'}
    " }
