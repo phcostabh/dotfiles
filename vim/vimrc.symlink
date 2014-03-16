@@ -257,6 +257,10 @@
       NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}}
    " }
 
+   " Ruby {
+     NeoBundleLazy  'vim-ruby/vim-ruby', {'autoload':{'filetypes':['ruby']}}
+   " }
+
    " PHP {
      NeoBundleLazy 'spf13/PIV', {'autoload':{'filetypes':['php']}}
      NeoBundleLazy 'stephpy/vim-php-cs-fixer', {'autoload':{'filetypes':['php']}}
