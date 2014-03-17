@@ -179,10 +179,10 @@
 " }
 
 " Basic Mappings {
-   nnoremap <C-a> ggvG$        " Select all
-   inoremap <C-v> <ESC> " +gpa<CR> " Ctrl + v compatilibility
-   vnoremap <C-c> " +y<CR>      " Ctrl + c compatilibility
-   vnoremap <C-x> " +x<CR>      " Ctrl + x compatilibility
+   nnoremap <C-a> ggvG$         " Select all
+   inoremap <C-v> <ESC> "+gpa   " Ctrl + v compatilibility
+   vnoremap <C-c> "+y           " Ctrl + c compatilibility
+   vnoremap <C-x> "+x           " Ctrl + x compatilibility
 
    " Sorrounding mappings
    nnoremap <leader>" ciw""<esc>hp<esc>el
