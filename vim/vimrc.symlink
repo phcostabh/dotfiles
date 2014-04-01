@@ -43,6 +43,8 @@
    let &showbreak='↪ '
 
    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store
+   set wildignore+=*.jpeg,*.jpg,*.gif                 " Ingnores also images
+   set wildignore+=*.swf                              " And another binary files.
 
    " disable sounds
    set noerrorbells
@@ -225,6 +227,11 @@
        autocmd!
        autocmd BufWinEnter * call ResCur()
    augroup END
+
+   augroup reload_vimrc
+       autocmd!
+       autocmd BufWritePost $MYVIMRC source $MYVIMRC
+   augroup END
 " }
 
 " Setting up Bundles {
@@ -259,6 +266,14 @@
 
    " Ruby {
      NeoBundleLazy  'vim-ruby/vim-ruby', {'autoload':{'filetypes':['ruby']}}
+   " }
+
+   " Lua {
+     NeoBundleLazy 'xolox/vim-lua-ftplugin', {'autoload':{'filetypes':['lua']}}
+   " }
+   "
+   " Moonscript {
+     NeoBundleLazy 'leafo/moonscript-vim', {'autoload':{'filetypes':['moon']}}
    " }
 
    " PHP {
@@ -318,7 +333,7 @@
 
   " UI Configuration {
     colorscheme jellybeans
-    set guifont=Droid\ Sans\ Mono\ 09
+    set guifont=Liberation\ Mono\ 09
     set nospell
     set t_Co=256
     set nofoldenable
