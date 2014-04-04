@@ -265,7 +265,8 @@
    " }
 
    " Ruby {
-     NeoBundleLazy  'vim-ruby/vim-ruby', {'autoload':{'filetypes':['ruby']}}
+     NeoBundleLazy 'vim-ruby/vim-ruby', {'autoload':{'filetypes':['ruby']}}
+     NeoBundleLazy 'sunaku/vim-ruby-minitest', {'autoload':{'filetypes':['ruby']}}
    " }
 
    " Lua {
@@ -317,6 +318,7 @@
       NeoBundleLazy 'mattn/gist-vim', { 'depends': 'mattn/webapi-vim', 'autoload': { 'commands': 'Gist' } }
       NeoBundle 'nanotech/jellybeans.vim'
       NeoBundle 'sickill/vim-monokai'
+      NeoBundle 'slim-template/vim-slim'
    " }
 
 " }
