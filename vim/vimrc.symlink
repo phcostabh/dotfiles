@@ -316,6 +316,7 @@
       NeoBundle 'scrooloose/syntastic'
       NeoBundleLazy 'mattn/gist-vim', { 'depends': 'mattn/webapi-vim', 'autoload': { 'commands': 'Gist' } }
       NeoBundle 'nanotech/jellybeans.vim'
+      NeoBundle 'sickill/vim-monokai'
    " }
 
 " }
