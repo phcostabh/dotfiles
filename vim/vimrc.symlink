@@ -320,7 +320,6 @@
       NeoBundle 'scrooloose/syntastic'
       NeoBundleLazy 'mattn/gist-vim', { 'depends': 'mattn/webapi-vim', 'autoload': { 'commands': 'Gist' } }
       NeoBundle 'nanotech/jellybeans.vim'
-      NeoBundle 'sickill/vim-monokai'
       NeoBundle 'slim-template/vim-slim'
    " }
 
@@ -328,6 +327,7 @@
 
 
 " Wrapping up {
+
   " Custom Bundle configuration
   for fpath in split(globpath('~/.vim/bundle-settings', '*.vim'), '\n')
     exec 'source' fpath
