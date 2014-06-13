@@ -109,8 +109,9 @@ unbind [
 bind Escape copy-mode
 unbind p
 bind p paste-buffer
-bind -t vi-copy 'v' begin-selection
+# bind -t vi-copy 'v' begin-selection
 bind -t vi-copy 'y' copy-selection
+bind-key -t vi-copy 'v' rectangle-toggle
 
 # Log output to a text file on demand
 bind P pipe-pane -o "cat >>~/#W.log" \; display "Toggled logging to ~/#W.log"
