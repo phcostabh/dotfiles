@@ -58,6 +58,9 @@
    set smartcase
    set wrapscan
 
+   " Enable spell checker for git commit
+   autocmd FileType gitcommit set spell spelllang=en_us,pt_br
+
    " ---------------------------------------------------------------------------------------------------"
    " Tell vim to remember certain things when we exit
    "
