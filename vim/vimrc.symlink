@@ -296,8 +296,8 @@
    " }
 
    " Autocomplete {
-      NeoBundle 'Shougo/neosnippet-snippets'
       NeoBundle 'Shougo/neosnippet.vim'
+      NeoBundle 'Shougo/neosnippet-snippets'
       NeoBundle 'honza/vim-snippets'
       NeoBundleLazy 'Shougo/neocomplete.vim', {'autoload':{'insert':1}, 'vim_version':'7.3.885'}
    " }
@@ -314,6 +314,7 @@
       NeoBundle 'kien/ctrlp.vim', { 'depends': 'tacahiroy/ctrlp-funky' }
       NeoBundleLazy 'scrooloose/nerdtree', {'autoload':{'commands':['NERDTreeToggle','NERDTreeFind']}}
       NeoBundle 'Shougo/unite.vim'
+      NeoBundle 'majutsushi/tagbar'
    " }
 
    " Misc {
@@ -321,6 +322,7 @@
       NeoBundleLazy 'mattn/gist-vim', { 'depends': 'mattn/webapi-vim', 'autoload': { 'commands': 'Gist' } }
       NeoBundle 'nanotech/jellybeans.vim'
       NeoBundle 'slim-template/vim-slim'
+      NeoBundle 'tmhedberg/matchit'
    " }
 
 " }
