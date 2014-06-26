@@ -287,8 +287,8 @@
    " }
 
    " Golang {
-     NeoBundleLazy 'jnwhiteh/vim-golang', {'autoload':{'filetypes':['go']}}
-     NeoBundleLazy 'nsf/gocode', {'autoload': {'filetypes':['go']}, 'rtp': 'vim'}
+     NeoBundleLazy 'fatih/vim-go', {'autoload':{'filetypes':['go']}}
+     NeoBundleLazy 'nsf/gocode', {'autoload': {'filetypes':['go']}, 'rtp': 'vim/'}
    " }
 
    " SCM {
