@@ -59,7 +59,7 @@
    set wrapscan
 
    " Enable spell checker for git commit
-   autocmd FileType gitcommit set spell spelllang=en_us,pt_br
+   autocmd FileType gitcommit set spell spelllang=en_us,pt_br textwidth=72
 
    " ---------------------------------------------------------------------------------------------------"
    " Tell vim to remember certain things when we exit
@@ -198,8 +198,8 @@
    vmap <silent> <Leader>' :call Quote("'")<CR>
    vmap <silent> <Leader>" :call Quote('"')<CR>
 
-   nmap <S-h> :tabprevious <CR> "  Move to the tab at the right
-   nmap <S-l> :tabnext <CR>     "  Move to the tab at the left
+   nmap <S-h> :bp <CR> " Move to the tab at the right
+   nmap <S-l> :bn <CR> " Move to the tab at the left
 
    map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR> " Find merge conflict markers
 
@@ -256,11 +256,8 @@
 
    " Javascript {
       NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
-      NeoBundleLazy 'maksimr/vim-jsbeautify', {'autoload':{'filetypes':['javascript']}}
       NeoBundleLazy 'leshill/vim-json', {'autoload':{'filetypes':['javascript','json']}}
       NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}}
-      NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}}
-      NeoBundleLazy 'mephux/vim-jsfmt', {'autoload':{'filetypes':['javascript']}}
       NeoBundleLazy 'marijnh/tern_for_vim', {
                   \ 'autoload': { 'filetypes': ['javascript'] },
                   \ 'build': {
@@ -308,26 +305,25 @@
    " }
 
    " Editing {
-      NeoBundleLazy 'editorconfig/editorconfig-vim', {'autoload':{'insert':1}}
-      NeoBundle 'tpope/vim-endwise'
-      NeoBundle 'tomtom/tcomment_vim'
-      NeoBundleLazy 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
       NeoBundle 'jiangmiao/auto-pairs'
+      NeoBundle 'tomtom/tcomment_vim'
+      NeoBundle 'tpope/vim-endwise'
+      NeoBundleLazy 'editorconfig/editorconfig-vim', {'autoload':{'insert':1}}
+      NeoBundleLazy 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
    " }
 
    " Navigation {
-      NeoBundle 'kien/ctrlp.vim', { 'depends': 'tacahiroy/ctrlp-funky' }
+      NeoBundle 'tacahiroy/ctrlp-funky', { 'depends': 'kien/ctrlp.vim' }
       NeoBundleLazy 'scrooloose/nerdtree', {'autoload':{'commands':['NERDTreeToggle','NERDTreeFind']}}
       NeoBundle 'Shougo/unite.vim'
       NeoBundle 'majutsushi/tagbar'
    " }
 
    " Misc {
-      NeoBundle 'scrooloose/syntastic'
-      NeoBundleLazy 'mattn/gist-vim', { 'depends': 'mattn/webapi-vim', 'autoload': { 'commands': 'Gist' } }
       NeoBundle 'nanotech/jellybeans.vim'
-      NeoBundle 'slim-template/vim-slim'
+      NeoBundle 'scrooloose/syntastic'
       NeoBundle 'tmhedberg/matchit'
+      NeoBundleLazy 'mattn/gist-vim', { 'depends': 'mattn/webapi-vim', 'autoload': { 'commands': 'Gist' } }
    " }
 
 " }
