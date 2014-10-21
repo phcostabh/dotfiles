@@ -43,15 +43,15 @@
     gra  = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --color --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
 
     # workflow helpers
-    done     = !git fetch && git rebase origin/master && git checkout master && git merge @{-1} && git push -u
-    up       = !git fetch origin && git rebase origin/master && git push --force origin $(git rev-parse --abbrev-ref HEAD)
-    a        = !git add -u && git add . && git status
-    rmb      = !sh -c 'git branch -D $1 && git push origin :$1' -
-    cleanup  = !git remote prune origin && git gc --aggressive && git clean -dfx && git stash clear
-    deleted  = log --diff-filter=D --summary
-    amend    = commit --amend -C HEAD
-    # rb       = "!f(){ git rebase -i $(git rev-parse $(git rev-parse --abbrev-ref --symbolic-full-name @{u};)); };f"
-    p        = !git push --force origin $(git rev-parse --abbrev-ref HEAD)
+    a         = !git add -u && git add . && git status
+    amend     = commit --amend -C HEAD
+    cleanup   = !git remote prune origin && git gc --aggressive && git clean -dfx && git stash clear
+    deleted   = log --diff-filter=D --summary
+    done      = !git pull --rebase && git push --force origin
+    p         = !git push --force origin $(git rev-parse --abbrev-ref HEAD)
+    rb        = "!f(){ git rebase -i $(git rev-parse $(git rev-parse --abbrev-ref --symbolic-full-name @{u};)); };f"
+    rmb       = !sh -c 'git branch -D $1 && git push origin :$1' -
+    squashed  = !git chekcout -b squashed_$(git symbolic-ref --short HEAD)
 
     # via http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
     assume       = update-index --assume-unchanged
