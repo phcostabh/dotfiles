@@ -345,6 +345,7 @@
     set guifont=Liberation\ Mono\ 09
     set nospell
     set t_Co=256
+    set foldmethod=indent
     set nofoldenable
     set showmatch
     set nohidden
