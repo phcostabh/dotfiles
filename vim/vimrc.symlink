@@ -258,15 +258,6 @@
       NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
       NeoBundleLazy 'leshill/vim-json', {'autoload':{'filetypes':['javascript','json']}}
       NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}}
-      NeoBundleLazy 'marijnh/tern_for_vim', {
-                  \ 'autoload': { 'filetypes': ['javascript'] },
-                  \ 'build': {
-                  \ 'mac': 'npm install',
-                  \ 'unix': 'npm install',
-                  \ 'cygwin': 'npm install',
-                  \ 'windows': 'npm install',
-                  \ },
-                \ }
    " }
 
    " Ruby {
