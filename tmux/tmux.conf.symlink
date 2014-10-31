@@ -14,9 +14,6 @@ set -g history-limit 5000
 # use vim key bindings
 setw -g mode-keys vi
 
-# enable mouse
-setw -g mode-mouse on
-
 # allow mouse to select which pane to use
 set -g mouse-select-pane on
 
