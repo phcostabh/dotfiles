@@ -55,3 +55,6 @@ function search {
 alias ports='netstat -tulanp'
 alias mount='mount |column -t'
 alias path='echo -e ${PATH//:/\\n}'
+
+# Get OS X Software Updates and Homebrew
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup'
