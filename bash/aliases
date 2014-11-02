@@ -9,10 +9,6 @@ alias update="sudo apt-fast update --quiet; sudo apt-fast upgrade --yes"
 alias unlockdpkg="sudo fuser -vik /var/lib/dpkg/lock; sudo dpkg --configure -a"
 alias cleanpackages="sudo dpkg --get-selections | grep deinstall | sed 's/\t\+.*//g' | xargs sudo dpkg --purge 2> /dev/null"
 
-# Vim (Gvim)
-alias vim="vim --remote-silent"
-alias eg="vim .git/config"
-
 # Tmux
 alias tmux="TERM=screen-256color-bce tmux"
 
