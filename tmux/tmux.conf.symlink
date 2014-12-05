@@ -139,8 +139,16 @@ set -g status-left-length 40
 set -g status-left '#[fg=green]#S#[fg=blue] #I:#P#[default]'
 
 # show hostname, date, time, and battery in right status bar
-set-option -g status-right '#[fg=green]#H#[default] %m/%d/%y %I:%M\
- #[fg=red]#(battery discharging)#[default]#(battery charging)'
+# set-option -g status-right '#[fg=green]#H#[default] %m/%d/%y %I:%M\
+  #[fg=red]#(battery discharging)#[default]#(battery charging)'
+
+# status bar config
+set -g status-left "#h:[#S]"
+set -g status-left-length 50
+set -g status-right-length 50
+set -g status-right "⚡ #(~/bin/tmux-battery) [✉#(~/bin/imap_check.py)] %H:%M %d-%h-%Y"
+setw -g window-status-current-format "|#I:#W|"
+set-window-option -g automatic-rename off
 
 ###########################
 # Colors
