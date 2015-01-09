@@ -135,7 +135,7 @@ set -g status-left '#[fg=green]#S#[fg=blue] #I:#P#[default]'
 # status bar config
 set -g status-left-length 50
 set -g status-right-length 50
-set -g status-left "#h:[#S] #(tmux-mem-cpu-load)#[default]"
+set -g status-left "[#S] #(tmux-mem-cpu-load)#[default]"
 set -g status-right "⚡ #(~/bin/tmux-battery) %H:%M - %d %h %Y"
 setw -g window-status-current-format "|#I:#W|"
 set-window-option -g automatic-rename off
