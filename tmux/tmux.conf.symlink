@@ -147,6 +147,7 @@ setw -g window-status-current-format "#I"
 setw -g window-status-current-attr bold
 setw -g window-status-format "#I"
 set-window-option -g automatic-rename off
+set status-bg default
 
 ###########################
 # Colors
