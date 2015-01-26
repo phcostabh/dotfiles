@@ -142,12 +142,13 @@ set -g status-right-length 50
 set -g status-left "[#S] #(tmux-mem-cpu-load)#[default]"
 set -g status-right "%H:%M - %d %h %Y"
 setw -g window-status-current-bg default
-setw -g window-status-current-fg yellow
+setw -g window-status-current-fg color190
 setw -g window-status-current-format "#I"
 setw -g window-status-current-attr bold
 setw -g window-status-format "#I"
 set-window-option -g automatic-rename off
 set status-bg default
+set status-fg color234
 
 ###########################
 # Colors
