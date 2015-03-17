@@ -2,7 +2,7 @@
 #  Configuration
 ###########################
 
-# use 256 term for pretty colors
+# use 256 term for pretty colours
 set -g default-terminal "xterm"
 
 #setting the delay between prefix and command
@@ -142,19 +142,19 @@ set -g status-right-length 50
 set -g status-left "[#S] #(tmux-mem-cpu-load)#[default]"
 set -g status-right "%H:%M - %d %h %Y"
 setw -g window-status-current-bg default
-setw -g window-status-current-fg color190
+setw -g window-status-current-fg colour190
 setw -g window-status-current-format "#I"
 setw -g window-status-current-attr bold
 setw -g window-status-format "#I"
 set-window-option -g automatic-rename off
 set status-bg default
-set status-fg color234
+set status-fg colour234
 
 ###########################
-# Colors
+# colours
 ###########################
 
-# set color of active pane
+# set colour of active pane
 set -g pane-border-fg colour235
 set -g pane-border-bg black
 set -g pane-active-border-fg colour166
