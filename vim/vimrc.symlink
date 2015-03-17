@@ -257,6 +257,7 @@
 
    " Javascript {
       NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
+      NeoBundleLazy 'maksimr/vim-jsbeautify', {'autoload':{'filetypes':['javascript']}}
       NeoBundleLazy 'leshill/vim-json', {'autoload':{'filetypes':['javascript','json']}}
       NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}}
    " }
@@ -313,6 +314,7 @@
 
    " Misc {
       NeoBundle 'nanotech/jellybeans.vim'
+      NeoBundle 'fatih/molokai'
       NeoBundle 'scrooloose/syntastic'
       NeoBundle 'tmhedberg/matchit'
       NeoBundleLazy 'mattn/gist-vim', { 'depends': 'mattn/webapi-vim', 'autoload': { 'commands': 'Gist' } }
@@ -335,15 +337,14 @@
 
   " UI Configuration {
     colorscheme jellybeans
-    set guifont=Liberation\ Mono\ 09
     set nospell
     set t_Co=256
-    set foldmethod=indent
     set nofoldenable
     set showmatch
     set nohidden
     highlight clear SignColumn     " SignColumn should match background
     highlight clear LineNr         " Current line number row will have same background color in relative mode
+    highlight LineNr ctermfg=237
     highlight normal ctermbg=none
     highlight nontext ctermbg=none
     set showmatch                  " automatically highlight matching braces/brackets/etc.
