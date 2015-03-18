@@ -25,6 +25,7 @@
     rb   = rebase
     rc   = rebase --continue
     rs   = rebase --skip
+    delbr = "!f() { git branch --merged | grep -v master | xargs -0 -I{} git rmb {} } "
 
     # log
     l = log --graph --date=short
@@ -40,15 +41,14 @@
 
     # finding files and in files
     f    = "!git ls-files | grep -i"
-    gra  = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --color --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
+    gra  = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --color --full-name -In $1 | xargs -0 -I{} echo $TOPLEVEL/{} && cd $A; }; f"
 
     # workflow helpers
     a         = !git add -u && git add . && git status
     amend     = commit --amend -C HEAD
     cleanup   = !git remote prune origin && git gc --aggressive && git clean -dfx && git stash clear
     deleted   = log --diff-filter=D --summary
-    done      = !git pull --rebase && git push --force origin
-    p         = !git push --force origin $(git rev-parse --abbrev-ref HEAD)
+    done      = !git pull --rebase && git push --force origin $(git rev-parse --abbrev-ref HEAD)
     rb        = "!f(){ git rebase -i $(git rev-parse $(git rev-parse --abbrev-ref --symbolic-full-name @{u};)); };f"
     rmb       = !sh -c 'git branch -D $1 && git push origin :$1' -
     squashed  = !git chekcout -b squashed_$(git symbolic-ref --short HEAD)
