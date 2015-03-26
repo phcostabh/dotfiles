@@ -290,6 +290,14 @@
       NeoBundle 'mhinz/vim-signify'
    " }
 
+   " Nginx {
+      NeoBundle 'vim-scripts/nginx.vim'
+   " }
+
+   " SQL {
+     NeoBundleLazy 'vim-scripts/dbext.vim', {'autoload':{'filetypes':['sql']}}
+   " }
+
    " Autocomplete {
       NeoBundle 'Shougo/neosnippet.vim'
       NeoBundle 'Shougo/neosnippet-snippets'
@@ -301,6 +309,7 @@
       NeoBundle 'jiangmiao/auto-pairs'
       NeoBundle 'tomtom/tcomment_vim'
       NeoBundle 'tpope/vim-endwise'
+      NeoBundle 'terryma/vim-multiple-cursors'
       NeoBundleLazy 'editorconfig/editorconfig-vim', {'autoload':{'insert':1}}
       NeoBundleLazy 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
    " }
@@ -317,6 +326,7 @@
       NeoBundle 'fatih/molokai'
       NeoBundle 'scrooloose/syntastic'
       NeoBundle 'tmhedberg/matchit'
+      NeoBundle 'ekalinin/Dockerfile.vim'
       NeoBundleLazy 'mattn/gist-vim', { 'depends': 'mattn/webapi-vim', 'autoload': { 'commands': 'Gist' } }
    " }
 

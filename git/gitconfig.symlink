@@ -25,7 +25,6 @@
     rb   = rebase
     rc   = rebase --continue
     rs   = rebase --skip
-    delbr = "!f() { git branch --merged | grep -v master | xargs -0 -I{} git rmb {} } "
 
     # log
     l = log --graph --date=short
@@ -50,7 +49,7 @@
     deleted   = log --diff-filter=D --summary
     done      = !git pull --rebase && git push --force origin $(git rev-parse --abbrev-ref HEAD)
     rb        = "!f(){ git rebase -i $(git rev-parse $(git rev-parse --abbrev-ref --symbolic-full-name @{u};)); };f"
-    rmb       = !sh -c 'git branch -D $1 && git push origin :$1' -
+    rmb       = !sh -c 'git branch -D $@ && git push origin :$@' -
     squashed  = !git chekcout -b squashed_$(git symbolic-ref --short HEAD)
 
     # via http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
