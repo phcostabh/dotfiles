@@ -4,10 +4,11 @@
 
 (load-theme 'ujelly t)
 
-(require 'init-php-mode)
-
 ;;; Enter comand mode when typing ";"
 (define-key evil-normal-state-map (kbd ";") 'evil-ex)
+(define-key evil-normal-state-map (kbd "C-p") nil)
+(define-key evil-insert-state-map (kbd "C-p") nil)
+(define-key evil-normal-state-map (kbd "<SPC>f") 'file-fuzzy-finder)
 
 ;;; Remove background color when in terminal.
 (defun on-after-init ()
@@ -18,10 +19,9 @@
 ;;; Remember the cursor position of files when reopening them
 (setq save-place-file "~/.cache/emacs/saveplace")
 (setq-default save-place t)
-(require 'saveplace)
 
-;;; Select last yanked text
-(evil-leader/set-key "V" 'exchange-point-and-mark)
+(require 'saveplace)
+(require 'init-php-mode)
 
 (provide 'init-local-config)
 ;;;
