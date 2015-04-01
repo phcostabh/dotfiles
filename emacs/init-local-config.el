@@ -20,6 +20,16 @@
 (setq save-place-file "~/.cache/emacs/saveplace")
 (setq-default save-place t)
 
+;;; Stop showing flycheck messages in a separate buffer.
+(remove-hook 'before-save-hook #'add-flycheck-list-hook)
+
+; (require-package 'multiple-cursors)
+; (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+; (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+; (global-set-key (kbd "C-,") 'mc/mark-all-like-this-dwim)
+; (global-set-key (kbd "C-;") 'mc/mark-more-like-this-extended)
+; (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
+
 (require 'saveplace)
 (require 'init-php-mode)
 
