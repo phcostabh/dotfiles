@@ -10,6 +10,10 @@
 (define-key evil-insert-state-map (kbd "C-p") nil)
 (define-key evil-normal-state-map (kbd "<SPC>f") 'file-fuzzy-finder)
 
+(require-package 'keyfreq)
+(keyfreq-mode 1)
+(keyfreq-autosave-mode 1)
+
 ;;; Remove background color when in terminal.
 (defun on-after-init ()
   (unless (display-graphic-p (selected-frame))
