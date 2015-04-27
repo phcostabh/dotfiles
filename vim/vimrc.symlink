@@ -260,6 +260,7 @@
       NeoBundleLazy 'maksimr/vim-jsbeautify', {'autoload':{'filetypes':['javascript']}}
       NeoBundleLazy 'leshill/vim-json', {'autoload':{'filetypes':['javascript','json']}}
       NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}}
+      NeoBundleLazy 'jelera/vim-javascript-syntax', { 'autoload':{'filetypes':['javascript']} }
    " }
 
    " Ruby {
@@ -309,9 +310,9 @@
       NeoBundle 'jiangmiao/auto-pairs'
       NeoBundle 'tomtom/tcomment_vim'
       NeoBundle 'tpope/vim-endwise'
-      NeoBundle 'terryma/vim-multiple-cursors'
       NeoBundleLazy 'editorconfig/editorconfig-vim', {'autoload':{'insert':1}}
       NeoBundleLazy 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
+      NeoBundle 'terryma/vim-multiple-cursors'
    " }
 
    " Navigation {
