@@ -261,6 +261,7 @@
       NeoBundleLazy 'leshill/vim-json', {'autoload':{'filetypes':['javascript','json']}}
       NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload':{'filetypes':['coffee']}}
       NeoBundleLazy 'jelera/vim-javascript-syntax', { 'autoload':{'filetypes':['javascript']} }
+      NeoBundleLazy 'wookiehangover/jshint.vim', { 'autoload':{'filetypes':['javascript']} }
    " }
 
    " Ruby {
