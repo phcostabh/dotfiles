@@ -16,6 +16,7 @@
      ;; Example of useful layers you may want to use right away
      ;; Uncomment a layer name and press C-c C-c to install it
      ;; --------------------------------------------------------
+     themes-megapack
      auto-completion
      better-defaults
      (git :variables
@@ -76,7 +77,7 @@ before layers configuration."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Liberation Mono"
-                               :size 13
+                               :size 14
                                :weight semi-bold
                                :width normal
                                :powerline-scale 1.1)
@@ -183,7 +184,7 @@ before layers configuration."
 layers configuration."
   (global-linum-mode t)
   (global-vi-tilde-fringe-mode t)
-  (setq line-spacing 3)
+  (setq line-spacing 1)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
