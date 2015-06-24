@@ -16,6 +16,7 @@
      ;; Example of useful layers you may want to use right away
      ;; Uncomment a layer name and press C-c C-c to install it
      ;; --------------------------------------------------------
+     emacs-lisp
      themes-megapack
      auto-completion
      better-defaults
@@ -31,6 +32,9 @@
      dockerfile
      evil-commentary
      html
+     lua
+     lisp
+     erlang-elixir
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -66,11 +70,9 @@ before layers configuration."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(monokai
-                         solarized-light
-                         solarized-dark
-                         leuven
-                         zenburn)
+   dotspacemacs-themes '(zenburn
+                         ujelly
+                         monokai)
 
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -143,9 +145,6 @@ before layers configuration."
    )
   ;; User initialization goes here
 
-  (unless (display-graphic-p (selected-frame))
-    (set-face-background 'default "unspecified-bg" (selected-frame)))
-
   (defun php-cs-fixer ()
     (interactive)
     (setq filename (buffer-file-name (current-buffer)))
@@ -165,13 +164,12 @@ before layers configuration."
 
   (add-hook 'go-mode-hook 'my-go-mode-hook)
 
+  ;; js-beautify hooks
   (package-install 'web-beautify)
-
   (eval-after-load 'js2-mode
     '(add-hook 'js2-mode-hook
                (lambda ()
                  (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
-
   (eval-after-load 'json-mode
     '(add-hook 'json-mode-hook
                (lambda ()
@@ -185,6 +183,9 @@ layers configuration."
   (global-linum-mode t)
   (global-vi-tilde-fringe-mode t)
   (setq line-spacing 1)
+
+  (unless (display-graphic-p (selected-frame))
+    (set-face-background 'default "unspecified-bg" (selected-frame)))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
