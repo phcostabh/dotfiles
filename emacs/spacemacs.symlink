@@ -36,6 +36,15 @@
      lisp
      erlang-elixir
      )
+   ;; List of additional packages that will be installed wihout being
+   ;; wrapped in a layer. If you need some configuration for these
+   ;; packages then consider to create a layer, you can also put the
+   ;; configuration in `dotspacemacs/config'.
+   dotspacemacs-additional-packages
+   '(
+     web-beautify
+     nginx-mode
+     )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -80,7 +89,7 @@ before layers configuration."
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Liberation Mono"
                                :size 14
-                               :weight semi-bold
+                               :weight normal
                                :width normal
                                :powerline-scale 1.1)
    ;; The leader key
@@ -165,7 +174,6 @@ before layers configuration."
   (add-hook 'go-mode-hook 'my-go-mode-hook)
 
   ;; js-beautify hooks
-  (package-install 'web-beautify)
   (eval-after-load 'js2-mode
     '(add-hook 'js2-mode-hook
                (lambda ()
@@ -174,6 +182,9 @@ before layers configuration."
     '(add-hook 'json-mode-hook
                (lambda ()
                  (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
+
+  (unless (display-graphic-p (selected-frame))
+    (set-face-background 'default "unspecified-bg" (selected-frame)))
   )
 
 (defun dotspacemacs/config ()
@@ -182,10 +193,7 @@ before layers configuration."
 layers configuration."
   (global-linum-mode t)
   (global-vi-tilde-fringe-mode t)
-  (setq line-spacing 1)
-
-  (unless (display-graphic-p (selected-frame))
-    (set-face-background 'default "unspecified-bg" (selected-frame)))
+  (setq line-spacing 2)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
