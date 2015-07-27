@@ -72,3 +72,7 @@
 	algorithm = patience
 [github]
 	user = phcostabh
+	password = Xm7*Ay6!
+	oauth-token = bd0081db9215e9408b71bbc08b21b58ec7348698
+[gc]
+	auto = 0

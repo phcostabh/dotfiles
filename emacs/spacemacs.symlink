@@ -17,7 +17,6 @@
      ;; Uncomment a layer name and press C-c C-c to install it
      ;; --------------------------------------------------------
      emacs-lisp
-     themes-megapack
      auto-completion
      better-defaults
      (git :variables
@@ -44,6 +43,8 @@
    '(
      web-beautify
      nginx-mode
+     ujelly-theme
+     color-theme-sanityinc-tomorrow
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -79,9 +80,10 @@ before layers configuration."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(hc-zenburn
-                         ujelly
-                         monokai)
+   dotspacemacs-themes '(wombat
+                         sanityinc-tomorrow-night
+                         hc-zenburn
+                         ujelly)
 
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -161,7 +163,7 @@ before layers configuration."
     (revert-buffer t t))
 
   (add-hook 'php-mode-hook (lambda ()
-    (add-hook 'after-save-hook 'php-cs-fixer t t)))
+                             (add-hook 'after-save-hook 'php-cs-fixer t t)))
 
   (defun my-go-mode-hook ()
     (setq gofmt-command "goimports")
@@ -185,6 +187,11 @@ before layers configuration."
 
   (unless (display-graphic-p (selected-frame))
     (set-face-background 'default "unspecified-bg" (selected-frame)))
+
+  (defun my-tab ()
+    (interactive)
+    (when (null (yas-expand))
+      (tab-to-tab-stop)))
   )
 
 (defun dotspacemacs/config ()
@@ -197,10 +204,13 @@ layers configuration."
   (setq-default fill-column 80)
   (setq default-frame-alist
         '(
-          (width . 100)
-          (height . 55)
+          (width . 120)
+          (height . 60)
           ))
-)
+
+  (evil-define-key 'insert yas-minor-mode-map (kbd "<tab>") 'my-tab)
+
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
