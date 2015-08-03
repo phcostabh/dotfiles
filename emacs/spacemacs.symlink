@@ -5,7 +5,7 @@
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration."
   (setq-default
-   ;; List of additional paths where to look for configuration layers.
+  ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load. If it is the symbol `all' instead
@@ -16,24 +16,24 @@
      ;; Example of useful layers you may want to use right away
      ;; Uncomment a layer name and press C-c C-c to install it
      ;; --------------------------------------------------------
-     emacs-lisp
+     ansible
      auto-completion
      better-defaults
-     (git :variables
-          git-gutter-use-fringe t)
+     clojure
+     dockerfile
+     emacs-lisp
+     erlang-elixir
+     evil-commentary
+     go
+     html
+     javascript
+     lisp
+     lua
      markdown
      org
-     syntax-checking
-     go
-     javascript
      php
-     ansible
-     dockerfile
-     evil-commentary
-     html
-     lua
-     lisp
-     erlang-elixir
+     syntax-checking
+     version-control
      )
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
@@ -41,10 +41,10 @@
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages
    '(
-     web-beautify
+     color-theme-sanityinc-tomorrow
      nginx-mode
      ujelly-theme
-     color-theme-sanityinc-tomorrow
+     web-beautify
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -153,6 +153,8 @@ before layers configuration."
    ;; specified with an installed package.
    ;; Not used for now.
    dotspacemacs-default-package-repository nil
+   ;; Escape to normal mode-line
+   evil-escape-key-sequence "jk"
    )
   ;; User initialization goes here
 
@@ -200,16 +202,17 @@ before layers configuration."
 layers configuration."
   (global-linum-mode t)
   (global-vi-tilde-fringe-mode t)
-  (setq line-spacing 2)
+  (setq-default line-spacing 0.1)
   (setq-default fill-column 80)
-  (setq default-frame-alist
-        '(
-          (width . 120)
-          (height . 60)
-          ))
+
+  (unless (string-equal system-type "gnu/linux")
+    (progn (setq default-frame-alist
+                 '(
+                   (width . 120)
+                   (height . 60)
+                   ))))
 
   (evil-define-key 'insert yas-minor-mode-map (kbd "<tab>") 'my-tab)
-
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
