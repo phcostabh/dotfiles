@@ -21,8 +21,9 @@
      better-defaults
      clojure
      dockerfile
+     elixir
      emacs-lisp
-     erlang-elixir
+     erlang
      evil-commentary
      go
      html
@@ -32,6 +33,7 @@
      markdown
      org
      php
+     ruby
      syntax-checking
      version-control
      )
@@ -41,10 +43,10 @@
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages
    '(
-     color-theme-sanityinc-tomorrow
      nginx-mode
-     ujelly-theme
      web-beautify
+     sublime-themes
+     darcula-theme
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -80,16 +82,17 @@ before layers configuration."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(wombat
-                         sanityinc-tomorrow-night
+   dotspacemacs-themes '(
+                         brin
+                         wombat
                          hc-zenburn
-                         ujelly)
+                         )
 
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Liberation Mono"
+   dotspacemacs-default-font '("Cousine"
                                :size 14
                                :weight normal
                                :width normal
@@ -205,7 +208,7 @@ layers configuration."
   (setq-default line-spacing 0.1)
   (setq-default fill-column 80)
 
-  (unless (string-equal system-type "gnu/linux")
+  (if (string-equal system-type "gnu/linux")
     (progn (setq default-frame-alist
                  '(
                    (width . 120)
@@ -213,6 +216,7 @@ layers configuration."
                    ))))
 
   (evil-define-key 'insert yas-minor-mode-map (kbd "<tab>") 'my-tab)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
