@@ -5,7 +5,7 @@
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration."
   (setq-default
-  ;; List of additional paths where to look for configuration layers.
+   ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load. If it is the symbol `all' instead
@@ -47,6 +47,7 @@
      web-beautify
      sublime-themes
      darcula-theme
+     ujelly
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -83,6 +84,7 @@ before layers configuration."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                         ujelly
                          brin
                          wombat
                          hc-zenburn
@@ -209,11 +211,11 @@ layers configuration."
   (setq-default fill-column 80)
 
   (if (string-equal system-type "gnu/linux")
-    (progn (setq default-frame-alist
-                 '(
-                   (width . 120)
-                   (height . 60)
-                   ))))
+      (progn (setq default-frame-alist
+                   '(
+                     (width . 120)
+                     (height . 60)
+                     ))))
 
   (evil-define-key 'insert yas-minor-mode-map (kbd "<tab>") 'my-tab)
 
