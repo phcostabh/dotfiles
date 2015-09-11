@@ -210,7 +210,7 @@ layers configuration."
   (setq-default line-spacing 0.1)
   (setq-default fill-column 80)
 
-  (if (string-equal system-type "gnu/linux")
+  (when (string-equal system-type "gnu/linux")
       (progn (setq default-frame-alist
                    '(
                      (width . 120)
