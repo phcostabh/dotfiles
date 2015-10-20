@@ -219,6 +219,12 @@ layers configuration."
 
   (evil-define-key 'insert yas-minor-mode-map (kbd "<tab>") 'my-tab)
 
+  ;; nmap ; :
+  ;; vmap ; :
+  (define-key evil-normal-state-map (kbd ";") 'evil-ex)
+  (define-key evil-visual-state-map (kbd ";") 'evil-ex)
+  (define-key evil-motion-state-map (kbd ";") 'evil-ex)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
