@@ -29,3 +29,6 @@ _completemarks() {
 }
 
 complete -F _completemarks jump unmark
+
+# void duplicates..
+export HISTCONTROL=ignoreboth:erasedups
