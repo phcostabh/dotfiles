@@ -25,10 +25,10 @@
      emacs-lisp
      erlang
      evil-commentary
+     git
      go
      html
      javascript
-     lisp
      lua
      markdown
      org
@@ -47,7 +47,7 @@
      web-beautify
      sublime-themes
      darcula-theme
-     ujelly
+     ujelly-theme
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -84,8 +84,8 @@ before layers configuration."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         ujelly
                          brin
+                         ujelly
                          wombat
                          hc-zenburn
                          )
@@ -177,7 +177,7 @@ before layers configuration."
     (add-hook 'before-save-hook 'gofmt-before-save)
     (if (not (string-match "go" compile-command))
         (set (make-local-variable 'compile-command)
-             "go build -v && go test -v && go vet"))
+             "go build -v && go test -v && go tool vet --composites=false"))
     (local-set-key (kbd "M-.") 'godef-jump))
 
   (add-hook 'go-mode-hook 'my-go-mode-hook)
@@ -211,11 +211,11 @@ layers configuration."
   (setq-default fill-column 80)
 
   (when (string-equal system-type "gnu/linux")
-      (progn (setq default-frame-alist
-                   '(
-                     (width . 120)
-                     (height . 60)
-                     ))))
+    (progn (setq default-frame-alist
+                 '(
+                   (width . 120)
+                   (height . 60)
+                   ))))
 
   (evil-define-key 'insert yas-minor-mode-map (kbd "<tab>") 'my-tab)
 
