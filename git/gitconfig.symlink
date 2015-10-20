@@ -76,3 +76,5 @@
 	oauth-token = bd0081db9215e9408b71bbc08b21b58ec7348698
 [gc]
 	auto = 0
+[url "git@github.com:"]
+	insteadOf = https://github.com/
