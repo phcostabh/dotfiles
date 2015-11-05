@@ -71,6 +71,7 @@
    let mapleader=","
    let g:mapleader=","
    nnoremap ; :
+   imap jk <ESC>
 " }
 
 " Custom Functions {
