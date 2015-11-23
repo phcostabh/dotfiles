@@ -75,6 +75,16 @@ function godeps () {
     go list -f '{{join .Deps "\n"}}' | xargs go list -f '{{ if not .Standard }}{{ .ImportPath }}{{ end }}'
 }
 
+function randompwd() {
+    if [ ! -z "$1" ];  then
+        length=$1
+    else
+        length=20
+    fi
+
+    tr -cd '[:alnum:]' < /dev/urandom | fold -w"$length" | head -n1
+}
+
 alias ports='netstat -tulanp'
 alias mount='mount |column -t'
 alias path='echo -e ${PATH//:/\\n}'

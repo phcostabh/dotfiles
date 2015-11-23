@@ -32,3 +32,4 @@ complete -F _completemarks jump unmark
 
 # void duplicates..
 export HISTCONTROL=ignoreboth:erasedups
+export TERM=xterm-256color
