@@ -49,6 +49,7 @@
      dracula-theme
      ujelly-theme
      monokai-theme
+     gist
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -85,11 +86,10 @@ before layers configuration."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         darcula
+                         dracula
                          brin
                          ujelly
                          wombat
-                         hc-zenburn
                          )
 
    ;; If non nil the cursor color matches the state color.
@@ -198,6 +198,9 @@ before layers configuration."
     (interactive)
     (when (null (yas-expand))
       (tab-to-tab-stop)))
+
+  (add-to-list 'auto-mode-alist '("/nginx/sites-\\(?:available\\|enabled\\)/" . nginx-mode))
+
   )
 
 (defun dotspacemacs/config ()

@@ -64,11 +64,11 @@ function json() {
 }
 
 function clean-images () {
-    docker rmi $(docker images -a -f dangling=true -q)
+    docker rmi -f $(docker images -a -f dangling=true -q)
 }
 
 function clean-containers () {
-    docker rm $(docker ps -a -f status=exited -q)
+    docker rm -f $(docker ps -a -f status=exited -q)
 }
 
 function godeps () {
