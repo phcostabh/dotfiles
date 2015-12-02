@@ -82,7 +82,7 @@ function randompwd() {
         length=20
     fi
 
-    tr -cd '[:alnum:]' < /dev/urandom | fold -w"$length" | head -n1
+    env LC_CTYPE=C tr -dc "a-zA-Z0-9" < /dev/urandom | head -c "$length"
 }
 
 alias ports='netstat -tulanp'
