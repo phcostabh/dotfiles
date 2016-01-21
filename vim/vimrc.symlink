@@ -273,7 +273,7 @@
    " Lua {
      NeoBundleLazy 'xolox/vim-lua-ftplugin', {'autoload':{'filetypes':['lua']}}
    " }
-   "
+
    " Moonscript {
      NeoBundleLazy 'leafo/moonscript-vim', {'autoload':{'filetypes':['moon']}}
    " }
@@ -331,7 +331,13 @@
       NeoBundle 'scrooloose/syntastic'
       NeoBundle 'tmhedberg/matchit'
       NeoBundle 'ekalinin/Dockerfile.vim'
+      NeoBundle 'xolox/vim-misc'
       NeoBundleLazy 'mattn/gist-vim', { 'depends': 'mattn/webapi-vim', 'autoload': { 'commands': 'Gist' } }
+   " }
+
+   " Typescript {
+     NeoBundleLazy 'leafgarland/typescript-vim', {'autoload':{'filetypes':['typescript']}}
+     NeoBundleLazy 'Quramy/tsuquyomi', {'autoload':{'filetypes':['typescript']}}
    " }
 
    call neobundle#end()
