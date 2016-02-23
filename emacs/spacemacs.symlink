@@ -20,9 +20,7 @@
      auto-completion
      better-defaults
      dockerfile
-     elixir
      emacs-lisp
-     erlang
      evil-commentary
      git
      go
@@ -30,7 +28,6 @@
      javascript
      lua
      markdown
-     org
      php
      ruby
      syntax-checking
@@ -47,9 +44,8 @@
      web-beautify
      sublime-themes
      dracula-theme
-     ujelly-theme
-     monokai-theme
      gist
+     fzf
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -97,9 +93,9 @@ before layers configuration."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Cousine"
-                               :size 13
-                               :weight normal
-                               :width normal
+                               :size 14
+                               :weight semi-bold
+                               :width condensed
                                :powerline-scale 1.1)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
@@ -201,6 +197,8 @@ before layers configuration."
 
   (add-to-list 'auto-mode-alist '("/nginx/sites-\\(?:available\\|enabled\\)/" . nginx-mode))
 
+  (add-hook 'term-mode-hook 'evil-emacs-state)
+
   )
 
 (defun dotspacemacs/config ()
@@ -209,14 +207,14 @@ before layers configuration."
 layers configuration."
   (global-linum-mode t)
   (global-vi-tilde-fringe-mode t)
-  (setq-default line-spacing 0.1)
+  (setq-default line-spacing 0.15)
   (setq-default fill-column 80)
 
   (when (string-equal system-type "gnu/linux")
     (progn (setq default-frame-alist
                  '(
                    (width . 120)
-                   (height . 60)
+                   (height . 55)
                    ))))
 
   (evil-define-key 'insert yas-minor-mode-map (kbd "<tab>") 'my-tab)
@@ -230,6 +228,8 @@ layers configuration."
   (unless (display-graphic-p)
     (load-theme 'ujelly t)
     (set-face-background 'default "unspecified-bg" (selected-frame)))
+
+  (evil-leader/set-key "pf" 'fzf)
 
   )
 
