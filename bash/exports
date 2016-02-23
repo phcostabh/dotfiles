@@ -13,3 +13,5 @@ export HISTCONTROL='ignoreboth:erasedups';
 # Always enable colored `grep` output.
 export GREP_OPTIONS='--color=auto';
 
+export FZF_DEFAULT_COMMAND='git ls-files || ag --hidden -g "" || find .'
+export FZF_CTRL_T_COMMAND='git ls-files || ag --hidden -g "" || find . -type f'
