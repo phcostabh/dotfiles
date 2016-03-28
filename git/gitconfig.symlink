@@ -62,6 +62,7 @@
     theirs       = "!f() { git co --theirs $@ && git add $@; }; f"
     snapshot     = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
     snapshots    = !git stash list --grep snapshot
+	yolo = !git commit -m \"$(curl -s whatthecommit.com/index.txt)\"
 [push]
 	default = current
 [apply]
