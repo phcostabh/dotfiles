@@ -8,6 +8,7 @@ alias clean="sudo apt-fast autoremove; sudo apt-fast autoclean; sudo apt-fast pu
 alias update="sudo apt-fast update --quiet; sudo apt-fast upgrade --yes"
 alias unlockdpkg="sudo fuser -vik /var/lib/dpkg/lock; sudo dpkg --configure -a"
 alias cleanpackages="sudo dpkg --get-selections | grep deinstall | sed 's/\t\+.*//g' | xargs sudo dpkg --purge 2> /dev/null"
+alias ducks='du -hsx * | sort -rh | head -10'
 
 # Tmux
 alias tmux="TERM=screen-256color-bce tmux"
@@ -57,7 +58,7 @@ function tmux-colors {
 # Usage: `json '{"foo":42}'` or `echo '{"foo":42}' | json`
 function json() {
     if [ -t 0  ]; then # argument
-        python -mjson.tool <<< "$*" 
+        python -mjson.tool <<< "$*"
     else # pipe
         python -mjson.tool
     fi;
@@ -182,4 +183,3 @@ function docker-volume-restore() {
   echo "Double checking files..."
   docker run --rm -v /tmp:/backup --volumes-from "$1" busybox ls -lh "${@:2}"
 }
- 
