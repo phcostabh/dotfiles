@@ -29,7 +29,6 @@
      lua
      markdown
      php
-     ruby
      syntax-checking
      version-control
      yaml
@@ -47,6 +46,7 @@
      ujelly-theme
      gist
      fzf
+     exec-path-from-shell
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -233,6 +233,10 @@ layers configuration."
 
   (evil-leader/set-key "pf" 'fzf)
 
+  ;; disable jshint since we prefer eslint checking
+  (setq-default flycheck-disabled-checkers
+                (append flycheck-disabled-checkers
+                        '(javascript-jshint)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
