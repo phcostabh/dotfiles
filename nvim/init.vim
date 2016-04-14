@@ -72,32 +72,10 @@
    let g:mapleader=","
    nnoremap ; :
    imap jk <ESC>
+   imap fd <ESC>
 " }
 
 " Custom Functions {
-   " Strip trailing whitepaces
-   function! <SID>StripTrailingWhitespaces()
-      " Preparation: save last search, and cursor position.
-      let _s=@/
-      let l = line(".")
-      let c = col(".")
-      " Do the business:
-      %s/\s\+$//e
-      " Clean up: restore previous search history, and cursor position
-      let @/=_s
-      call cursor(l, c)
-   endfunction
-   autocmd BufWritePre *.* :call <SID>StripTrailingWhitespaces()
-
-   " Surround visual selections with quotes
-   function! Quote(quote)
-      let save = @"
-      silent normal gvy
-      let @" = a:quote . @" . a:quote
-      silent normal gvp
-      let @" = save
-   endfunction
-
    " Ensure a dir exists
    function! EnsureDirExists(dir)
       let l:dir_path = expand(a:dir)
@@ -121,13 +99,6 @@
         set nonumber
       endif
    endfunc
-
-   function! ResCur()
-       if line("'\"") <= line("$")
-           normal! g`"
-           return 1
-       endif
-   endfunction
 
    " Set tabstop, softtabstop and shiftwidth to the same value
    command! -nargs=* Stab call Stab()
@@ -189,8 +160,6 @@
    nnoremap <leader>( ciw()<esc>hp<esc>el
    nnoremap <leader>[ ciw[]<esc>hp<esc>el
    nnoremap <leader>{ ciw{}<esc>hp<esc>el
-   vmap <silent> <Leader>' :call Quote("'")<CR>
-   vmap <silent> <Leader>" :call Quote('"')<CR>
 
    nmap <S-h> :bp <CR> " Move to the tab at the right
    nmap <S-l> :bn <CR> " Move to the tab at the left
@@ -219,6 +188,13 @@
    " reselect visual block after indent
    vnoremap < <gv
    vnoremap > >gv
+
+   function! ResCur()
+       if line("'\"") <= line("$")
+           normal! g`"
+           return 1
+       endif
+   endfunction
 
    augroup resCur
        autocmd!
@@ -291,7 +267,6 @@
      Plug 'tomtom/tcomment_vim'
      Plug 'tpope/vim-endwise'
      Plug 'editorconfig/editorconfig-vim'
-     Plug 'terryma/vim-multiple-cursors'
      Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
      Plug 'junegunn/fzf.vim'
      Plug 'junegunn/goyo.vim'
@@ -327,8 +302,11 @@
      Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle','NERDTreeFind'] }
    " }
 
+   " Docker {
+     Plug 'ekalinin/Dockerfile.vim'
+   " }
+
    " Misc {
-      Plug 'ekalinin/Dockerfile.vim'
       Plug 'nanotech/jellybeans.vim'
       Plug 'tmhedberg/matchit'
       Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim', {  'on': 'Gist' }
@@ -338,9 +316,36 @@
         \ 'args': ['--verbose'],
         \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
         \ }
-      let g:neomake_javascript_enabled_makers = ['jshint']
+      let g:neomake_javascript_enabled_makers = ['eslint']
+
+      " neomake
+      nmap <Leader><Space>o :lopen<CR>      " open location window
+      nmap <Leader><Space>c :lclose<CR>     " close location window
+      nmap <Leader><Space>, :ll<CR>         " go to current error/warning
+      nmap <Leader><Space>n :lnext<CR>      " next error/warning
+      nmap <Leader><Space>p :lprev<CR>      " previous error/warning
 
       Plug 'bling/vim-airline'
+      Plug 'Shougo/neosnippet.vim'
+      Plug 'Shougo/neosnippet-snippets'
+
+      " Plugin key-mappings.
+      imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+      smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+      xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+      " SuperTab like snippets behavior.
+      "imap <expr><TAB>
+      " \ pumvisible() ? "\<C-n>" :
+      " \ neosnippet#expandable_or_jumpable() ?
+      " \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+      smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+                  \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+      " For conceal markers.
+      if has('conceal')
+          set conceallevel=2 concealcursor=niv
+      endif
    " }
 
    " Typescript {
@@ -382,4 +387,5 @@
     set laststatus=2
     set noshowmode
   " }
+
 " }
