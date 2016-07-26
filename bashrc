@@ -2,8 +2,8 @@
 DOTFILES_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 source $DOTFILES_ROOT/bash/exports
-source $DOTFILES_ROOT/bash/config
 source $DOTFILES_ROOT/bash/aliases
+source $DOTFILES_ROOT/bash/config
 
 # Jump around.
 export MARKPATH=$HOME/.marks

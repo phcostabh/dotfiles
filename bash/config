@@ -75,26 +75,11 @@ BMAGENTA='\e[45m'
 BCYAN='\e[46m'
 BWHITE='\e[47m'
 
-# Update the command prompt to be <user>:<current_directory>(git_branch) >
-# Note that the git branch is given a special color
-# PS1="\n\[$NO_COLOR\]\u\[$GREEN\]:\w \[$EBLUE\]$gitprompt\[$NO_COLOR\] \n→ "
-# gitprompt='$(__git_ps1 "git:%s")'
-# PS1="\n┌─[\[$ECYAN\]\w \[$EWHITE\]$gitprompt\[$NO_COLOR\]]\n└─→ "
-
-# Git branch details
-function parse_git_dirty() {
-    [[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*"
-}
-function parse_git_branch() {
-    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
-}
-
 # Change this symbol to something sweet.
 # (http://en.wikipedia.org/wiki/Unicode_symbols)
-# symbol="⚡ "
 symbol="↝ "
 
-export PS1="\n\[${BOLD}${MAGENTA}\]\u \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]\n$symbol\[$RESET\]"
+export PS1="\n\[${BOLD}${MAGENTA}\]\u \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\[$PURPLE\]\$(git_info)\[$WHITE\]\n$symbol\[$RESET\]"
 export PS2="\[$ORANGE\]→ \[$RESET\]"
 
 ### Misc
