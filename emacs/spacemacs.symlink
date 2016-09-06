@@ -47,6 +47,7 @@
      gist
      fzf
      exec-path-from-shell
+     seti-theme
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -84,6 +85,7 @@ before layers configuration."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                         seti
                          dracula
                          brin
                          ujelly
@@ -209,7 +211,7 @@ before layers configuration."
 layers configuration."
   (global-linum-mode t)
   (global-vi-tilde-fringe-mode t)
-  (setq-default line-spacing 0.3)
+  (setq-default line-spacing 0.4)
   (setq-default fill-column 80)
 
   (when (string-equal system-type "gnu/linux")

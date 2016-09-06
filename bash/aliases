@@ -212,3 +212,7 @@ git_info() {
   # print the git branch segment without a trailing newline
   printf " $git_branch_symbol$branch$marks "
 }
+
+pullify() {
+  git config --add "remote.$1.fetch" "+refs/pull/*/head:refs/remotes/$1/pr/*"
+}
