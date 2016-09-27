@@ -1,16 +1,12 @@
 # Make vim the default editor.
 export EDITOR='vim';
 
-# Append history entries.
-export PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
-
-# Increase Bash history size. Allow 32³ entries; the default is 500.
-export HISTSIZE='32768';
-export HISTFILESIZE="${HISTSIZE}";
-# Omit duplicates and commands that begin with a space from history.
-export HISTCONTROL='ignoreboth:erasedups';
-# append to the history instead of overwriting (good for multiple connections)
+# avoid duplicates..
+export HISTCONTROL=ignoredups:erasedups
+# append history entries..
 shopt -s histappend
+# After each command, save and reload history
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # Always enable colored `grep` output.
 export GREP_OPTIONS='--color=auto';
