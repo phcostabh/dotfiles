@@ -330,7 +330,7 @@
 		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
 		hAErATGG
 		</data>
-		<string>307</string>
+		<string>322</string>
 	</array>
 	<key>NSTableView Hidden Columns KeyBingingTable</key>
 	<array/>
@@ -346,7 +346,9 @@
 	<key>NSWindow Frame Preferences</key>
 	<string>650 960 606 456 0 0 2560 1440 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>269 100 796 473 0 0 2560 1440 </string>
+	<string>269 78 796 473 0 0 2560 1440 </string>
+	<key>NSWindow Frame com.apple.typography_panel_LiberationMono</key>
+	<string>776 935 260 68 0 0 2560 1417 </string>
 	<key>NSWindow Frame com.apple.typography_panel_RobotoMono-Medium</key>
 	<string>776 916 260 87 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
@@ -1071,10 +1073,12 @@
 			<true/>
 			<key>Use Canonical Parser</key>
 			<false/>
+			<key>Use HFS Plus Mapping</key>
+			<true/>
 			<key>Use Italic Font</key>
 			<true/>
 			<key>Vertical Spacing</key>
-			<real>1.1974996112915408</real>
+			<real>1.2</real>
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
@@ -1249,7 +1253,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-09-27T10:54:31Z</date>
+	<date>2016-10-03T11:06:17Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
