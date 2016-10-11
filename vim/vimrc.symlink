@@ -263,6 +263,9 @@
    " Golang {
       Plug 'fatih/vim-go', { 'for': 'go' }
       Plug 'nsf/gocode', { 'for': 'go' }
+
+      " vim-go
+      let g:go_def_mode = 'godef'
    " }
 
    " Nginx {
@@ -295,6 +298,10 @@
       Plug 'tpope/vim-endwise'
       Plug 'sheerun/vim-polyglot'
       Plug 'airblade/vim-gitgutter'
+
+      " YouCompleteMe setup for Go development
+      set completeopt-=preview
+      au FileType go set completeopt-=preview
    " }
 
    " Navigation {
