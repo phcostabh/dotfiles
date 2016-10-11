@@ -244,11 +244,10 @@
    " }
 
    " Javascript {
-      Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-      Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
-      Plug 'leshill/vim-json', { 'for': 'javascript' }
       Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
-      Plug 'wookiehangover/jshint.vim', { 'for': 'javascript' }
+      Plug 'leshill/vim-json', { 'for': 'javascript' }
+      Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
+      Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
    " }
 
    " Lua {
@@ -270,47 +269,58 @@
       Plug 'vim-scripts/nginx.vim'
    " }
 
-   " SQL {
-     Plug 'vim-scripts/dbext.vim', {'autoload':{'filetypes':['sql']}}
-   " }
-
    " Autocomplete {
-      Plug 'Shougo/neocomplete.vim'
-      Plug 'Shougo/neocomplcache'
-      Plug 'Shougo/neocomplcache'
-      Plug 'Shougo/neosnippet'
-      Plug 'Shougo/neosnippet-snippets'
+      Plug 'sirver/ultisnips'
+      Plug 'honza/vim-snippets'
+      " Trigger configuration. Do not use <tab> if you use
+      " https://github.com/Valloric/YouCompleteMe.
+      let g:UltiSnipsExpandTrigger="<c-j>"
+      let g:UltiSnipsJumpForwardTrigger="<c-b>"
+      let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+      " If you want :UltiSnipsEdit to split your window.
+      let g:UltiSnipsEditSplit="vertical"
    " }
 
    " Editing {
-      Plug 'jiangmiao/auto-pairs'
-      Plug 'tomtom/tcomment_vim'
-      Plug 'tpope/vim-endwise'
+      Plug 'Valloric/YouCompleteMe', {
+        \ 'dir': '~/.vim/bundle/YouCompleteMe',
+        \ 'do': './install.py --clang-completer --gocode-completer --tern-completer'
+        \ }
       Plug 'editorconfig/editorconfig-vim'
-      Plug 'terryma/vim-multiple-cursors'
+      Plug 'jiangmiao/auto-pairs'
       Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
       Plug 'junegunn/fzf.vim'
-      Plug 'junegunn/goyo.vim'
+      Plug 'tmhedberg/matchit'
+      Plug 'tomtom/tcomment_vim'
+      Plug 'tpope/vim-endwise'
+      Plug 'sheerun/vim-polyglot'
+      Plug 'airblade/vim-gitgutter'
    " }
 
    " Navigation {
       Plug 'kien/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
-      Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle','NERDTreeFind'] }
-      Plug 'Shougo/unite.vim'
-      Plug 'majutsushi/tagbar'
    " }
 
    " Misc {
       Plug 'ekalinin/Dockerfile.vim'
-      Plug 'fatih/molokai'
       Plug 'nanotech/jellybeans.vim'
       Plug 'scrooloose/syntastic'
-      Plug 'tmhedberg/matchit'
       Plug 'xolox/vim-misc'
-      Plug  'mattn/webapi-vim' | Plug 'mattn/gist-vim', {  'on': 'Gist' }
+      Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim', {  'on': 'Gist' }
 
-      let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-      let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go']  }
+      " syntastic {
+        let g:syntastic_error_symbol = '✗'
+        let g:syntastic_style_error_symbol = '✠'
+        let g:syntastic_warning_symbol = '∆'
+        let g:syntastic_style_warning_symbol = '≈'
+        let g:syntastic_enable_signs=1                         " mark syntax errors with :signs
+        let g:syntastic_auto_jump=0                            " automatically jump to the error when saving the file
+        let g:syntastic_auto_loc_list=0                        " show the error list automatically
+        let g:syntastic_quiet_messages = {'level': 'warnings'} " don't care about warnings
+        autocmd VimEnter * SyntasticCheck                      " Check the syntax when enter in the Vim
+        let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck', 'gosimple', 'deadcode', 'dupl']
+        let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go']  }
+      " }
    " }
 
    " Typescript {

@@ -1,1 +1,0 @@
-let JSHintUpdateWriteOnly=1
