@@ -244,10 +244,12 @@
    " }
 
    " Javascript {
-      Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
       Plug 'leshill/vim-json', { 'for': 'javascript' }
       Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
       Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+
+      autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+      autocmd BufWritePre *.{js} :call JsBeautify()
    " }
 
    " Lua {
@@ -273,35 +275,36 @@
    " }
 
    " Autocomplete {
-      Plug 'sirver/ultisnips'
-      Plug 'honza/vim-snippets'
-      " Trigger configuration. Do not use <tab> if you use
-      " https://github.com/Valloric/YouCompleteMe.
-      let g:UltiSnipsExpandTrigger="<c-j>"
-      let g:UltiSnipsJumpForwardTrigger="<c-b>"
-      let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-      " If you want :UltiSnipsEdit to split your window.
-      let g:UltiSnipsEditSplit="vertical"
-   " }
-
-   " Editing {
       Plug 'Valloric/YouCompleteMe', {
         \ 'dir': '~/.vim/bundle/YouCompleteMe',
         \ 'do': './install.py --clang-completer --gocode-completer --tern-completer'
         \ }
-      Plug 'editorconfig/editorconfig-vim'
-      Plug 'jiangmiao/auto-pairs'
-      Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
-      Plug 'junegunn/fzf.vim'
-      Plug 'tmhedberg/matchit'
-      Plug 'tomtom/tcomment_vim'
-      Plug 'tpope/vim-endwise'
-      Plug 'sheerun/vim-polyglot'
-      Plug 'airblade/vim-gitgutter'
+      Plug 'sirver/ultisnips'
+      Plug 'honza/vim-snippets'
+
+      " YouCompleteMe
+      let g:ycm_key_list_select_completion = ['<C-n>']
+      let g:ycm_key_list_previous_completion = ['<C-p>']
 
       " YouCompleteMe setup for Go development
       set completeopt-=preview
       au FileType go set completeopt-=preview
+
+      let g:UltiSnipsExpandTrigger="<tab>"
+      let g:UltiSnipsJumpForwardTrigger="<c-b>"
+      let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+      let g:UltiSnipsEditSplit="vertical"
+   " }
+
+   " Editing {
+      Plug 'airblade/vim-gitgutter'
+      Plug 'jiangmiao/auto-pairs'
+      Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
+      Plug 'junegunn/fzf.vim'
+      Plug 'sheerun/vim-polyglot'
+      Plug 'tmhedberg/matchit'
+      Plug 'tomtom/tcomment_vim'
+      Plug 'tpope/vim-endwise'
    " }
 
    " Navigation {
@@ -324,9 +327,28 @@
         let g:syntastic_auto_jump=0                            " automatically jump to the error when saving the file
         let g:syntastic_auto_loc_list=0                        " show the error list automatically
         let g:syntastic_quiet_messages = {'level': 'warnings'} " don't care about warnings
-        autocmd VimEnter * SyntasticCheck                      " Check the syntax when enter in the Vim
-        let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck', 'gosimple', 'deadcode', 'dupl']
+
+        " go
+        let g:syntastic_go_checkers = [
+          \ 'gofmt',
+          \ 'golint',
+          \ 'govet',
+          \ 'errcheck',
+          \ 'gosimple',
+          \ 'deadcode',
+          \ 'dupl',
+          \ ]
         let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go']  }
+
+        " javascript
+        let g:syntastic_javascript_checkers = ['eslint']
+        " let g:syntastic_javascript_eslint_args = ['--fix']
+
+        " JSON
+        au BufRead,BufNewFile *.json set filetype=json
+        let g:syntastic_json_checkers=['jsonlint']
+
+        autocmd VimEnter * SyntasticCheck " Check the syntax when enter in the Vim
       " }
    " }
 
