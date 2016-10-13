@@ -290,10 +290,12 @@
       set completeopt-=preview
       au FileType go set completeopt-=preview
 
-      let g:UltiSnipsExpandTrigger="<tab>"
-      let g:UltiSnipsJumpForwardTrigger="<c-b>"
-      let g:UltiSnipsJumpBackwardTrigger="<c-z>"
       let g:UltiSnipsEditSplit="vertical"
+      let g:UltiSnipsExpandTrigger="<tab>"
+      let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+      let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+      let g:UltiSnipsJumpForwardTrigger="<c-b>"
+      let g:UltiSnipsJumpForwardTrigger="<tab>"
    " }
 
    " Editing {
