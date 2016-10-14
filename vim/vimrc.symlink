@@ -144,7 +144,7 @@
        echon ' noexpandtab'
        endif
    finally
-       echohl None
+       echohl NONE
    endtry
    endfunction
 " }
@@ -260,7 +260,7 @@
    " Autocomplete {
       Plug 'Valloric/YouCompleteMe', {
         \ 'dir': '~/.vim/bundle/YouCompleteMe',
-        \ 'do': './install.py --clang-completer --gocode-completer --tern-completer'
+        \ 'do': './install.py --clang-completer --gocode-completer'
         \ }
       Plug 'sirver/ultisnips'
       Plug 'honza/vim-snippets'
@@ -273,6 +273,7 @@
       set completeopt-=preview
       au FileType go set completeopt-=preview
 
+      " ultisnips
       let g:UltiSnipsEditSplit="vertical"
       let g:UltiSnipsExpandTrigger="<tab>"
       let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
@@ -291,6 +292,7 @@
       Plug 'tomtom/tcomment_vim'
       Plug 'tpope/vim-endwise'
       Plug 'tpope/vim-surround'
+      Plug 'yggdroot/indentline'
 
       " FZF mappings
       map <silent><space>pf :GFiles?<cr>
@@ -299,7 +301,19 @@
       map <silent><space>fc :Colors<cr>
       map <silent><space>fl :BLines<cr>
       map <silent><space>fb :Buffers<cr>
-   " }
+
+      " indentline
+      let g:indentLine_enabled = 1
+      let g:indentLine_concealcursor = 0
+      let g:indentLine_char = '┆'
+      let g:indentLine_faster = 1
+      " NONE X terminal
+      let g:indentLine_color_tty_light = 7 " (default: 4)
+      let g:indentLine_color_dark = 1 " (default: 2)
+      set listchars=tab:┆\ ,
+      " Invisible character colors
+      highlight SpecialKey ctermbg=NONE ctermfg=NONE
+      " }
 
    " Navigation {
       Plug 'kien/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
@@ -312,6 +326,11 @@
      Plug 'vim-airline/vim-airline'
      Plug 'vim-airline/vim-airline-themes'
      Plug 'xolox/vim-misc'
+
+     " jellybeans
+     let g:jellybeans_overrides = {
+        \  'background': { 'ctermbg': 'none', '256ctermbg': 'none'  },
+     \}
 
       " syntastic {
         let g:syntastic_error_symbol = '✗'
@@ -358,8 +377,8 @@
    " }
 
    " Typescript {
-     Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-     Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
+      Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+      Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
    " }
 
    " Add plugins to &runtimepath
@@ -387,8 +406,9 @@
     highlight clear SignColumn     " SignColumn should match background
     highlight clear LineNr         " Current line number row will have same background color in relative mode
     highlight LineNr ctermfg=237
-    highlight normal ctermbg=none
-    highlight nontext ctermbg=none
+    highlight Normal ctermbg=NONE
+    highlight NonText ctermbg=NONE
+    highlight SpecialKey ctermbg=NONE
     set showmatch                  " automatically highlight matching braces/brackets/etc.
     set matchtime=2                " tens of a second to show matching parentheses
     set relativenumber
