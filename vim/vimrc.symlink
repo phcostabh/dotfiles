@@ -89,15 +89,6 @@
    endfunction
    autocmd BufWritePre *.* :call <SID>StripTrailingWhitespaces()
 
-   " Surround visual selections with quotes
-   function! Quote(quote)
-      let save = @"
-      silent normal gvy
-      let @" = a:quote . @" . a:quote
-      silent normal gvp
-      let @" = save
-   endfunction
-
    " Ensure a dir exists
    function! EnsureDirExists(dir)
       let l:dir_path = expand(a:dir)
@@ -183,15 +174,6 @@
    vnoremap <C-c> "+y           " Ctrl + c compatilibility
    vnoremap <C-x> "+x           " Ctrl + x compatilibility
 
-   " Sorrounding mappings
-   nnoremap <leader>" ciw""<esc>hp<esc>el
-   nnoremap <leader>' ciw''<esc>hp<esc>el
-   nnoremap <leader>( ciw()<esc>hp<esc>el
-   nnoremap <leader>[ ciw[]<esc>hp<esc>el
-   nnoremap <leader>{ ciw{}<esc>hp<esc>el
-   vmap <silent> <Leader>' :call Quote("'")<CR>
-   vmap <silent> <Leader>" :call Quote('"')<CR>
-
    nmap <S-h> :bp <CR> " Move to the tab at the right
    nmap <S-l> :bn <CR> " Move to the tab at the left
 
@@ -229,9 +211,6 @@
        autocmd!
        autocmd BufWritePost $MYVIMRC source $MYVIMRC
    augroup END
-
-   " Fzf fuzzy finder
-   map <silent><space>pf :Files<cr>
 " }
 
 " Setting up vim-plug {
@@ -274,6 +253,10 @@
       Plug 'vim-scripts/nginx.vim'
    " }
 
+   " Docker {
+     Plug 'ekalinin/Dockerfile.vim'
+   " }
+
    " Autocomplete {
       Plug 'Valloric/YouCompleteMe', {
         \ 'dir': '~/.vim/bundle/YouCompleteMe',
@@ -307,6 +290,15 @@
       Plug 'tmhedberg/matchit'
       Plug 'tomtom/tcomment_vim'
       Plug 'tpope/vim-endwise'
+      Plug 'tpope/vim-surround'
+
+      " FZF mappings
+      map <silent><space>pf :GFiles?<cr>
+      map <silent><space>ff :Files<cr>
+      map <silent><space>fa :Ag<cr>
+      map <silent><space>fc :Colors<cr>
+      map <silent><space>fl :BLines<cr>
+      map <silent><space>fb :Buffers<cr>
    " }
 
    " Navigation {
@@ -314,11 +306,12 @@
    " }
 
    " Misc {
-      Plug 'ekalinin/Dockerfile.vim'
-      Plug 'nanotech/jellybeans.vim'
-      Plug 'scrooloose/syntastic'
-      Plug 'xolox/vim-misc'
-      Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim', {  'on': 'Gist' }
+     Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim', {  'on': 'Gist' }
+     Plug 'nanotech/jellybeans.vim'
+     Plug 'scrooloose/syntastic'
+     Plug 'vim-airline/vim-airline'
+     Plug 'vim-airline/vim-airline-themes'
+     Plug 'xolox/vim-misc'
 
       " syntastic {
         let g:syntastic_error_symbol = '✗'
@@ -348,10 +341,20 @@
 
         " JSON
         au BufRead,BufNewFile *.json set filetype=json
-        let g:syntastic_json_checkers=['jsonlint']
+        let g:syntastic_json_checkers = ['jsonlint']
 
         autocmd VimEnter * SyntasticCheck " Check the syntax when enter in the Vim
       " }
+
+      " vim-airline
+      let g:airline_theme = 'powerlineish'
+      let g:airline#extensions#syntastic#enabled = 1
+      let g:airline#extensions#branch#enabled = 1
+      let g:airline#extensions#tabline#enabled = 1
+      let g:airline#extensions#tagbar#enabled = 1
+      let g:airline_skip_empty_sections = 1
+      "
+
    " }
 
    " Typescript {
