@@ -322,7 +322,6 @@ Plug 'kien/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
 " Misc {
 Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim', {  'on': 'Gist' }
 Plug 'nanotech/jellybeans.vim'
-Plug 'scrooloose/syntastic'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'xolox/vim-misc'
@@ -332,38 +331,60 @@ let g:jellybeans_overrides = {
             \  'background': { 'ctermbg': 'none', '256ctermbg': 'none'  },
             \}
 
-" syntastic {
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_style_error_symbol = '✠'
-let g:syntastic_warning_symbol = '∆'
-let g:syntastic_style_warning_symbol = '≈'
-let g:syntastic_enable_signs=1                         " mark syntax errors with :signs
-let g:syntastic_auto_jump=0                            " automatically jump to the error when saving the file
-let g:syntastic_auto_loc_list=0                        " show the error list automatically
-let g:syntastic_quiet_messages = {'level': 'warnings'} " don't care about warnings
+if v:version >= 800
+    Plug 'w0rp/ale'
+    let g:ale_linters = {
+                \   'javascript': ['eslint'],
+                \}
+    let g:ale_sign_error = '✗'
+    let g:ale_sign_warning = '≈'
+else
+    " syntastic {
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_loc_list_height = 5
+    let g:syntastic_auto_loc_list = 0
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 1
+    let g:syntastic_javascript_checkers = ['eslint']
 
-" go
-let g:syntastic_go_checkers = [
-            \ 'gofmt',
-            \ 'golint',
-            \ 'govet',
-            \ 'errcheck',
-            \ 'gosimple',
-            \ 'deadcode',
-            \ 'dupl',
-            \ ]
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go']  }
+    highlight link SyntasticErrorSign SignColumn
+    highlight link SyntasticWarningSign SignColumn
+    highlight link SyntasticStyleErrorSign SignColumn
+    highlight link SyntasticStyleWarningSign SignColumn
 
-" javascript
-let g:syntastic_javascript_checkers = ['eslint']
-" let g:syntastic_javascript_eslint_args = ['--fix']
+    let g:syntastic_error_symbol = '❌'
+    let g:syntastic_style_error_symbol = '⁉️'
+    let g:syntastic_warning_symbol = '⚠️'
+    let g:syntastic_style_warning_symbol = '💩'
+    let g:syntastic_enable_signs=1                         " mark syntax errors with :signs
+    let g:syntastic_auto_jump=0                            " automatically jump to the error when saving the file
+    let g:syntastic_auto_loc_list=0                        " show the error list automatically
+    let g:syntastic_quiet_messages = {'level': 'warnings'} " don't care about warnings
 
-" JSON
-au BufRead,BufNewFile *.json set filetype=json
-let g:syntastic_json_checkers = ['jsonlint']
 
-autocmd VimEnter * SyntasticCheck " Check the syntax when enter in the Vim
-" }
+    " go
+    let g:syntastic_go_checkers = [
+                \ 'gofmt',
+                \ 'golint',
+                \ 'govet',
+                \ 'errcheck',
+                \ 'gosimple',
+                \ 'deadcode',
+                \ 'dupl',
+                \ ]
+    let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go']  }
+
+    " javascript
+    let g:syntastic_javascript_checkers = ['eslint']
+    " let g:syntastic_javascript_eslint_args = ['--fix']
+
+    " JSON
+    au BufRead,BufNewFile *.json set filetype=json
+    let g:syntastic_json_checkers = ['jsonlint']
+
+    autocmd VimEnter * SyntasticCheck " Check the syntax when enter in the Vim
+    " }   Plug 'scrooloose/syntastic'
+endif
 
 " vim-airline
 let g:airline_theme = 'powerlineish'
