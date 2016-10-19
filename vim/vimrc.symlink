@@ -311,8 +311,6 @@ let g:indentLine_faster = 1
 " NONE X terminal
 let g:indentLine_color_tty_light = 7 " (default: 4)
 let g:indentLine_color_dark = 1 " (default: 2)
-" Invisible character colors
-highlight SpecialKey ctermbg=NONE ctermfg=NONE
 " }
 
 " Navigation {
@@ -427,10 +425,10 @@ set showmatch
 set nohidden
 highlight clear SignColumn     " SignColumn should match background
 highlight clear LineNr         " Current line number row will have same background color in relative mode
-highlight LineNr ctermfg=237
+highlight LineNr ctermfg=240
 highlight Normal ctermbg=NONE
 highlight NonText ctermbg=NONE
-highlight SpecialKey ctermbg=NONE
+highlight SpecialKey ctermbg=NONE ctermfg=240
 set showmatch                  " automatically highlight matching braces/brackets/etc.
 set matchtime=2                " tens of a second to show matching parentheses
 set relativenumber
