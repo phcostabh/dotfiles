@@ -243,8 +243,7 @@ Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 " }
 
 " Golang {
-Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'nsf/gocode', { 'for': 'go' }
+Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 
 " vim-go
 let g:go_def_mode = 'godef'
@@ -385,7 +384,7 @@ else
 endif
 
 " vim-airline
-let g:airline_theme = 'powerlineish'
+let g:airline_theme = 'jellybeans'
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
