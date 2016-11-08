@@ -227,6 +227,7 @@ Plug 'mattn/emmet-vim', { 'for' : ['html','css','sass','scss','less'] }
 Plug 'leshill/vim-json', { 'for': 'javascript' }
 Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
 
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 autocmd BufWritePre *.{js} :call JsBeautify()
@@ -258,20 +259,12 @@ Plug 'ekalinin/Dockerfile.vim'
 " }
 
 " Autocomplete {
-Plug 'Valloric/YouCompleteMe', {
-            \ 'dir': '~/.vim/bundle/YouCompleteMe',
-            \ 'do': './install.py --clang-completer --gocode-completer'
-            \ }
+Plug 'maralla/completor.vim'
 Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
 
-" YouCompleteMe
-let g:ycm_key_list_select_completion = ['<C-n>']
-let g:ycm_key_list_previous_completion = ['<C-p>']
-
-" YouCompleteMe setup for Go development
-set completeopt-=preview
-au FileType go set completeopt-=preview
+" completor
+let g:completor_go_omni_trigger = '(?:\b[^\W\d]\w*|[\]\)])\.(?:[^\W\d]\w*)?'
 
 " ultisnips
 let g:UltiSnipsEditSplit="vertical"
@@ -284,6 +277,7 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 
 " Editing {
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
 Plug 'junegunn/fzf.vim'
@@ -322,6 +316,7 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'xolox/vim-misc'
+Plug 'wakatime/vim-wakatime'
 
 " jellybeans
 let g:jellybeans_overrides = {
@@ -424,10 +419,10 @@ set showmatch
 set nohidden
 highlight clear SignColumn     " SignColumn should match background
 highlight clear LineNr         " Current line number row will have same background color in relative mode
-highlight LineNr ctermfg=240
+highlight LineNr ctermfg=245
 highlight Normal ctermbg=NONE
 highlight NonText ctermbg=NONE
-highlight SpecialKey ctermbg=NONE ctermfg=240
+highlight SpecialKey ctermbg=NONE ctermfg=245
 set showmatch                  " automatically highlight matching braces/brackets/etc.
 set matchtime=2                " tens of a second to show matching parentheses
 set relativenumber

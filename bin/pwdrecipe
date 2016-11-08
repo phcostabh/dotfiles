@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 let site = process.argv[2];
-let phrase = "It's better to be kind then clever.";
+let phrase = process.argv[3];
 
 var wordsBefore = site.indexOf(".");
 var wordsAfter = site.slice(site.lastIndexOf('.')).length - 1;
