@@ -53,7 +53,7 @@ set smartcase
 set wrapscan
 
 " Enable spell checker for git commit
-autocmd FileType gitcommit set spell spelllang=en_us,pt_br textwidth=72
+autocmd FileType gitcommit set spell spelllang=en_us,pt_br textwidth=80
 
 " ---------------------------------------------------------------------------------------------------"
 " Tell vim to remember certain things when we exit
@@ -69,8 +69,8 @@ set viminfo='10,\"100,:20,%,n~/.viminfo
 " }
 
 " Basic mappings {
-let mapleader=","
-let g:mapleader=","
+let mapleader = "\<Space>"
+let maplocalleader = ","
 nnoremap ; :
 imap jk <ESC>
 " }
@@ -98,13 +98,6 @@ function! ToggleNumbering()
         set nonumber
     endif
 endfunc
-
-function! ResCur()
-    if line("'\"") <= line("$")
-        normal! g`"
-        return 1
-    endif
-endfunction
 
 " Set tabstop, softtabstop and shiftwidth to the same value
 command! -nargs=* Stab call Stab()
@@ -174,19 +167,26 @@ nnoremap ? ?\v
 vnoremap ? ?\v
 nnoremap :s/ :s/\v
 
-" Auto center everything
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
-nnoremap <silent> g# g#zz
-nnoremap <silent> <C-o> <C-o>zz
-nnoremap <silent> <C-i> <C-i>zz
+" " Auto center everything
+" nnoremap <silent> n nzz
+" nnoremap <silent> N Nzz
+" nnoremap <silent> * *zz
+" nnoremap <silent> # #zz
+" nnoremap <silent> g* g*zz
+" nnoremap <silent> g# g#zz
+" nnoremap <silent> <C-o> <C-o>zz
+" nnoremap <silent> <C-i> <C-i>zz
 
 " reselect visual block after indent
 vnoremap < <gv
 vnoremap > >gv
+
+function! ResCur()
+    if line("'\"") <= line("$")
+        normal! g`"
+        return 1
+    endif
+endfunction
 
 augroup resCur
     autocmd!
@@ -198,6 +198,21 @@ augroup reload_vimrc
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END
 " }
+
+" Copy & paste to system clipboard with <Space>p and <Space>y {{{
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+" }}}
+
+" Automatically jump to end of text pasted {{{
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]`
+" }}}
 
 " Setting up vim-plug {
 call plug#begin('~/.vim/plugged')
@@ -227,13 +242,31 @@ Plug 'xolox/vim-lua-ftplugin', { 'for': 'lua' }
 Plug 'spf13/PIV', { 'for': 'php' }
 Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' }
 Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+
+let g:php_cs_fixer_path="~/.vim/bin/php-cs-fixer"
+autocmd FileType php noremap <buffer>  <c-f> :call PhpCsFixerFixFile()<cr>
 " }
 
 " Golang {
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
+Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh', 'for': 'go' }
 
-" vim-go
-let g:go_def_mode = 'godef'
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>r <Plug>(go-run)
+au FileType go nmap <Leader>b <Plug>(go-build)
+au FileType go nmap <Leader>t <Plug>(go-test)
+au FileType go nmap <Leader>s <Plug>(go-implements)
+au FileType go nmap <Leader>e <Plug>(go-rename)
+au FileType go nmap gd <Plug>(go-def-tab)
+
+" Enable goimports to automatically insert import paths instead of gofmt
+let g:go_fmt_command = "goimports"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
 " }
 
 " Nginx {
@@ -265,22 +298,12 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
-Plug 'junegunn/fzf.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'tmhedberg/matchit'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-surround'
 Plug 'yggdroot/indentline'
-
-" FZF mappings
-map <silent><space>pf :GFiles?<cr>
-map <silent><space>ff :Files<cr>
-map <silent><space>fa :Ag<cr>
-map <silent><space>fc :Colors<cr>
-map <silent><space>fl :BLines<cr>
-map <silent><space>fb :Buffers<cr>
 
 " indentline
 let g:indentLine_enabled = 1
@@ -296,22 +319,45 @@ let g:indentLine_color_dark = 1 " (default: 2)
 " }
 
 " Navigation {
-Plug 'kien/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
+Plug 'ctrlpvim/ctrlp.vim' | Plug 'tacahiroy/ctrlp-funky'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
+Plug 'junegunn/fzf.vim'
+
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+nnoremap <Leader>pf :Files<cr>
+nnoremap <Leader>ff :GFiles?<cr>
+nnoremap <Leader>fa :Ag<cr>
+nnoremap <Leader>fc :Colors<cr>
+nnoremap <Leader>fl :BLines<cr>
+nnoremap <Leader>fb :Buffers<cr>
 " }
 
 " Misc {
 Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim', {  'on': 'Gist' }
-Plug 'nanotech/jellybeans.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'xolox/vim-misc'
-Plug 'bronson/vim-trailing-whitespace'
-Plug 'wakatime/vim-wakatime'
+let g:gist_detect_filetype = 1                         " Detect filetype from filename
+let g:gist_clip_command = 'xclip -selection clipboard' " Copy gits to clipboard (-c option).
+let g:gist_show_privates = 1                           " Show private gists
+let g:gist_post_private = 1                            " Post private gist by default
+let g:gist_detect_filetype = 1                         " Auto detect filetype
 
-" jellybeans
+Plug 'nanotech/jellybeans.vim'
 let g:jellybeans_overrides = {
             \  'background': { 'ctermbg': 'none', '256ctermbg': 'none'  },
             \}
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+let g:airline_theme = 'jellybeans'
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
+let g:airline_skip_empty_sections = 1
+
+Plug 'xolox/vim-misc'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'wakatime/vim-wakatime'
 
 if v:version >= 800
     Plug 'w0rp/ale'
@@ -368,16 +414,6 @@ else
     " }   Plug 'scrooloose/syntastic'
 endif
 
-" vim-airline
-let g:airline_theme = 'jellybeans'
-let g:airline#extensions#syntastic#enabled = 1
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tagbar#enabled = 1
-let g:airline#extensions#tabline#enabled = 0
-let g:airline_skip_empty_sections = 1
-"
-
 " }
 
 " Typescript {
@@ -393,10 +429,6 @@ call plug#end()
 " Wrapping up {
 
 " Custom Bundle configuration
-for fpath in split(globpath('~/.vim/bundle-settings', '*.vim'), '\n')
-    exec 'source' fpath
-endfor
-
 filetype plugin indent on
 syntax enable
 
@@ -409,10 +441,10 @@ set showmatch
 set nohidden
 highlight clear SignColumn     " SignColumn should match background
 highlight clear LineNr         " Current line number row will have same background color in relative mode
-highlight LineNr ctermfg=245
+highlight LineNr ctermfg=240
 highlight Normal ctermbg=NONE
 highlight NonText ctermbg=NONE
-highlight SpecialKey ctermbg=NONE ctermfg=245
+highlight SpecialKey ctermbg=NONE ctermfg=240
 set showmatch                  " automatically highlight matching braces/brackets/etc.
 set matchtime=2                " tens of a second to show matching parentheses
 set relativenumber
