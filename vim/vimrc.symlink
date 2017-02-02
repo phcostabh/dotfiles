@@ -358,6 +358,7 @@ let g:airline_skip_empty_sections = 1
 Plug 'xolox/vim-misc'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'wakatime/vim-wakatime'
+Plug 'tpope/vim-sleuth'
 
 if v:version >= 800
     Plug 'w0rp/ale'
@@ -366,6 +367,8 @@ if v:version >= 800
                 \}
     let g:ale_sign_error = '✗'
     let g:ale_sign_warning = '≈'
+    let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+    let g:ale_javascript_eslint_options = '--fix'
 else
     " syntastic {
     let g:syntastic_always_populate_loc_list = 1
@@ -414,6 +417,8 @@ else
     " }   Plug 'scrooloose/syntastic'
 endif
 
+Plug 'endel/vim-github-colorscheme'
+
 " }
 
 " Typescript {
@@ -445,6 +450,10 @@ highlight LineNr ctermfg=240
 highlight Normal ctermbg=NONE
 highlight NonText ctermbg=NONE
 highlight SpecialKey ctermbg=NONE ctermfg=240
+if g:colors_name == 'github'
+    highlight clear SpecialKey
+    highlight SpecialKey ctermfg=246
+endif
 set showmatch                  " automatically highlight matching braces/brackets/etc.
 set matchtime=2                " tens of a second to show matching parentheses
 set relativenumber
