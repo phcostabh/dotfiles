@@ -10,7 +10,7 @@ values."
    ;; Base distribution to use. This is a layer contained in the directory
    ;; `+distribution'. For now available distributions are `spacemacs-base'
    ;; or `spacemacs'. (default 'spacemacs)
-   dotspacemacs-distribution 'spacemacs
+   dotspacemacs-distribution 'spacemacs-base
    ;; Lazy installation of layers (i.e. layers are installed only when a file
    ;; with a supported type is opened). Possible values are `all', `unused'
    ;; and `nil'. `unused' will lazy install only unused layers (i.e. layers
@@ -31,27 +31,31 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     javascript
+     (go
+      :variables
+      gofmt-command "goimports"
+      go-tab-width 4
+      go-use-gometalinter t
+      )
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     helm
+     ivy
      auto-completion
-     better-defaults
+     ;; better-defaults
      emacs-lisp
-     git
+     ;; git
      ;; markdown
      ;; org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     syntax-checking
-     version-control
-     go
-     javascript
-     react
+     ;; syntax-checking
+     ;; version-control
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -59,10 +63,11 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
+     github-theme
      nginx-mode
-     gist
-     exec-path-from-shell
-     fzf
+     rjsx-mode
+     emmet-mode
+     eslint-fix
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -137,6 +142,7 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes
    '(
+     github
      spacemacs-light
      spacemacs-dark
      )
@@ -151,6 +157,11 @@ values."
                                :powerline-scale 1.1)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
+   ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
+   ;; (default "SPC")
+   dotspacemacs-emacs-command-key "SPC"
+   ;; The key used for Vim Ex commands (default ":")
+   dotspacemacs-ex-command-key ":"
    ;; The leader key accessible in `emacs state' and `insert state'
    ;; (default "M-m")
    dotspacemacs-emacs-leader-key "M-m"
@@ -158,11 +169,8 @@ values."
    ;; pressing `<leader> m`. Set it to `nil` to disable it. (default ",")
    dotspacemacs-major-mode-leader-key ","
    ;; Major mode leader key accessible in `emacs state' and `insert state'.
-   ;; (default "C-M-m)
+   ;; (default "C-M-m")
    dotspacemacs-major-mode-emacs-leader-key "C-M-m"
-   ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
-   ;; (default "SPC")
-   dotspacemacs-emacs-command-key "SPC"
    ;; These variables control whether separate commands are bound in the GUI to
    ;; the key pairs C-i, TAB and C-m, RET.
    ;; Setting it to a non-nil value, allows for separate commands under <C-i>
@@ -300,17 +308,6 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-
-  (defun my-go-mode-hook ()
-    (setq gofmt-command "goimports")
-    (add-hook 'before-save-hook 'gofmt-before-save)
-    (if (not (string-match "go" compile-command))
-        (set (make-local-variable 'compile-command)
-             "go build -v && go test -v && go tool vet --composites=false"))
-    (local-set-key (kbd "M-.") 'godef-jump))
-
-  (add-hook 'go-mode-hook 'my-go-mode-hook)
-
   )
 
 (defun dotspacemacs/user-config ()
@@ -323,8 +320,11 @@ you should place your code here."
 
   (global-linum-mode t)
   (global-vi-tilde-fringe-mode t)
-  (setq-default line-spacing 0.4)
-  (setq-default fill-column 80)
+
+  (setq-default
+   line-spacing 0.4
+   ivy-ignore-buffers '("\\` " "^\*")
+   )
 
   ;; nmap ; :
   ;; vmap ; :
@@ -332,9 +332,33 @@ you should place your code here."
   (define-key evil-visual-state-map (kbd ";") 'evil-ex)
   (define-key evil-motion-state-map (kbd ";") 'evil-ex)
 
-  (evil-leader/set-key "pf" 'fzf)
+  (evil-leader/set-key
+    "q q" 'spacemacs/frame-killer)
 
+  (add-to-list 'magic-mode-alist '("^import React" . rjsx-mode))
+
+  (add-hook 'rjsx-mode-hook 'my/rjsx-mode)
+
+  (evil-define-key 'insert yas-minor-mode-map (kbd "<tab>") 'my/company-tab)
+
+  (eval-after-load 'js2-mode
+    '(add-hook 'js2-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t))))
+
+  (eval-after-load "company" 'my/override-company-select-navigation)
   )
+
+(defun my/rjsx-mode ()
+  (setq-local emmet-expand-jsx-className? t))
+
+(defun my/company-tab ()
+  (interactive)
+  (when (null (yas-expand))
+    (when (null (emmet-expand-yas))
+      (tab-to-tab-stop))))
+
+(defun my/override-company-select-navigation ()
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -343,10 +367,9 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (smartparens projectile helm helm-core async fzf web-mode tagedit slim-mode scss-mode sass-mode less-css-mode jade-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data nginx-mode gist gh marshal logito pcache ht web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc go-eldoc company-tern dash-functional tern company-go go-mode coffee-mode smeargle orgit org mwim magit-gitflow helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit with-editor diff-hl company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete evil-nerd-commenter ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package ujelly-theme toc-org sublime-themes spacemacs-theme spaceline seti-theme restart-emacs request rainbow-delimiters quelpa popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump dracula-theme define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (eslint-fix rjsx-mode nginx-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode go-guru go-eldoc emmet-mode company-web web-completion-data company-tern dash-functional company-statistics company-go go-mode company auto-yasnippet ac-ispell auto-complete web-beautify tern livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors s js2-mode js-doc coffee-mode which-key wgrep use-package smex pcre2el macrostep ivy-hydra hydra help-fns+ helm-make helm helm-core popup flx exec-path-from-shell evil-visualstar evil-escape evil goto-chg undo-tree elisp-slime-nav diminish counsel-projectile projectile pkg-info epl counsel swiper ivy bind-map bind-key auto-compile packed dash async ace-window avy quelpa package-build spacemacs-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
