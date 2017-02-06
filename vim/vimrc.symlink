@@ -220,18 +220,22 @@ call plug#begin('~/.vim/plugged')
 " Web {
 Plug 'othree/html5.vim', { 'for': 'html' }
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
-Plug 'mattn/emmet-vim', { 'for' : ['html','css','sass','scss','less'] }
+Plug 'mattn/emmet-vim', { 'for' : ['html','css','sass','scss','less','javascript.jsx'] }
+
+let g:user_emmet_settings = {
+            \  'javascript' : {
+            \      'extends' : 'jsx',
+            \  },
+            \}
 " }
 
 " Javascript {
 Plug 'leshill/vim-json', { 'for': 'javascript' }
-Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
 
-autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 autocmd FileType javascript setl tabstop=2 shiftwidth=2 softtabstop=2 expandtab
-autocmd BufWritePre *.{js} :call JsBeautify()
+autocmd FileType javascript.jsx setl tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 " }
 
 " Lua {
