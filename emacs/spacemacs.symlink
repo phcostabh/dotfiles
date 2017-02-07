@@ -348,14 +348,17 @@ you should place your code here."
         (tab-to-tab-stop))))
   (evil-define-key 'insert yas-minor-mode-map (kbd "<tab>") 'my/company-tab)
 
-  (with-eval-after-load 'js2-mode
+  (eval-after-load 'js2-mode
     '(add-hook 'js2-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t))))
 
   ;; Override cycling keybinds for company suggestions.
-  (with-eval-after-load 'company
-    (lambda ()
+  (with-eval-after-load "company"
       (define-key company-active-map (kbd "C-n") 'company-select-next)
-      (define-key company-active-map (kbd "C-p") 'company-select-previous)))
+      (define-key company-active-map (kbd "C-p") 'company-select-previous))
+
+  (with-eval-after-load 'flycheck-gometalinter
+    (setq flycheck-gometalinter-fast t)
+    (setq flycheck-gometalinter-disable-linters '("golint")))
 
   ;; adjust indents for web-mode to 2 spaces
   (defun my-web-mode-hook ()
@@ -364,6 +367,8 @@ you should place your code here."
     (setq web-mode-css-indent-offset 2)
     (setq web-mode-code-indent-offset 2))
   (add-hook 'web-mode-hook  'my-web-mode-hook)
+
+  (evil-surround-mode)
 
   )
 
