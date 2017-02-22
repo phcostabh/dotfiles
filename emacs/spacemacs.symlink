@@ -4,8 +4,8 @@
 
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
-You should not put any user code in this function besides modifying the variable
-values."
+  You should not put any user code in this function besides modifying the variable
+  values."
   (setq-default
    ;; Base distribution to use. This is a layer contained in the directory
    ;; `+distribution'. For now available distributions are `spacemacs-base'
@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     html
      javascript
      (go
       :variables
@@ -70,6 +71,7 @@ values."
      eslint-fix
      gist
      evil-surround
+     auto-indent-mode
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -86,10 +88,10 @@ values."
 
 (defun dotspacemacs/init ()
   "Initialization function.
-This function is called at the very startup of Spacemacs initialization
-before layers configuration.
-You should not put any user code in there besides modifying the variable
-values."
+  This function is called at the very startup of Spacemacs initialization
+  before layers configuration.
+  You should not put any user code in there besides modifying the variable
+  values."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
@@ -305,11 +307,11 @@ values."
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
-It is called immediately after `dotspacemacs/init', before layer configuration
-executes.
- This function is mostly useful for variables that need to be set
-before packages are loaded. If you are unsure, you should try in setting them in
-`dotspacemacs/user-config' first."
+  It is called immediately after `dotspacemacs/init', before layer configuration
+  executes.
+  This function is mostly useful for variables that need to be set
+  before packages are loaded. If you are unsure, you should try in setting them in
+  `dotspacemacs/user-config' first."
 
   (setq-default
    line-spacing 0.4
@@ -322,11 +324,11 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
-This function is called at the very end of Spacemacs initialization after
-layers configuration.
-This is the place where most of your configurations should be done. Unless it is
-explicitly specified that a variable should be set before a package is loaded,
-you should place your code here."
+  This function is called at the very end of Spacemacs initialization after
+  layers configuration.
+  This is the place where most of your configurations should be done. Unless it is
+  explicitly specified that a variable should be set before a package is loaded,
+  you should place your code here."
 
   ;; nmap ; :
   ;; vmap ; :
@@ -349,12 +351,15 @@ you should place your code here."
   (evil-define-key 'insert yas-minor-mode-map (kbd "<tab>") 'my/company-tab)
 
   (eval-after-load 'js2-mode
-    '(add-hook 'js2-mode-hook (lambda () (add-hook 'after-save-hook 'eslint-fix nil t))))
+    '(add-hook 'js2-mode-hook (lambda ()
+                                (add-hook 'after-save-hook 'eslint-fix nil t)
+                                (setq js-indent-level 2)
+                                (setq-default js2-basic-offset 2))))
 
   ;; Override cycling keybinds for company suggestions.
   (with-eval-after-load "company"
-      (define-key company-active-map (kbd "C-n") 'company-select-next)
-      (define-key company-active-map (kbd "C-p") 'company-select-previous))
+    (define-key company-active-map (kbd "C-n") 'company-select-next)
+    (define-key company-active-map (kbd "C-p") 'company-select-previous))
 
   (with-eval-after-load 'flycheck-gometalinter
     (setq flycheck-gometalinter-fast t)
@@ -368,8 +373,9 @@ you should place your code here."
     (setq web-mode-code-indent-offset 2))
   (add-hook 'web-mode-hook  'my-web-mode-hook)
 
-  (evil-surround-mode)
+  (evil-surround-mode t)
 
+  (auto-indent-mode t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -385,7 +391,7 @@ you should place your code here."
  '(hl-sexp-background-color "#efebe9")
  '(package-selected-packages
    (quote
-    (evil-surround leuven-theme gist gh marshal logito pcache ht flycheck-pos-tip pos-tip flycheck-gometalinter flycheck eslint-fix rjsx-mode nginx-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode go-guru go-eldoc emmet-mode company-web web-completion-data company-tern dash-functional company-statistics company-go go-mode company auto-yasnippet ac-ispell auto-complete web-beautify tern livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors s js2-mode js-doc coffee-mode which-key wgrep use-package smex pcre2el macrostep ivy-hydra hydra help-fns+ helm-make helm helm-core popup flx exec-path-from-shell evil-visualstar evil-escape evil goto-chg undo-tree elisp-slime-nav diminish counsel-projectile projectile pkg-info epl counsel swiper ivy bind-map bind-key auto-compile packed dash async ace-window avy quelpa package-build spacemacs-theme))))
+    (auto-indent-mode evil-surround leuven-theme gist gh marshal logito pcache ht flycheck-pos-tip pos-tip flycheck-gometalinter flycheck eslint-fix rjsx-mode nginx-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode go-guru go-eldoc emmet-mode company-web web-completion-data company-tern dash-functional company-statistics company-go go-mode company auto-yasnippet ac-ispell auto-complete web-beautify tern livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors s js2-mode js-doc coffee-mode which-key wgrep use-package smex pcre2el macrostep ivy-hydra hydra help-fns+ helm-make helm helm-core popup flx exec-path-from-shell evil-visualstar evil-escape evil goto-chg undo-tree elisp-slime-nav diminish counsel-projectile projectile pkg-info epl counsel swiper ivy bind-map bind-key auto-compile packed dash async ace-window avy quelpa package-build spacemacs-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
