@@ -31,6 +31,8 @@
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     php
+     yaml
      html
      javascript
      (go
@@ -65,15 +67,17 @@
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
-     github-theme
-     nginx-mode
-     rjsx-mode
+     auto-indent-mode
      emmet-mode
      eslint-fix
-     gist
+     evil-smartparens
      evil-surround
-     auto-indent-mode
+     gist
+     github-theme
      indent-guide
+     nginx-mode
+     rjsx-mode
+     ujelly-theme
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -380,6 +384,13 @@
   (auto-indent-mode t)
 
   (indent-guide-global-mode t)
+
+  (unless (display-graphic-p)
+    (custom-set-faces '(default ((t (:background "nil")))))
+    (load-theme 'ujelly t))
+
+  (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -391,6 +402,8 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#080808" "#d70000" "#67b11d" "#875f00" "#268bd2" "#af00df" "#00ffff" "#b2b2b2"])
  '(evil-want-Y-yank-to-eol nil)
  '(fci-rule-color "#969896")
  '(hl-sexp-background-color "#efebe9")
@@ -399,7 +412,7 @@
     ("#183691" "#969896" "#a71d5d" "#969896" "#0086b3" "#795da3" "#a71d5d" "#969896")))
  '(package-selected-packages
    (quote
-    (dockerfile-mode docker tablist magit-popup docker-tramp indent-guide auto-indent-mode evil-surround leuven-theme gist gh marshal logito pcache ht flycheck-pos-tip pos-tip flycheck-gometalinter flycheck eslint-fix rjsx-mode nginx-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode go-guru go-eldoc emmet-mode company-web web-completion-data company-tern dash-functional company-statistics company-go go-mode company auto-yasnippet ac-ispell auto-complete web-beautify tern livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors s js2-mode js-doc coffee-mode which-key wgrep use-package smex pcre2el macrostep ivy-hydra hydra help-fns+ helm-make helm helm-core popup flx exec-path-from-shell evil-visualstar evil-escape evil goto-chg undo-tree elisp-slime-nav diminish counsel-projectile projectile pkg-info epl counsel swiper ivy bind-map bind-key auto-compile packed dash async ace-window avy quelpa package-build spacemacs-theme)))
+    (phpunit f phpcbf php-extras php-auto-yasnippets drupal-mode php-mode evil-smartparens smartparens yaml-mode ujelly-theme dockerfile-mode docker tablist magit-popup docker-tramp indent-guide auto-indent-mode evil-surround leuven-theme gist gh marshal logito pcache ht flycheck-pos-tip pos-tip flycheck-gometalinter flycheck eslint-fix rjsx-mode nginx-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode haml-mode go-guru go-eldoc emmet-mode company-web web-completion-data company-tern dash-functional company-statistics company-go go-mode company auto-yasnippet ac-ispell auto-complete web-beautify tern livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor yasnippet multiple-cursors s js2-mode js-doc coffee-mode which-key wgrep use-package smex pcre2el macrostep ivy-hydra hydra help-fns+ helm-make helm helm-core popup flx exec-path-from-shell evil-visualstar evil-escape evil goto-chg undo-tree elisp-slime-nav diminish counsel-projectile projectile pkg-info epl counsel swiper ivy bind-map bind-key auto-compile packed dash async ace-window avy quelpa package-build spacemacs-theme)))
  '(pdf-view-midnight-colors (quote ("#969896" . "#f8eec7")))
  '(vc-annotate-background "#b0cde7")
  '(vc-annotate-color-map
@@ -428,4 +441,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:background "nil")))))

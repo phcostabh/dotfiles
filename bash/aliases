@@ -18,93 +18,93 @@ alias uninstallgems="gem list | cut -d' ' -f1 | xargs gem uninstall -aIx"
 
 # Helper Functions
 function untar () {
-    7z e $1
+  7z e $1
 }
 
 function authme {
-    [[ -e ~/.ssh/id_rsa.pub ]] && ssh-copy-id -i ~/.ssh/id_rsa.pub "$1"
+  [[ -e ~/.ssh/id_rsa.pub ]] && ssh-copy-id -i ~/.ssh/id_rsa.pub "$1"
 }
 
 function take () {
-    mkdir $1
-    cd $1
+  mkdir $1
+  cd $1
 }
 
 function generate-hash {
-    echo -n "$1$(date +%d%m%Y%H%M%S%N)" | openssl sha1 | awk '{ print $2 }'
+  echo -n "$1$(date +%d%m%Y%H%M%S%N)" | openssl sha1
 }
 
 function list-ppa {
-    for APT in `find /etc/apt/ -name \*.list`; do
-        grep -o "^deb http://ppa.launchpad.net/[a-z0-9\-]\+/[a-z0-9\-]\+" $APT | while read ENTRY ; do
-            USER=`echo $ENTRY | cut -d/ -f4`
-            PPA=`echo $ENTRY | cut -d/ -f5`
-            echo sudo apt-add-repository ppa:$USER/$PPA
-        done
-    done
+  for APT in `find /etc/apt/ -name \*.list`; do
+    grep -o "^deb http://ppa.launchpad.net/[a-z0-9\-]\+/[a-z0-9\-]\+" $APT | while read ENTRY ; do
+    USER=`echo $ENTRY | cut -d/ -f4`
+    PPA=`echo $ENTRY | cut -d/ -f5`
+    echo sudo apt-add-repository ppa:$USER/$PPA
+  done
+done
 }
 
 function search {
-    find -name "*.$2" -type f -exec egrep -n -H --color "$1" {} \;
+  find -name "*.$2" -type f -exec egrep -n -H --color "$1" {} \;
 }
 
 function tmux-colors {
-    for i in {0..255} ; do
-        printf "\x1b[38;5;${i}mcolour${i}\n"
-    done
+  for i in {0..255} ; do
+    printf "\x1b[38;5;${i}mcolour${i}\n"
+  done
 }
 
 # Syntax-highlight JSON strings or files
 # Usage: `json '{"foo":42}'` or `echo '{"foo":42}' | json`
 function json() {
-    if [ -t 0  ]; then # argument
-        python -mjson.tool <<< "$*"
-    else # pipe
-        python -mjson.tool
-    fi;
+  if [ -t 0  ]; then # argument
+    python -mjson.tool <<< "$*"
+  else # pipe
+    python -mjson.tool
+  fi;
 }
 
 function clean-images () {
-    docker rmi -f $(docker images -a -f dangling=true -q)
+  docker rmi -f $(docker images -a -f dangling=true -q)
 }
 
 function clean-containers () {
-    docker rm -f $(docker ps -a -f status=exited -q)
+  docker rm -f $(docker ps -a -f status=exited -q)
 }
 
 function godeps () {
-    go list -f '{{join .Deps "\n"}}' | xargs go list -f '{{ if not .Standard }}{{ .ImportPath }}{{ end }}'
+  go list -f '{{join .Deps "\n"}}' | xargs go list -f '{{ if not .Standard }}{{ .ImportPath }}{{ end }}'
 }
 
 function randompwd() {
-    if [ ! -z "$1" ];  then
-        length=$1
-    else
-        length=20
-    fi
+  if [ ! -z "$1" ];  then
+    length=$1
+  else
+    length=20
+  fi
 
-    env LC_CTYPE=C tr -dc "a-zA-Z0-9" < /dev/urandom | head -c "$length"
+  env LC_CTYPE=C tr -dc "a-zA-Z0-9" < /dev/urandom | head -c "$length"
 }
 
 alias ports='netstat -tulanp'
 alias mount='mount |column -t'
-alias path='echo -e ${PATH//:/\\n}'
+alias path='echo -e ${PATH//:/\\n} | sort -u'
 
 platform=$(uname -s | tr '[:upper:]' '[:lower:]')
 
 if [ "$platform" == "darwin" ]; then
-    # Get OS X Software Updates and Homebrew
-    alias update='sudo softwareupdate -i -a; brew update; brew cask update;  brew upgrade; brew cleanup; brew cask cleanup'
-    function authme () {
-        ssh $@ 'cat >> .ssh/authorized_keys' < ~/.ssh/id_rsa.pub
-    }
+  # Get OS X Software Updates and Homebrew
+  alias update='sudo softwareupdate -i -a; brew update; brew cask update;  brew upgrade; brew cleanup; brew cask cleanup'
+  function authme () {
+    ssh $@ 'cat >> .ssh/authorized_keys' < ~/.ssh/id_rsa.pub
+  }
 fi
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
-    colorflag="--color"
+  colorflag="--color"
 else # OS X `ls`
-    colorflag="-G"
+  colorflag="-G"
 fi
 
 # List all files colorized in long format
@@ -156,13 +156,13 @@ function docker-memory {
 
 # keeps the commmand history when running a container
 function basher() {
-    if [[ $1 = 'run' ]]
-    then
-        shift
-        docker run -e HIST_FILE=/root/.bash_history -v $HOME/.bash_history:/root/.bash_history "$@"
-    else
-        docker "$@"
-    fi
+  if [[ $1 = 'run' ]]
+  then
+    shift
+    docker run -e HIST_FILE=/root/.bash_history -v $HOME/.bash_history:/root/.bash_history "$@"
+  else
+    docker "$@"
+  fi
 }
 # backup files from a docker volume into /tmp/backup.tar.gz
 function docker-volume-backup-compressed() {
@@ -215,4 +215,35 @@ git_info() {
 
 pullify() {
   git config --add "remote.$1.fetch" "+refs/pull/*/head:refs/remotes/$1/pr/*"
+}
+
+## Show hidden files ##
+alias l.='ls -d .* --color=auto'
+
+# DNS (with update thanks to @blanco)
+alias flush="sudo killall -HUP mDNSResponder"
+
+extract () {
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1     ;;
+      *.tar.gz)    tar xzf $1     ;;
+      *.bz2)       bunzip2 $1     ;;
+      *.rar)       unrar e $1     ;;
+      *.gz)        gunzip $1      ;;
+      *.tar)       tar xf $1      ;;
+      *.tbz2)      tar xjf $1     ;;
+      *.tgz)       tar xzf $1     ;;
+      *.zip)       unzip $1       ;;
+      *.Z)         uncompress $1  ;;
+      *.7z)        7z x $1        ;;
+      *)     echo "'$1' cannot be extracted via extract()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+function sr {
+    find . -type f -exec sed -i s/$1/$2/g "{}" \;
 }
