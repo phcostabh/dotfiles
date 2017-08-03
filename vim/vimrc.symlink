@@ -73,6 +73,7 @@ let mapleader = "\<Space>"
 let maplocalleader = ","
 nnoremap ; :
 imap jk <ESC>
+nmap <Leader>fs :w<CR>
 " }
 
 " Ensure a dir exists
@@ -213,14 +214,30 @@ vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]`
 " }}}
+"
+" Delete buffer without closing window.
+nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>.
+" }}}
 
 " Setting up vim-plug {
 call plug#begin('~/.vim/plugged')
 
 " Web {
 Plug 'othree/html5.vim', { 'for': 'html' }
-Plug 'gregsexton/MatchTag', { 'for': ['html', 'xml'] }
-Plug 'mattn/emmet-vim', { 'for' : ['html','css','sass','scss','less','javascript.jsx'] }
+Plug 'mattn/emmet-vim', { 'for' : ['html','css','sass','scss','less','javascript'] }
+Plug 'prettier/vim-prettier', {
+	\ 'do': 'yarn install',
+	\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
+let g:prettier#exec_cmd_async = 1
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.json,*.css,*.scss,*.less,*.graphql PrettierAsync
+
+" use tabs over spaces
+let g:prettier#config#use_tabs = 'true'
+" single quotes over double quotes
+let g:prettier#config#single_quote = 'false'
+" number of spaces per indentation level
+let g:prettier#config#tab_width = 4
 
 let g:user_emmet_settings = {
             \  'javascript' : {
@@ -232,10 +249,14 @@ let g:user_emmet_settings = {
 " Javascript {
 Plug 'leshill/vim-json', { 'for': 'javascript' }
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
+Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
+
+let g:javascript_plugin_jsdoc = 1
 
 autocmd FileType javascript setl tabstop=2 shiftwidth=2 softtabstop=2 expandtab
-autocmd FileType javascript.jsx setl tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 " }
 
 " Lua {
@@ -252,8 +273,8 @@ autocmd FileType php noremap <buffer>  <c-f> :call PhpCsFixerFixFile()<cr>
 " }
 
 " Golang {
-Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
-Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh', 'for': 'go' }
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 
 au FileType go nmap <Leader>i <Plug>(go-info)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
@@ -302,7 +323,6 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
-Plug 'sheerun/vim-polyglot'
 Plug 'tmhedberg/matchit'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-endwise'
@@ -331,7 +351,7 @@ nnoremap <Leader>fu :CtrlPFunky<Cr>
 nnoremap <Leader>pf :Files<cr>
 nnoremap <Leader>ff :GFiles?<cr>
 nnoremap <Leader>fa :Ag<cr>
-nnoremap <Leader>fc :Colors<cr>
+" nnoremap <Leader>fc :Colors<cr>
 nnoremap <Leader>fl :BLines<cr>
 nnoremap <Leader>fb :Buffers<cr>
 " }
@@ -348,6 +368,8 @@ Plug 'nanotech/jellybeans.vim'
 let g:jellybeans_overrides = {
             \  'background': { 'ctermbg': 'none', '256ctermbg': 'none'  },
             \}
+
+Plug 'gosukiwi/vim-atom-dark'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -369,10 +391,14 @@ if v:version >= 800
     let g:ale_linters = {
                 \   'javascript': ['eslint'],
                 \}
+
+    " let g:go_gometalinter_options = join([
+    " \    '--fast'
+    " \ ], ' ')
+
     let g:ale_sign_error = '✗'
     let g:ale_sign_warning = '≈'
     let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-    let g:ale_javascript_eslint_options = '--fix'
 else
     " syntastic {
     let g:syntastic_always_populate_loc_list = 1
@@ -428,6 +454,10 @@ Plug 'endel/vim-github-colorscheme'
 " Typescript {
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'Quramy/tsuquyomi', { 'for': 'typescript' }
+" }
+
+" Ruby {
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 " }
 
 " Add plugins to &runtimepath
