@@ -1,6 +1,4 @@
 " Base configuration {
-set timeoutlen=300                                 " mapping timeout
-set ttimeoutlen=50                                 " keycode timeout
 set mouse=a                                        " enable mouse
 set mousehide                                      " hide when characters are typed
 set history=1000                                   " number of command lines to remember
@@ -216,7 +214,7 @@ nnoremap <silent> p p`]`
 " }}}
 "
 " Delete buffer without closing window.
-nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>.
+nnoremap <leader>q :bp\|bd #<CR>
 " }}}
 
 " Setting up vim-plug {
@@ -228,7 +226,8 @@ Plug 'mattn/emmet-vim', { 'for' : ['html','css','sass','scss','less','javascript
 Plug 'prettier/vim-prettier', {
 	\ 'do': 'yarn install',
 	\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
-let g:prettier#exec_cmd_async = 1
+
+" exec async
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.json,*.css,*.scss,*.less,*.graphql PrettierAsync
 
@@ -238,6 +237,7 @@ let g:prettier#config#use_tabs = 'true'
 let g:prettier#config#single_quote = 'false'
 " number of spaces per indentation level
 let g:prettier#config#tab_width = 4
+let g:prettier#config#trailing_comma = 'none'
 
 let g:user_emmet_settings = {
             \  'javascript' : {

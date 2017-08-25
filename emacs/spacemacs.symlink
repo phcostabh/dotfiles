@@ -385,9 +385,13 @@
 
   (indent-guide-global-mode t)
 
-  (unless (display-graphic-p)
-    (custom-set-faces '(default ((t (:background "nil")))))
-    (load-theme 'ujelly t))
+  (unless (display-graphic-p (selected-frame))
+    (load-theme 'ujelly t)
+    (set-face-background 'default "unspecified-bg" (selected-frame)))
+
+  ;; (unless (display-graphic-p)
+  ;;   (custom-set-faces '(default ((t (:background "nil")))))
+  ;;   (load-theme 'ujelly t))
 
   (add-hook 'smartparens-enabled-hook #'evil-smartparens-mode)
 
@@ -436,9 +440,3 @@
      (340 . "#a71d5d")
      (360 . "#969896"))))
  '(vc-annotate-very-old-color "#969896"))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:background "nil")))))
