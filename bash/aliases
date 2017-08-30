@@ -83,7 +83,7 @@ function randompwd() {
     length=20
   fi
 
-  env LC_CTYPE=C tr -dc "a-zA-Z0-9" < /dev/urandom | head -c "$length"
+  env LC_CTYPE=C tr -dc "a-zA-Z0-9@#$%&_+=" < /dev/urandom | head -c "$length"
 }
 
 alias ports='netstat -tulanp'
