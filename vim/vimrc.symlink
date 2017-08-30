@@ -231,13 +231,13 @@ Plug 'prettier/vim-prettier', {
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.json,*.css,*.scss,*.less,*.graphql PrettierAsync
 
-" use tabs over spaces
 let g:prettier#config#use_tabs = 'true'
-" single quotes over double quotes
 let g:prettier#config#single_quote = 'false'
-" number of spaces per indentation level
 let g:prettier#config#tab_width = 4
 let g:prettier#config#trailing_comma = 'none'
+let g:prettier#config#print_width = 120
+let g:prettier#config#semi = 'true'
+let g:prettier#config#bracket_spacing = 'false' 
 
 let g:user_emmet_settings = {
             \  'javascript' : {
