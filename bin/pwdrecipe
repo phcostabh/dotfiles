@@ -1,20 +1,20 @@
 #!/usr/bin/env node
 
-let site = process.argv[2]
-let phrase = process.argv[3]
+const site = process.argv[2]
+const phrase = process.argv[3]
 
-var wordsBefore = site.indexOf('.')
-var wordsAfter = site.slice(site.lastIndexOf('.')).length - 1
-var wordsMultiplied = wordsBefore * wordsAfter
-var phraseInitials = phrase
+const wordsBefore = site.indexOf('.')
+const wordsAfter = site.slice(site.lastIndexOf('.')).length - 1
+const wordsMultiplied = wordsBefore * wordsAfter
+const phraseInitials = phrase
   .split(' ')
   .map(i => i[0].toLowerCase())
   .join('')
-var siteConsonantsUpCased = site
+const siteConsonantsUpCased = site
   .slice(0, site.indexOf('.'))
   .replace(/[aeiou]/gi, '')
   .toUpperCase()
-var remainingCharsCount = wordsBefore - wordsAfter
+const remainingCharsCount = wordsBefore - wordsAfter
 
 console.log(
   wordsMultiplied + phraseInitials + siteConsonantsUpCased + remainingCharsCount
