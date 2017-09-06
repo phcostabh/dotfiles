@@ -1,13 +1,21 @@
 #!/usr/bin/env node
 
-let site = process.argv[2];
-let phrase = process.argv[3];
+let site = process.argv[2]
+let phrase = process.argv[3]
 
-var wordsBefore = site.indexOf(".");
-var wordsAfter = site.slice(site.lastIndexOf('.')).length - 1;
-var wordsMultiplied = wordsBefore * wordsAfter;
-var phraseInitials = phrase.split(' ').map((i) => i[0].toLowerCase()).join('');
-var siteConsonantsUpCased = site.slice(0, site.indexOf('.')).replace(/[aeiou]/gi, '').toUpperCase();
-var remainingCharsCount = wordsBefore - wordsAfter;
+var wordsBefore = site.indexOf('.')
+var wordsAfter = site.slice(site.lastIndexOf('.')).length - 1
+var wordsMultiplied = wordsBefore * wordsAfter
+var phraseInitials = phrase
+  .split(' ')
+  .map(i => i[0].toLowerCase())
+  .join('')
+var siteConsonantsUpCased = site
+  .slice(0, site.indexOf('.'))
+  .replace(/[aeiou]/gi, '')
+  .toUpperCase()
+var remainingCharsCount = wordsBefore - wordsAfter
 
-console.log(wordsMultiplied + phraseInitials + siteConsonantsUpCased + remainingCharsCount);
+console.log(
+  wordsMultiplied + phraseInitials + siteConsonantsUpCased + remainingCharsCount
+)
