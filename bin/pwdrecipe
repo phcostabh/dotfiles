@@ -1,21 +1,41 @@
 #!/usr/bin/env node
 
-const site = process.argv[2]
-const phrase = process.argv[3]
+const site = process.argv[2];
+const phrase = process.argv[3];
 
-const wordsBefore = site.indexOf('.')
-const wordsAfter = site.slice(site.lastIndexOf('.')).length - 1
-const wordsMultiplied = wordsBefore * wordsAfter
-const phraseInitials = phrase
-  .split(' ')
-  .map(i => i[0].toLowerCase())
-  .join('')
-const siteConsonantsUpCased = site
-  .slice(0, site.indexOf('.'))
-  .replace(/[aeiou]/gi, '')
-  .toUpperCase()
-const remainingCharsCount = wordsBefore - wordsAfter
+const specialChars = [")", "!", "@", "#", "$", "%", "^", "&", "*", "("];
 
-console.log(
-  wordsMultiplied + phraseInitials + siteConsonantsUpCased + remainingCharsCount
-)
+const Box = x => ({
+  chain: f => f(x),
+  map: f => Box(f(x)),
+  fold: f => f(x),
+  inspect: () => `Box(${x})`
+});
+
+const phraseInitials = phrase =>
+  Box(phrase)
+    .map(p => p.split(" "))
+    .map(pieces => pieces.map(p => p[0].toLowerCase()).join(""));
+
+const consonantsUpcased = site =>
+  Box(site)
+    .map(s => s.substr(0, s.indexOf(".")))
+    .map(s => s.replace(/[aeiou]/g, ""))
+    .map(s => s.toUpperCase());
+
+const recipe = (site, phrase) =>
+  phraseInitials(phrase).chain(initials =>
+    consonantsUpcased(site).fold(consonants => initials + consonants)
+  );
+
+const domain = site.indexOf(".");
+const wordsAfter = site.slice(site.lastIndexOf(".")).length - 1;
+const wordsMultiplied = domain * wordsAfter;
+const remainingCharsCount = domain - wordsAfter;
+
+const getSpecialChars = n =>
+  Array.from(String(n))
+    .map(i => specialChars[i])
+    .join("");
+
+console.log(wordsMultiplied + recipe(site, phrase) + remainingCharsCount);
