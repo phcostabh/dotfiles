@@ -17,73 +17,73 @@ alias tmux="TERM=screen-256color-bce tmux"
 alias uninstallgems="gem list | cut -d' ' -f1 | xargs gem uninstall -aIx"
 
 # Helper Functions
-function untar () {
-  7z e $1
+function untar() {
+	7z e "$1"
 }
 
-function authme {
-  [[ -e ~/.ssh/id_rsa.pub ]] && ssh-copy-id -i ~/.ssh/id_rsa.pub "$1"
+function authme() {
+	[[ -e ~/.ssh/id_rsa.pub ]] && ssh-copy-id -i ~/.ssh/id_rsa.pub "$1"
 }
 
-function take () {
-  mkdir $1
-  cd $1
+function take() {
+	mkdir "$1"
+	cd "$1" || exit
 }
 
-function generate-hash {
-  echo -n "$1$(date +%d%m%Y%H%M%S%N)" | openssl sha1
+function generate-hash() {
+	echo -n "$1$(date +%d%m%Y%H%M%S%N)" | openssl sha1
 }
 
-function list-ppa {
-  for APT in `find /etc/apt/ -name \*.list`; do
-    grep -o "^deb http://ppa.launchpad.net/[a-z0-9\-]\+/[a-z0-9\-]\+" $APT | while read ENTRY ; do
-    USER=`echo $ENTRY | cut -d/ -f4`
-    PPA=`echo $ENTRY | cut -d/ -f5`
-    echo sudo apt-add-repository ppa:$USER/$PPA
-  done
-done
+function list-ppa() {
+	for APT in $(find /etc/apt/ -name \*.list); do
+		grep -o "^deb http://ppa.launchpad.net/[a-z0-9\-]\+/[a-z0-9\-]\+" $APT | while read ENTRY; do
+			USER=$(echo $ENTRY | cut -d/ -f4)
+			PPA=$(echo $ENTRY | cut -d/ -f5)
+			echo sudo apt-add-repository ppa:$USER/$PPA
+		done
+	done
 }
 
-function search {
-  find -name "*.$2" -type f -exec egrep -n -H --color "$1" {} \;
+function search() {
+	find -name "*.$2" -type f -exec egrep -n -H --color "$1" {} \;
 }
 
-function tmux-colors {
-  for i in {0..255} ; do
-    printf "\x1b[38;5;${i}mcolour${i}\n"
-  done
+function tmux-colors() {
+	for i in {0..255}; do
+		printf "\x1b[38;5;${i}mcolour${i}\n"
+	done
 }
 
 # Syntax-highlight JSON strings or files
 # Usage: `json '{"foo":42}'` or `echo '{"foo":42}' | json`
 function json() {
-  if [ -t 0  ]; then # argument
-    python -mjson.tool <<< "$*"
-  else # pipe
-    python -mjson.tool
-  fi;
+	if [ -t 0 ]; then # argument
+		python -mjson.tool <<<"$*"
+	else # pipe
+		python -mjson.tool
+	fi
 }
 
-function clean-images () {
-  docker rmi -f $(docker images -a -f dangling=true -q)
+function clean-images() {
+	docker rmi -f $(docker images -a -f dangling=true -q)
 }
 
-function clean-containers () {
-  docker rm -f $(docker ps -a -f status=exited -q)
+function clean-containers() {
+	docker rm -f $(docker ps -a -f status=exited -q)
 }
 
-function godeps () {
-  go list -f '{{join .Deps "\n"}}' | xargs go list -f '{{ if not .Standard }}{{ .ImportPath }}{{ end }}'
+function godeps() {
+	go list -f '{{join .Deps "\n"}}' | xargs go list -f '{{ if not .Standard }}{{ .ImportPath }}{{ end }}'
 }
 
 function randompwd() {
-  if [ ! -z "$1" ];  then
-    length=$1
-  else
-    length=20
-  fi
+	if [ ! -z "$1" ]; then
+		length=$1
+	else
+		length=20
+	fi
 
-  env LC_CTYPE=C tr -dc "a-zA-Z0-9@#$%&_+=" < /dev/urandom | head -c "$length"
+	env LC_CTYPE=C tr -dc "a-zA-Z0-9@#$%&_+=" </dev/urandom | head -c "$length"
 }
 
 alias ports='netstat -tulanp'
@@ -93,18 +93,18 @@ alias path='echo -e ${PATH//:/\\n} | sort -u'
 platform=$(uname -s | tr '[:upper:]' '[:lower:]')
 
 if [ "$platform" == "darwin" ]; then
-  # Get OS X Software Updates and Homebrew
-  alias update='sudo softwareupdate -i -a; brew update; brew cask update;  brew upgrade; brew cleanup; brew cask cleanup'
-  function authme () {
-    ssh $@ 'cat >> .ssh/authorized_keys' < ~/.ssh/id_rsa.pub
-  }
+	# Get OS X Software Updates and Homebrew
+	alias update='sudo softwareupdate -i -a; brew update; brew cask update;  brew upgrade; brew cleanup; brew cask cleanup'
+	function authme() {
+		ssh "$@" 'cat >> .ssh/authorized_keys' <~/.ssh/id_rsa.pub
+	}
 fi
 
 # Detect which `ls` flavor is in use
-if ls --color > /dev/null 2>&1; then # GNU `ls`
-  colorflag="--color"
+if ls --color >/dev/null 2>&1; then # GNU `ls`
+	colorflag="--color"
 else # OS X `ls`
-  colorflag="-G"
+	colorflag="-G"
 fi
 
 # List all files colorized in long format
@@ -126,95 +126,94 @@ alias docker-killall='for x in $(docker ps -aq); do docker kill $x; done'
 alias docker-clean="docker-cleancontainers && docker-cleanimages"
 
 # runs docker exec in the latest container
-function docker-exec-last {
-  docker exec -ti $( docker ps -a -q -l) /bin/bash
+function docker-exec-last() {
+	docker exec -ti $(docker ps -a -q -l) /bin/bash
 }
 
-function docker-get-ip {
-  # Usage: docker-get-ip (name or sha)
-  [ -n "$1" ] && docker inspect --format "{{ .NetworkSettings.IPAddress }}" $1
+function docker-get-ip() {
+	# Usage: docker-get-ip (name or sha)
+	[ -n "$1" ] && docker inspect --format "{{ .NetworkSettings.IPAddress }}" $1
 }
 
-function docker-get-id {
-  # Usage: docker-get-id (friendly-name)
-  [ -n "$1" ] && docker inspect --format "{{ .ID }}" "$1"
+function docker-get-id() {
+	# Usage: docker-get-id (friendly-name)
+	[ -n "$1" ] && docker inspect --format "{{ .ID }}" "$1"
 }
 
-function docker-get-image {
-  # Usage: docker-get-image (friendly-name)
-  [ -n "$1" ] && docker inspect --format "{{ .Image }}" "$1"
+function docker-get-image() {
+	# Usage: docker-get-image (friendly-name)
+	[ -n "$1" ] && docker inspect --format "{{ .Image }}" "$1"
 }
 
-function docker-get-state {
-  # Usage: docker-get-state (friendly-name)
-  [ -n "$1" ] && docker inspect --format "{{ .State.Running }}" "$1"
+function docker-get-state() {
+	# Usage: docker-get-state (friendly-name)
+	[ -n "$1" ] && docker inspect --format "{{ .State.Running }}" "$1"
 }
 
-function docker-memory {
-  for line in `docker ps | awk '{print $1}' | grep -v CONTAINER`; do docker ps | grep $line | awk '{printf $NF" "}' && echo $(( `cat /sys/fs/cgroup/memory/docker/$line*/memory.usage_in_bytes` / 1024 / 1024 ))MB ; done
+function docker-memory() {
+	for line in $(docker ps | awk '{print $1}' | grep -v CONTAINER); do docker ps | grep $line | awk '{printf $NF" "}' && echo $(($(cat /sys/fs/cgroup/memory/docker/$line*/memory.usage_in_bytes) / 1024 / 1024))MB; done
 }
 
 # keeps the commmand history when running a container
 function basher() {
-  if [[ $1 = 'run' ]]
-  then
-    shift
-    docker run -e HIST_FILE=/root/.bash_history -v $HOME/.bash_history:/root/.bash_history "$@"
-  else
-    docker "$@"
-  fi
+	if [[ $1 == 'run' ]]; then
+		shift
+		docker run -e HIST_FILE=/root/.bash_history -v $HOME/.bash_history:/root/.bash_history "$@"
+	else
+		docker "$@"
+	fi
 }
 # backup files from a docker volume into /tmp/backup.tar.gz
 function docker-volume-backup-compressed() {
-  docker run --rm -v /tmp:/backup --volumes-from "$1" debian:jessie tar -czvf /backup/backup.tar.gz "${@:2}"
+	docker run --rm -v /tmp:/backup --volumes-from "$1" debian:jessie tar -czvf /backup/backup.tar.gz "${@:2}"
 }
 # restore files from /tmp/backup.tar.gz into a docker volume
 function docker-volume-restore-compressed() {
-  docker run --rm -v /tmp:/backup --volumes-from "$1" debian:jessie tar -xzvf /backup/backup.tar.gz "${@:2}"
-  echo "Double checking files..."
-  docker run --rm -v /tmp:/backup --volumes-from "$1" debian:jessie ls -lh "${@:2}"
+	docker run --rm -v /tmp:/backup --volumes-from "$1" debian:jessie tar -xzvf /backup/backup.tar.gz "${@:2}"
+	echo "Double checking files..."
+	docker run --rm -v /tmp:/backup --volumes-from "$1" debian:jessie ls -lh "${@:2}"
 }
 # backup files from a docker volume into /tmp/backup.tar
 function docker-volume-backup() {
-  docker run --rm -v /tmp:/backup --volumes-from "$1" busybox tar -cvf /backup/backup.tar "${@:2}"
+	docker run --rm -v /tmp:/backup --volumes-from "$1" busybox tar -cvf /backup/backup.tar "${@:2}"
 }
 # restore files from /tmp/backup.tar into a docker volume
 function docker-volume-restore() {
-  docker run --rm -v /tmp:/backup --volumes-from "$1" busybox tar -xvf /backup/backup.tar "${@:2}"
-  echo "Double checking files..."
-  docker run --rm -v /tmp:/backup --volumes-from "$1" busybox ls -lh "${@:2}"
+	docker run --rm -v /tmp:/backup --volumes-from "$1" busybox tar -xvf /backup/backup.tar "${@:2}"
+	echo "Double checking files..."
+	docker run --rm -v /tmp:/backup --volumes-from "$1" busybox ls -lh "${@:2}"
 }
 
 git_info() {
-  [ -x "$(which git)" ] || return    # git not found
+	[ -x "$(which git)" ] || return # git not found
 
-  local git_branch_symbol='⑂ '
-  local git_branch_changed_symbol='+'
-  local git_need_push_symbol='⇡'
-  local git_need_pull_symbol='⇣'
-  local git_eng="env LANG=C git"   # force git output in English to make our work easier
-  # get current branch name or short SHA1 hash for detached head
-  local branch="$($git_eng symbolic-ref --short HEAD 2>/dev/null || $git_eng describe --tags --always 2>/dev/null)"
-  [ -n "$branch" ] || return  # git branch not found
+	local git_branch_symbol='⑂ '
+	local git_branch_changed_symbol='+'
+	local git_need_push_symbol='⇡'
+	local git_need_pull_symbol='⇣'
+	local git_eng="env LANG=C git" # force git output in English to make our work easier
+	# get current branch name or short SHA1 hash for detached head
+	local branch="$($git_eng symbolic-ref --short HEAD 2>/dev/null || $git_eng describe --tags --always 2>/dev/null)"
+	[ -n "$branch" ] || return # git branch not found
 
-  local marks
+	local marks
 
-  # branch is modified?
-  [ -n "$($git_eng status --porcelain)" ] && marks+=" $git_branch_changed_symbol"
+	# branch is modified?
+	[ -n "$($git_eng status --porcelain)" ] && marks+=" $git_branch_changed_symbol"
 
-  # how many commits local branch is ahead/behind of remote?
-  local stat="$($git_eng status --porcelain --branch | grep '^##' | grep -o '\[.\+\]$')"
-  local aheadN="$(echo $stat | grep -o 'ahead [[:digit:]]\+' | grep -o '[[:digit:]]\+')"
-  local behindN="$(echo $stat | grep -o 'behind [[:digit:]]\+' | grep -o '[[:digit:]]\+')"
-  [ -n "$aheadN" ] && marks+=" $git_need_push_symbol$aheadN"
-  [ -n "$behindN" ] && marks+=" $git_need_pull_symbol$behindN"
+	# how many commits local branch is ahead/behind of remote?
+	local stat="$($git_eng status --porcelain --branch | grep '^##' | grep -o '\[.\+\]$')"
+	local aheadN="$(echo $stat | grep -o 'ahead [[:digit:]]\+' | grep -o '[[:digit:]]\+')"
+	local behindN="$(echo $stat | grep -o 'behind [[:digit:]]\+' | grep -o '[[:digit:]]\+')"
+	[ -n "$aheadN" ] && marks+=" $git_need_push_symbol$aheadN"
+	[ -n "$behindN" ] && marks+=" $git_need_pull_symbol$behindN"
 
-  # print the git branch segment without a trailing newline
-  printf " $git_branch_symbol$branch$marks "
+	# print the git branch segment without a trailing newline
+	printf " $git_branch_symbol$branch$marks "
 }
 
 pullify() {
-  git config --add "remote.$1.fetch" "+refs/pull/*/head:refs/remotes/$1/pr/*"
+	git config --add "remote.$1.fetch" "+refs/pull/*/head:refs/remotes/$1/pr/*"
 }
 
 ## Show hidden files ##
@@ -223,27 +222,31 @@ alias l.='ls -d .* --color=auto'
 # DNS (with update thanks to @blanco)
 alias flush="sudo killall -HUP mDNSResponder"
 
-extract () {
-  if [ -f $1 ] ; then
-    case $1 in
-      *.tar.bz2)   tar xjf $1     ;;
-      *.tar.gz)    tar xzf $1     ;;
-      *.bz2)       bunzip2 $1     ;;
-      *.rar)       unrar e $1     ;;
-      *.gz)        gunzip $1      ;;
-      *.tar)       tar xf $1      ;;
-      *.tbz2)      tar xjf $1     ;;
-      *.tgz)       tar xzf $1     ;;
-      *.zip)       unzip $1       ;;
-      *.Z)         uncompress $1  ;;
-      *.7z)        7z x $1        ;;
-      *)     echo "'$1' cannot be extracted via extract()" ;;
-    esac
-  else
-    echo "'$1' is not a valid file"
-  fi
+extract() {
+	if [ -f "$1" ]; then
+		case "$1" in
+		*.tar.bz2) tar xjf "$1" ;;
+		*.tar.gz) tar xzf "$1" ;;
+		*.bz2) bunzip2 "$1" ;;
+		*.rar) unrar e "$1" ;;
+		*.gz) gunzip "$1" ;;
+		*.tar) tar xf "$1" ;;
+		*.tbz2) tar xjf "$1" ;;
+		*.tgz) tar xzf "$1" ;;
+		*.zip) unzip "$1" ;;
+		*.Z) uncompress "$1" ;;
+		*.7z) 7z x "$1" ;;
+		*) echo "'$1' cannot be extracted via extract()" ;;
+		esac
+	else
+		echo "'$1' is not a valid file"
+	fi
 }
 
-function sr {
-    find . -type f -exec sed -i s/$1/$2/g "{}" \;
+function sr() {
+	find . -type f -exec bash -c 'sed -i s/$1/$2/g' _ "{}" \;
+}
+
+checkport() {
+	lsof -n -i4TCP:"${1}" | grep LISTEN
 }
