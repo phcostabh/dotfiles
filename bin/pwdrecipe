@@ -5,20 +5,20 @@ const phrase = process.argv[3];
 
 const specialChars = [")", "!", "@", "#", "$", "%", "^", "&", "*", "("];
 
-const Box = x => ({
+const Identity = x => ({
   chain: f => f(x),
-  map: f => Box(f(x)),
+  map: f => Identity(f(x)),
   fold: f => f(x),
   inspect: () => `Box(${x})`
 });
 
 const phraseInitials = phrase =>
-  Box(phrase)
+  Identity(phrase)
     .map(p => p.split(" "))
     .map(pieces => pieces.map(p => p[0].toLowerCase()).join(""));
 
 const consonantsUpcased = site =>
-  Box(site)
+  Identity(site)
     .map(s => s.substr(0, s.indexOf(".")))
     .map(s => s.replace(/[aeiou]/g, ""))
     .map(s => s.toUpperCase());
@@ -33,7 +33,7 @@ const wordsAfter = site.slice(site.lastIndexOf(".")).length - 1;
 const wordsMultiplied = domain * wordsAfter;
 const remainingCharsCount = domain - wordsAfter;
 
-const getSpecialChars = n =>
+const numbersAsSpecialChars = n =>
   Array.from(String(n))
     .map(i => specialChars[i])
     .join("");
