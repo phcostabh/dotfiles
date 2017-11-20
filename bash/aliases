@@ -94,7 +94,7 @@ platform=$(uname -s | tr '[:upper:]' '[:lower:]')
 
 if [ "$platform" == "darwin" ]; then
 	# Get OS X Software Updates and Homebrew
-	alias update='sudo softwareupdate -i -a; brew update; brew cask update;  brew upgrade; brew cleanup; brew cask cleanup'
+	alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup'
 	function authme() {
 		ssh "$@" 'cat >> .ssh/authorized_keys' <~/.ssh/id_rsa.pub
 	}
