@@ -250,3 +250,7 @@ function sr() {
 checkport() {
 	lsof -n -i4TCP:"${1}" | grep LISTEN
 }
+
+function lb() {
+	nvim "$HOME/logbook/$(date '+%Y-%m-%d').md"
+}
