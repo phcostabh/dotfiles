@@ -364,7 +364,7 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>1767 133 506 77 0 0 3440 1417 </string>
+	<string>2899 400 506 77 0 0 3840 1577 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>650 960 606 456 0 0 2560 1440 </string>
 	<key>NSWindow Frame SUAutomaticUpdateAlert</key>
@@ -372,9 +372,9 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>1410 770 620 392 0 0 3440 1417 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
-	<string>269 1023 599 388 0 0 2560 1417 </string>
+	<string>445 1101 606 469 0 0 3840 1577 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1561 965 918 452 0 0 3440 1417 </string>
+	<string>2621 1110 918 401 0 0 3840 1577 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>332 833 592 584 0 0 3440 1417 </string>
 	<key>NSWindow Frame com.apple.typography_panel_FiraCode-Light</key>
@@ -386,9 +386,9 @@
 	<key>NSWindow Frame com.apple.typography_panel_RobotoMono-Medium</key>
 	<string>776 916 260 87 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1722 0 1716 1417 0 0 3440 1417 </string>
+	<string>1922 0 1916 1577 0 0 3840 1577 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 532 650 477 0 0 1680 1027 </string>
+	<string>0 1109 660 409 0 0 3840 1577 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>440 82 650 502 0 0 2560 1417 </string>
 	<key>New Bookmarks</key>
@@ -664,7 +664,7 @@
 			<key>Hide After Opening</key>
 			<false/>
 			<key>Horizontal Spacing</key>
-			<real>0.90000000000000002</real>
+			<real>1</real>
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
@@ -985,7 +985,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>LiberationMono 13</string>
+			<string>Cousine 13</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -1157,7 +1157,7 @@
 			<key>Use Non-ASCII Font</key>
 			<false/>
 			<key>Vertical Spacing</key>
-			<real>0.99688205948795172</real>
+			<real>1.0060946912650603</real>
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
@@ -1350,7 +1350,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-11-16T13:54:45Z</date>
+	<date>2018-02-21T19:54:21Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -1404,9 +1404,11 @@
 	<key>WindowStyle</key>
 	<integer>0</integer>
 	<key>WordCharacters</key>
-	<string></string>
+	<string>d</string>
 	<key>findIgnoreCase_iTerm</key>
 	<true/>
+	<key>findMode_iTerm</key>
+	<integer>0</integer>
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>

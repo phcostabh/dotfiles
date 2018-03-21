@@ -376,22 +376,21 @@ Plug 'wakatime/vim-wakatime'
 Plug 'tpope/vim-sleuth'
 
 Plug 'w0rp/ale'
+let g:ale_lint_on_enter = 1
 let g:ale_sign_error = '●' " Less aggressive than the default '>>'
 let g:ale_sign_warning = '.'
 let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_linters = {
-            \   'javascript': ['eslint'],
+            \   'javascript': ['prettier-eslint'],
+            \   'go': ['gometalinter'],
             \}
-
+let g:ale_go_gometalinter_options = join([
+            \    '--disable-all',
+            \    '--enable=megacheck',
+            \ ], ' ')
 
 Plug 'skywind3000/asyncrun.vim'
-
-let g:go_gometalinter_options = join([
-\    '--fast'
-\ ], ' ')
-
-
 Plug 'endel/vim-github-colorscheme'
 
 " }
@@ -429,10 +428,10 @@ highlight LineNr ctermfg=240
 highlight Normal ctermbg=NONE
 highlight NonText ctermbg=NONE
 highlight SpecialKey ctermbg=NONE ctermfg=240
-if g:colors_name == 'github'
-    highlight clear SpecialKey
-    highlight SpecialKey ctermfg=246
-endif
+" if g:colors_name == 'github'
+"     highlight clear SpecialKey
+"     highlight SpecialKey ctermfg=246
+" endif
 set showmatch                  " automatically highlight matching braces/brackets/etc.
 set matchtime=2                " tens of a second to show matching parentheses
 set relativenumber

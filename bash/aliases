@@ -243,7 +243,7 @@ extract() {
 	fi
 }
 
-function sr() {
+sr() {
 	find . -type f -exec bash -c 'sed -i s/$1/$2/g' _ "{}" \;
 }
 
@@ -251,6 +251,12 @@ checkport() {
 	lsof -n -i4TCP:"${1}" | grep LISTEN
 }
 
-function lb() {
+lb() {
 	nvim "$HOME/logbook/$(date '+%Y-%m-%d').md"
+}
+
+rainymood() {
+    FILE=$(((RANDOM&4)))
+    URL="https://rainymood.com/audio1110/${FILE}.ogg"
+    mpv "$URL" && rainymood
 }
