@@ -385,10 +385,16 @@ let g:ale_linters = {
             \   'javascript': ['prettier-eslint'],
             \   'go': ['gometalinter'],
             \}
+
+let g:ale_fixers = {
+            \ 'javascript': ['eslint']
+            \ }
+
 let g:ale_go_gometalinter_options = join([
             \    '--disable-all',
             \    '--enable=megacheck',
             \ ], ' ')
+nmap <leader>f <Plug>(ale_fix)
 
 Plug 'skywind3000/asyncrun.vim'
 Plug 'endel/vim-github-colorscheme'
