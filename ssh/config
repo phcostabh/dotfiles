@@ -2,8 +2,3 @@
 Host *
     ControlMaster auto
     ControlPath ~/.ssh/master-%r@%h:%p
-
-Host prime
-    User philippe.costa
-    HostName 192.168.0.174
-    Port 22
