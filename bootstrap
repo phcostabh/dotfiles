@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
-#
-# bootstrap installs things.
-
-DOTFILES_ROOT="`pwd`"
 
 set -e
+
+DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo ''
 
@@ -38,7 +36,7 @@ install_dotfiles () {
     backup_all=false
     skip_all=false
 
-    for source in `find $DOTFILES_ROOT -maxdepth 2 -name \*.symlink`
+    for source in `find $DOTFILES -maxdepth 2 -name \*.symlink`
     do
         file="${source%.*}"
         dest="$HOME/.`basename \"${file}\"`"
@@ -99,14 +97,10 @@ install_dotfiles () {
     done
 }
 
-clone_neobundle () {
-    if [ ! -e "$HOME/.vim/bundle/neobundle.vim" ]; then
-	git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-    fi
-}
-
 install_dotfiles
-clone_neobundle
+
+rm -rf $HOME/.config/kitty
+ln -s $DOTFILES/kitty $HOME/.config/kitty
 
 echo ''
 echo '  All installed!'
