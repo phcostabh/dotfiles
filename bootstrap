@@ -1,8 +1,21 @@
 #!/usr/bin/env bash
 
-set -e
+set -eu
 
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+sources=(
+    "git/gitconfig"
+    "kitty"
+)
+
+destinations=(
+    ".gitconfig"
+    ".config/kitty"
+)
+
+# Get the length of the arrays
+sources_length=${#sources[@]}
 
 echo ''
 
@@ -36,10 +49,10 @@ install_dotfiles () {
     backup_all=false
     skip_all=false
 
-    for source in `find $DOTFILES -maxdepth 2 -name \*.symlink`
+    for ((i=0; i<$sources_length; i++))
     do
-        file="${source%.*}"
-        dest="$HOME/.`basename \"${file}\"`"
+        file="${DOTFILES}/${sources[$i]}"
+        dest="${HOME}/${destinations[$i]}"
 
         if [ -f $dest ] || [ -d $dest ]
         then
@@ -50,7 +63,7 @@ install_dotfiles () {
 
             if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
             then
-                user "File already exists: .`basename $file`, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+                user "Destination already exists: ${dest}, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
                 read -n 1 action
 
                 case "$action" in
@@ -85,22 +98,19 @@ install_dotfiles () {
 
             if [ "$skip" == "false" ] && [ "$skip_all" == "false" ]
             then
-                link_files $source $dest
+                link_files $file $dest
             else
-                success "skipped $source"
+                success "skipped $file"
             fi
 
         else
-            link_files $source $dest
+            link_files $file $dest
         fi
 
     done
 }
 
 install_dotfiles
-
-rm -rf $HOME/.config/kitty
-ln -s $DOTFILES/kitty $HOME/.config/kitty
 
 echo ''
 echo '  All installed!'
