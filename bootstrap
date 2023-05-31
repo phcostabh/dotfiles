@@ -51,7 +51,7 @@ install_dotfiles () {
 
     for ((i=0; i<$sources_length; i++))
     do
-        file="${DOTFILES}/${sources[$i]}"
+        source="${DOTFILES}/${sources[$i]}"
         dest="${HOME}/${destinations[$i]}"
 
         if [ -f $dest ] || [ -d $dest ]
@@ -98,13 +98,13 @@ install_dotfiles () {
 
             if [ "$skip" == "false" ] && [ "$skip_all" == "false" ]
             then
-                link_files $file $dest
+                link_files $source $dest
             else
-                success "skipped $file"
+                success "skipped $source"
             fi
 
         else
-            link_files $file $dest
+            link_files $source $dest
         fi
 
     done
