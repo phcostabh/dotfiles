@@ -7,11 +7,15 @@ DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 sources=(
     "git/gitconfig"
     "kitty"
+    "zsh/zshrc"
+    "bash/inputrc"
 )
 
 destinations=(
     ".gitconfig"
     ".config/kitty"
+    ".zshrc"
+    ".inputrc"
 )
 
 # Get the length of the arrays
