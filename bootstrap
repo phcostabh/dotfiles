@@ -9,6 +9,7 @@ sources=(
     "kitty"
     "zsh/zshrc"
     "bash/inputrc"
+    "ssh/config"
 )
 
 destinations=(
@@ -16,6 +17,7 @@ destinations=(
     ".config/kitty"
     ".zshrc"
     ".inputrc"
+    ".ssh/config"
 )
 
 # Get the length of the arrays
