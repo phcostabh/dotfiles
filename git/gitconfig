@@ -4,7 +4,7 @@
 	name = Philippe Santana Costa
 	email = philippescosta@gmail.com
 [core]
-	editor = vim
+	editor = nvim
 	excludesfile = /home/phcosta/.gitignore
 [alias]
 	# basic aliases
@@ -80,3 +80,5 @@
 	process = git-lfs filter-process
 	required = true
 	clean = git-lfs clean -- %f
+[gpg]
+	program = gpg-agent
