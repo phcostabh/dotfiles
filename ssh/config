@@ -1,3 +1,5 @@
+Include /Users/phcostabh/.colima/ssh_config
+
 # Now when you ssh into a host, subsequent connections to that host use the same TCP socket, and don’t require authentication.
 Host *
     ControlMaster auto

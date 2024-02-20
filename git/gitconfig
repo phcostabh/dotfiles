@@ -3,9 +3,11 @@
 [user]
 	name = Philippe Santana Costa
 	email = philippescosta@gmail.com
+	signingkey = 5E33CEEB14648A05E2A8E1E298E1904EFCC7607A
 [core]
 	editor = nvim
 	excludesfile = /home/phcosta/.gitignore
+	pager = delta
 [alias]
 	# basic aliases
 	cp   = cherry-pick
@@ -81,4 +83,20 @@
 	required = true
 	clean = git-lfs clean -- %f
 [gpg]
-	program = gpg-agent
+	program = gpg
+[commit]
+	gpgsign = false
+[rebase]
+	autoStash = true
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/local/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/local/bin/gh auth git-credential
+[rerere]
+	enabled = true
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate

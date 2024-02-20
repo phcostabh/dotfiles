@@ -10,6 +10,7 @@ sources=(
     "zsh/zshrc"
     "bash/inputrc"
     "ssh/config"
+    "tmux/tmux.conf"
 )
 
 destinations=(
@@ -18,6 +19,7 @@ destinations=(
     ".zshrc"
     ".inputrc"
     ".ssh/config"
+    ".tmux.conf"
 )
 
 # Get the length of the arrays
